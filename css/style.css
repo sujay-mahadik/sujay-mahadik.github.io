@@ -761,6 +761,31 @@ fieldset {
     color: #425BB5;
 }
 
+/* Custom additions
+=========================================*/
+/* download buttons */
+.dbtn {
+ background-color: #337ab7;
+ border: none;
+ border-radius: 10px;
+ color: white;
+ padding: 10px 25px;
+ margin: 20px;
+ cursor: pointer;
+ font-size: 18px;
+}
+
+/* Darker background on mouse-over */
+.dbtn:hover {
+ background-color: #1a466b;
+  color: white;
+  transition: .2s linear;
+}
+.dbtm:focus {
+  background-color: #1a466b;
+   color: white;
+   transition: .2s linear;
+}
 
 /* Responsive media queries
 ==================================================*/
