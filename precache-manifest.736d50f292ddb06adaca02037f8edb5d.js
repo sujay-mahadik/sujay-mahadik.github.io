@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/joe-gardner-2.76ff47ae.jpg"
   },
   {
-    "revision": "b97ce38fb775fbfde3bb",
+    "revision": "c9504179539fb295f0f7",
     "url": "/static/css/main.bf52df04.chunk.css"
   },
   {
@@ -32,24 +32,24 @@ self.__precacheManifest = [
     "url": "/static/media/ayo-ogunseinde-2.bfc688ca.jpg"
   },
   {
-    "revision": "b97ce38fb775fbfde3bb",
-    "url": "/static/js/main.b97ce38f.chunk.js"
+    "revision": "c9504179539fb295f0f7",
+    "url": "/static/js/main.c9504179.chunk.js"
   },
   {
     "revision": "bb4b9ac9fd07e48f86c719495b65341c",
     "url": "/static/media/clem-onojeghuo-2.bb4b9ac9.jpg"
   },
   {
-    "revision": "5d5d9eefa31e5e13a6610d9fa7a283bb",
-    "url": "/static/media/logo.5d5d9eef.svg"
-  },
-  {
-    "revision": "5c78b4cf03771fd2287325c44f0d3cd9",
-    "url": "/static/media/nucleo-icons.5c78b4cf.woff2"
+    "revision": "5c576dd19c9e6fad63a0bcbdaa622f8d",
+    "url": "/static/media/logo.5c576dd1.svg"
   },
   {
     "revision": "f32ed5ad3d76067b8e43be1a0bd1ba91",
     "url": "/static/media/nucleo-icons.f32ed5ad.eot"
+  },
+  {
+    "revision": "5c78b4cf03771fd2287325c44f0d3cd9",
+    "url": "/static/media/nucleo-icons.5c78b4cf.woff2"
   },
   {
     "revision": "6836b93bf1af0b571928d98458a68445",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/static/css/1.29730169.chunk.css"
   },
   {
-    "revision": "76c9ceb47130584c3e0681bdd788d5bf",
+    "revision": "eb589f0198dd16e0b8683e0acd1e2069",
     "url": "/index.html"
   }
 ];
