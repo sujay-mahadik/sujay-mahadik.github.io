@@ -50,7 +50,7 @@ h4 {
     text-transform: capitalize;
     letter-spacing: 2px;
     position: relative;
-    color: #ffffff;
+    color: #2789E3;
     margin-left: 40px;
     font-weight: 700;
 }
@@ -839,6 +839,14 @@ fieldset {
 }
 
 @media (max-width: 768px) {
+    .table-cell h1{
+        color: white;
+    }
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 50px;
+        line-height: 40px;
+    }
     .timeline-event-copy {
         width: 90%;
         left: 2em;
