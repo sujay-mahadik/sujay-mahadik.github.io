@@ -50,12 +50,32 @@ h4 {
     text-transform: capitalize;
     letter-spacing: 2px;
     position: relative;
-    color: #2789E3;
+    color: #ffffff;
     margin-left: 40px;
     font-weight: 700;
 }
 
 h4:before {
+    position: absolute;
+    width: 30px;
+    left: -40px;
+    content: "";
+    display: block;
+    height: 2px;
+    background: #2789E3;
+    top: 50%;
+}
+h3 {
+    font-family: 'Lato', sans-serif;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    position: relative;
+    color: #2789E3;
+    margin-left: 40px;
+    font-weight: 700;
+}
+
+h3:before {
     position: absolute;
     width: 30px;
     left: -40px;
@@ -287,7 +307,7 @@ a.active {
 ==================================================*/
 
 #home {
-    background: url(../img/home_filter.jpg);
+    background: url(../img/home_new.png);
     background-size: cover;
     height: 100vh;
 }
