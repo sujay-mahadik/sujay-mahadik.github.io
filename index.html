@@ -1,488 +1,1241 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta name="google-site-verification" content="4eBbhdn8pB7FVYxAosej281iUCvfNhMkap3lhsKfj_w" />
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js'
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != 'dataLayer' ? '&l=' + l : '';
-      j.async = true;
-      j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-5HLMB7R');
-  </script>
-  <!-- End Google Tag Manager -->
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127224072-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-127224072-1');
-  </script>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sujay Sanjay Mahadik | Resume</title>
-  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-  <!-- Bootstrap -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="css/animate.min.css" rel="stylesheet">
-  <link href="css/aos.css" rel="stylesheet">
-  <!-- main style -->
-  <link href="css/style.css" rel="stylesheet">
-
-  <!-- icon library -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Myav 💕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --burgundy: #8B4049;
+            --deep-burgundy: #6B2C33;
+            --cream: #F5F1ED;
+            --beige: #E8DCC4;
+            --accent: #9B5A5F;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start; /* change center to flex-start */
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: auto; /* allow scrolling */
+        }
+        
+        /* Background Photo */
+        .bg-photo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .bg-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(245, 241, 237, 0.92), rgba(232, 220, 196, 0.88));
+            z-index: 1;
+        }
+        
+        .bg-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(3px) brightness(1.1);
+        }
+        
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+        
+        .confetti-container.active {
+            display: block;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--burgundy);
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 1s ease-out 3s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+        
+        .valentine-week {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .splash-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            margin-bottom: 3rem;
+        }
+        
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .day-item {
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+        
+        .day-item:nth-child(1) { animation-delay: 0.2s; }
+        .day-item:nth-child(2) { animation-delay: 0.4s; }
+        .day-item:nth-child(3) { animation-delay: 0.6s; }
+        .day-item:nth-child(4) { animation-delay: 0.8s; }
+        .day-item:nth-child(5) { animation-delay: 1s; }
+        .day-item:nth-child(6) { animation-delay: 1.2s; }
+        .day-item:nth-child(7) { animation-delay: 1.4s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .day-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .day-label {
+            font-size: 0.7rem;
+            color: var(--burgundy);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .splash-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-style: italic;
+            animation: fadeIn 0.8s ease-out 1.6s backwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Quote Screen (Post-Valentine's) */
+        .quote-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quote-screen.active {
+            display: flex;
+        }
+        
+        .quote-container {
+            text-align: center;
+            max-width: 700px;
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .quote-date {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            margin-bottom: 2rem;
+        }
+        
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .quote-author {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-style: italic;
+        }
+        
+        .floating-hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .heart-float-bg {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float-gentle 20s ease-in-out infinite;
+        }
+        
+        @keyframes float-gentle {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-30px) translateX(20px);
+            }
+        }
+        
+        .heart-float-bg:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .heart-float-bg:nth-child(2) { left: 80%; top: 40%; animation-delay: 3s; }
+        .heart-float-bg:nth-child(3) { left: 50%; top: 60%; animation-delay: 6s; }
+        .heart-float-bg:nth-child(4) { left: 20%; top: 70%; animation-delay: 9s; }
+        .heart-float-bg:nth-child(5) { left: 70%; top: 15%; animation-delay: 12s; }
+        
+        /* Main Container */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 4rem; /* add space for scrolling on mobile */
+        }
+        
+        .card {
+            background: rgba(254, 253, 251, 0.95);
+            padding: 4rem 3rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(139, 64, 73, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238B4049'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") no-repeat center;
+            opacity: 0.3;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeInSlide 0.6s ease-out;
+        }
+        
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(139, 64, 73, 0.2);
+            padding-bottom: 2rem;
+        }
+        
+        .verse-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--burgundy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.03em;
+        }
+        
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--burgundy);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .label-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+        
+        .label-item span:first-child {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+        
+        .label-item span:last-child {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .progress-line {
+            width: 40px;
+            height: 1px;
+            background: rgba(139, 64, 73, 0.2);
+            transition: all 0.4s ease;
+        }
+        
+        .progress-line.active {
+            background: var(--burgundy);
+        }
+        
+        .content {
+            padding: 2rem 0;
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .note {
+            font-size: 1rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            color: var(--deep-burgundy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .subtext {
+            font-size: 1rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .option {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .option-card {
+            padding: 1.8rem 1.5rem;
+            background: rgba(254, 253, 251, 0.8);
+            border: 1px solid rgba(139, 64, 73, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover {
+            border-color: var(--burgundy);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 64, 73, 0.1);
+        }
+        
+        .option input:checked + .option-card {
+            background: var(--burgundy);
+            border-color: var(--burgundy);
+            color: var(--cream);
+        }
+        
+        .option-name {
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--deep-burgundy);
+            background: rgba(254, 253, 251, 0.8);
+            border: 1px solid rgba(139, 64, 73, 0.2);
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 2px 8px rgba(139, 64, 73, 0.1);
+        }
+        
+        .text-input::placeholder {
+            color: rgba(139, 64, 73, 0.4);
+            font-style: italic;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: 1px solid var(--burgundy);
+            background: transparent;
+            color: var(--burgundy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--burgundy);
+            color: var(--cream);
+        }
+        
+        .btn-primary {
+            background: var(--burgundy);
+            color: var(--cream);
+        }
+        
+        .btn-primary:hover {
+            background: var(--deep-burgundy);
+            border-color: var(--deep-burgundy);
+        }
+        
+        .valentine-question {
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            text-align: center;
+            margin: 3rem 0;
+            line-height: 1.4;
+        }
+        
+        .valentine-note {
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        .valentine-btns {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-yes {
+            padding: 1.5rem 4rem;
+            font-size: 1.2rem;
+            background: var(--burgundy);
+            color: var(--cream);
+            border: none;
+        }
+        
+        .btn-no {
+            padding: 1.5rem 4rem;
+            font-size: 1.2rem;
+        }
+        
+        .mischief-text {
+            display: none;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: var(--accent);
+            text-align: center;
+            font-style: italic;
+        }
+        
+        /* Sending overlay */
+        .sending-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 241, 237, 0.95);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sending-overlay.active {
+            display: flex;
+        }
+        
+        .sending-message {
+            text-align: center;
+        }
+        
+        .sending-message p {
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--deep-burgundy);
+            margin-bottom: 1rem;
+        }
+        
+        .sending-message small {
+            font-size: 1rem;
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                padding: 3rem 2rem;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .splash-title {
+                font-size: 2rem;
+            }
+            
+            .week-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 0.3rem;
+            }
+            
+            .day-icon {
+                font-size: 1.5rem;
+            }
+            
+            .day-label {
+                font-size: 0.55rem;
+            }
+            
+            .valentine-question, .quote-text {
+                font-size: 2rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group,
+            .valentine-btns {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HLMB7R" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-
-  <!-- Preloader -->
-  <div id="preloader">
-    <div id="status">
-
-      <div class="preloader" aria-busy="true" aria-label="Loading, please wait." role="progressbar">
-      </div>
-
-    </div>
-  </div>
-  <!-- ./Preloader -->
-
-  <!-- header -->
-  <header class="navbar-fixed-top">
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">experience</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#contact">contact</a></li>
-      </ul>
-    </nav>
-  </header>
-  <!-- ./header -->
-
-  <!-- home -->
-  <div class="section" id="home" data-stellar-background-ratio="0.5">
-    <div class="container">
-      <div class="disply-table">
-        <div class="table-cell" data-aos="fade-up" data-aos-delay="0">
-          <h4>Sujay Mahadik</h4>
-          <h1>Developer.<br /> Designer.<br /> Dreamer.</h1>
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+    
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="valentine-week">
+            <h1 class="splash-title">7 Days of Love <br> Myav + Ratz</h1>
+            <div class="week-grid">
+                <div class="day-item">
+                    <div class="day-icon">🌹</div>
+                    <div class="day-label">Rose</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">💝</div>
+                    <div class="day-label">Propose</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">🍫</div>
+                    <div class="day-label">Chocolate</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">🧸</div>
+                    <div class="day-label">Teddy</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">💛</div>
+                    <div class="day-label">Promise</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">💏</div>
+                    <div class="day-label">Kiss</div>
+                </div>
+                <div class="day-item">
+                    <div class="day-icon">❤️</div>
+                    <div class="day-label">Valentine</div>
+                </div>
+            </div>
+            <p class="splash-subtitle">February 7-14, 2025</p>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- ./home -->
-
-  <!-- about -->
-  <div class="section" id="about">
-    <div class="container">
-      <div class="col-md-6" data-aos="fade-up">
-        <h4>01</h4>
-        <h1 class="size-50">Know <br /> About me</h1>
-        <div class="h-50"></div>
-        <p>Engineering graduate with Masters in Economics, I am often found juggling with interests that include coding, graphic design,
-          photography, all the way to brewing good coffee and nerding out over pop fiction, poetry and dystopian literature.
-        </p>
-        <p>
-          Currently working within GTIS Observability team at Barclays. Helping the Enterprise Infrastructure make data driven decisions and establish collaborative working groups.
-          I am also a freelance designer who loves art, music and literature. My projects include brand designs, marketing campaigns, motion graphics, album artwork and more
-        </p>
-        <p>
-          Currently pursuing course targetted as sustainable software enginnering and green data practices.
-        </p>
-        <p>
-        <a href="https://sujaymahadik.notion.site/d35f767513984a8eacf0fc8d137dc8d6?v=1a87bf734a3c4769944650b7aa29c4a3&pvs=4" target="_blank">Reading List 2023</a>        </p>
-
-        <!-- <p>My name is Sujay Mahadik and I'm a Engineering Graduate from MIT College of Engineering, currently living in
-          Pune, India.
-          Currently exploring Blockchain and web3.0 frameworks and working with projects around IPFS, Ethereum and React
-          JS </p>
-        <p>I'm a music enthusiast and an avid reader. I'm both driven and self-motivated, and I am constantly
-          experimenting with new technologies and techniques.</p>
-        <p>Apart from all the geeky stuff, I like to take out my cycle and camera whenever I get some time from the
-          routine. Mountain biking and wildlife photography are the highlights of my hobbies.</p> -->
-        <div class="h-50"></div> <img src="img/Signature.svg" width="230" alt="" />
-        <div class="h-50"></div>
-        <!-- Download CV -->
-        <a href="res/Sujay-Mahadik-Resume.pdf" class="dbtn" download><i class="fa fa-download"></i>
-          Download CV</a>
-        <div class="h-50"></div>
-      </div>
-      <div class="col-md-6 about-img-div">
-        <div class="about-border" data-aos="fade-up" data-aos-delay=".5"></div>
-        <img src="img/home_about.jpg" width="400" class="img-responsive" alt="" align="right" data-aos="fade-right"
-          data-aos-delay="0" />
-      </div>
-
-    </div>
-  </div>
-  <!-- ./about -->
-
-  <!-- experience  -->
-  <div class="section" id="experience">
-    <div class="container">
-      <div class="col-md-12">
-        <h4>02</h4>
-        <h1 class="size-50">My <br /> Experience</h1>
-        <div class="h-50"></div>
-      </div>
-      <div class="col-md-12">
-        <ul class="timeline">
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">March 2023 - Present</p>
-              <h3>Technical Engineer - GTIS Observability</h3>
-              <h4><a href="https://www.barclays.in/global-service-centre/btci/" target="_blank">Barclays GSC, ​Pune</a>
-              </h4>
-              <p>
-                Enabling colleagues and building observability within Enterprise Infrastructure by introducing data shipping and analytics practices</p>
-              </br>Skills and Toolset:
-              <strong>
-                </br>● ELK Stack (Elasticsearch, Kibana, Logstash)
-                </br>● Kafka Streaming Application
-                </br>● Python Programming and Automation
-                </br>● SQL
-                </br>● Data Analytics and Visualisation
-              </strong>
-            </div>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">April 2021 - March 2023</p>
-              <h3>Service Delivery - Enterprise and Data Integration</h3>
-              <h4><a href="https://www.barclays.in/global-service-centre/btci/" target="_blank">Barclays GSC, ​Pune</a>
-              </h4>
-              <p>
-              </br>● Designed and Developed scalable Ab Initio Project Creation Automation using Python via Service
-              First API, reducing implementation time by 15x, directly benefitting application developers. This has also
-              increased capacity of 20 hrs/month within the team since Q1, 2021
-              </br>● Developed CHEF cookbook and automated the installtion and configuration of Informatica Linux Client in a standardized way.
-              </br>● Actively Participating and Driving Incident Reduction projects and formulating better processes within
-                the team. Recent implementation of alert suppression during server maintenance window has resulted
-                in reducing incident count by 10% over Q1 & Q2 in 2022.
-              </br>● Delivered and assisted multiple teams in setting up projects on EDI Ab Initio and Informatica
-                Infrastructure and supporting them post delivery.
-              </br>● Conceptualized and Designed EDI Service Dashboard - which has been a single infographic
-                dashboard for IPC controls for the team and leadership since 2020.
-              </br>● Packaged and Upgraded Ab Initio Products like GDE, TRMC, EME etc.
-              </br>● Supported and Delivered Production Fixes on Major Incidents in DI space. Driving SOPs on legacy
-                environment.
-              </br>● Received multiple recognitions both from clients and internally for Service, Excellence, Drive &
-                Respect.
-              </br></br>Skills and Toolset:
-                <strong>
-                  </br>● CHEF
-                  </br>● Python Programming and Automation
-                  </br>● Informatica
-                  </br>● Ab Initio
-                  </br>● BASH Scripting
-                </strong>
-              </p>
-            </div>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">July 2019 - May 2021</p>
-              <h3>Graduate Analyst</h3>
-              <h4><a href="https://www.barclays.in/global-service-centre/btci/" target="_blank">Barclays GSC, ​Pune</a>
-              </h4>
-              <p>
-                Barclays Global Service Centre (BGSC), India is a global capability center,
-                supporting Barclays businesses worldwide, delivering innovative end-to-end
-                business solutions in Technology, Operations and Functions.</p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">June 2020 - Present</p>
-              <h3>Co-Founder & Designer</h3>
-              <h4><a href="https://www.thejellyfishcollective.co" target="_blank">The Jellyfish
-                  Collective, Paris</a>
-              </h4>
-              <p>
-                The collective specializes in branding, visual identity and helping startups create design-based systems.
-                Jellyfish was built on the notion of restoring balance to the relationship between designers and
-                collaborators and create long-term partnerships.
-              </p>
-            </div>
-          </li>
-                    <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">September 2017 - June 2018</p>
-              <h3>Project Intern - Autonomous UAV</h3>
-              <h4><a href="https://www.persistent.com/" target="_blank">Persistent Systems, ​Pune</a></h4>
-              <p>
-                The aim of the project was to create an Autonomous Drone and was done  in a group of 6 students.</p>
-              <p>The project involved working with cutting edge hardware technology, which includes the following
-                hardware:
-                <strong>
-                  </br>● NVIDIA Jetson TX2
-                  </br>● ZED; StereoLabs’ Depth Camera.
-                  </br>● Pixhawk Flight Controller with various components.
-                </strong>
-              </p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">June 2017 - December 2017</p>
-              <h3>Team Head - TE MiniProject</h3>
-              <h4><a href="https://github.com/sujay-mahadik/student-erp-by-ssa/" target="_blank">Automated Student
-                  ERP</a></h4>
-              <p>Includes customized time-table creation, attendance marker, adaptive testing of students as part of
-                internal examinations, analysis based on the results of test.</p>
-              <p>The project involved working with:
-                <strong>
-                  </br>● Database Management
-                  </br>● PHP Scripting
-                  </br>● Web security
-                  </br>● SMTP Server Management
-                  </br>● Front End & Back End Development
-                </strong>
-              </p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">February 2017 & February 2018</p>
-              <h3>Web Developer & Graphic Designer</h3>
-              <h4><a href="http://www.mitcreon.com" target="_blank">MIT CREON, Pune</a></h4>
-              <p>Web Development of MIT CREON 17, MIT CREON 18 along with graphic design of publicity boards and
-                posters. The project also included an SMTP server ticket booking platform for an event. </p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">September 2016 - Present</p>
-              <h3>Co-Founder & Designer</h3>
-              <h4><a href="https://www.instagram.com/infin8ylabs/" target="_blank">Infinity Labs, Pune</a></h4>
-              <p><strong>Infinity Labs</strong>
-                is a Pune based startup with an idea for designing and manufacturing stationary and wearable products
-                like posters, bookmarks, notebooks, calendars, pin-badges, t-shirts and more. I look after the
-                designing and production.</p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up" data-aos-delay=".2">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">July 2016 - February 2019</p>
-              <h3>Head of Art and Design</h3>
-              <h4><a href="https://www.facebook.com/mitcoespandan/" target="_blank">SPANDAN, MIT College of
-                  Engineering</a></h4>
-              <p><strong>SPANDAN</strong> is the annual magazine of MIT College of Engineering, Pune. As a part of the
-                team I have the responsibility of designing, maintaining artworks and articles of the students of MIT
-                College of Engineering.</p>
-            </div>
-          </li>
-          <li class="timeline-event" data-aos="fade-up">
-            <label class="timeline-event-icon"></label>
-            <div class="timeline-event-copy">
-              <p class="timeline-event-thumbnail">January 2017 - April 2018</p>
-              <h3>Team Member</h3>
-              <h4><a href="http://www.ipindia.nic.in/writereaddata/Portal/IPOJournal/1_2605_1/Part-1.pdf"
-                  target="_blank">Piezoelectric
-                  sensors integrated hand gesture recognition device</a></h4>
-              <p>Assisted in publishing a patent titled “​Piezoelectric sensors integrated hand gesture recognition
-                device​” filed in  the Indian Patent Office under the application number 201821012736 A and was
-                published on 20th April, 2018. </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- ./experience -->
-
-  <!-- projects -->
-  <div class="section" id="projects">
-    <div class="container">
-      <div class="col-md-12">
-        <h4>03</h4>
-        <h1 class="size-50">My <br /> Projects - <a>#</a></h1>
-      </div>
-      <!-- main container -->
-      <div class="main-container portfolio-inner clearfix">
-        <!-- portfolio div -->
-        <div class="portfolio-div">
-          <div class="portfolio">
-            <!-- portfolio_filter -->
-            <div class="categories-grid wow fadeInLeft">
-              <nav class="categories">
-                <ul class="portfolio_filter">
-                  <li><a href="" class="active" data-filter="*">All</a></li>
-                  <li><a href="" data-filter=".webdev">Web Development</a></li>
-                  <li><a href="" data-filter=".photography">Photography</a></li>
-                  <li><a href="" data-filter=".logo">Logo</a></li>
-                  <li><a href="" data-filter=".graphics">Graphics</a></li>
-                </ul>
-              </nav>
-            </div>
-            <!-- portfolio_filter -->
-
-            <!-- portfolio_container -->
-            <div class="no-padding portfolio_container clearfix" data-aos="fade-up">
-              <!-- single work -->
-              <div class="col-md-4 col-sm-6  webdev graphics">
-                <a id="demo01" ref="#animatedModal" class="portfolio_item"> <img src="img/portfolio/webdev1.jpg"
-                    alt="image" class="img-responsive" />
-                  <div class="portfolio_item_hover">
-                    <div class="portfolio-border clearfix">
-                      <div class="item_info"> <span>MIT CREON 18</span> <em>webdev / graphic design</em> </div>
+    
+    <!-- Quote Screen (Post-Valentine's) -->
+    <div class="quote-screen" id="quoteScreen">
+        <div class="floating-hearts-bg">
+            <div class="heart-float-bg">💕</div>
+            <div class="heart-float-bg">💖</div>
+            <div class="heart-float-bg">💝</div>
+            <div class="heart-float-bg">💗</div>
+            <div class="heart-float-bg">💓</div>
+        </div>
+        <div class="quote-container">
+            <div class="label-row">
+                    <div class="label-item">
+                        <span>TO:</span>
+                        <span>Myav</span>
                     </div>
-                  </div>
-                </a>
-              </div>
-              <!-- end single work -->
-
-
+                    <!-- <div class="label-item">
+                        <span>DATE:</span>
+                        <span id="currentDate"></span>
+                    </div> -->
             </div>
-            <!-- end portfolio_container -->
-          </div>
-          <!-- portfolio -->
+            <p class="quote-date" id="quoteDate"></p>
+            <p class="quote-text" id="quoteText"></p>
+            <p class="quote-author" id="quoteAuthor"></p>
+            <div class="label-row">
+                    <div class="label-item">
+                        <!-- <span>FROM:</span>
+                        <span>Ratz</span> -->
+                    </div>
+                    <div class="label-item">
+                        <span>FROM:</span>
+                        <span>Ratz</span>
+                    </div>
+                    <!-- <div class="label-item">
+                        <span>DATE:</span>
+                        <span id="currentDate"></span>
+                    </div> -->
+            </div>
         </div>
-        <!-- end portfolio div -->
-      </div>
-      <!-- end main container -->
     </div>
-  </div>
-  <!-- ./projects -->
-
-  <!-- contact -->
-  <div class="section" id="contact">
-    <div class="container">
-      <div class="col-md-12">
-        <h4>04</h4>
-        <h1 class="size-50">Contact Me</h1>
-        <div class="h-50"></div>
-      </div>
-      <div class="col-md-4" data-aos="fade-up">
-
-        <h3>Mobile Number</h3>
-        <a href="tel:+919004133463">
-          <p>+91 9004133463</p>
-        </a>
-        <h3>Email</h3>
-        <a href="mailto:mahadik203@gmail.com">
-          <p>mahadik203@gmail.com</p>
-        </a>
-        <h3>Address</h3>
-        <a href="https://goo.gl/maps/EwpFxAExr8gHGDmk6" target="_blank">
-          <p>Mumbai, Pune</p>
-        </a>
-
-        <h3>Network</h3>
-
-        <ul class="social">
-          <li><a href="https://www.facebook.com/sujay.mahadik.7"><i class="ion-social-facebook"></i></a></li>
-          <li><a href="https://twitter.com/mahadik_sujay"><i class="ion-social-twitter"></i></a></li>
-          <li><a href="https://github.com/sujay-mahadik"><i class="ion-social-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/sujay-mahadik/"><i class="ion-social-linkedin"></i></a></li>
-          <li><a target="_blank" href="https://wa.me/919004133463?text=Hello%10Sujay!"><i
-                class="ion-social-whatsapp"></i></a></li>
-
-        </ul>
-
-        <div class="clearfix"></div>
-        <div class="h-50"></div>
-        <div> Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></br>Developed
-          by <a href="https://github.com/sujay-mahadik">Sujay Sanjay Mahadik</a>
+    
+    <!-- Background Photo -->
+    <div class="bg-photo">
+        <img src="data:image/svg+xml,%3Csvg width='1920' height='1080' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23E8DCC4;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23F5F1ED;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23bg)'/%3E%3C/svg%3E" alt="Background">
+    </div>
+    
+    <!-- Sending Overlay -->
+    <div class="sending-overlay" id="sendingOverlay">
+        <div class="sending-message">
+            <p>Grabbing your answer...</p>
+            <small>Opening WhatsApp</small>
         </div>
-      </div>
-      <div class="col-md-8" data-aos="fade-up">
-        <form class="contact-bg" id="contact-form" name="contact" method="post" novalidate>
-          <input type="text" name="name" class="form-control" placeholder="Your Name" />
-          <input type="email" name="email" class="form-control" placeholder="Your E-mail" />
-          <input type="text" name="phone" class="form-control" placeholder="Phone Number" />
-          <textarea name="message" class="form-control" placeholder="Your Message" style="height:120px"></textarea>
-          <button id="submit" type="submit" name="submit" class="btn btn-glance">Send</button>
-          <div id="success">
-            <p class="green textcenter"> Your message was sent successfully! I will be in touch as soon as I can. </p>
-          </div>
-          <div id="error">
-            <p> Something went wrong, try refreshing and submitting the form again. </p>
-          </div>
-        </form>
-      </div>
     </div>
-  </div>
-  <!-- ./contact -->
+    
+    <div class="container" id="mainContainer">
+        <div class="card">
+            <!-- Step 0: Welcome -->
+            <div class="step active" id="step0">
+                <div class="label-row">
+                    <div class="label-item">
+                        <span>TO:</span>
+                        <span>Myav</span>
+                    </div>
+                    <div class="label-item">
+                        <span>DATE:</span>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+                
+                <div class="content">
+                    <p class="message" id="welcomeMessage"></p>
+                    <p class="note" id="welcomeVerse"></p>
+                    <p class="note" style="margin-top: 3rem;" id="welcomeNote"></p>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
 
-  <!--DEMO01-->
-  <div id="animatedModal" class="popup-modal">
-    <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID -->
-    <div id="btn-close-modal" class="close-animatedModal close-popup-modal"> <i class="ion-close-round"></i> </div>
-    <div class="clearfix"></div>
-    <div class="modal-content">
-      <div class="container">
-        <div class="portfolio-padding">
-          <div class="col-md-8 col-md-offset-2">
-            <h2>Geschäfts Eines<br /> Web-Studios</h2>
-            <div class="h-50"></div>
-            <p>Appropriately maintain standards compliant total linkage with cutting-edge action items.
-              Enthusiastically create seamless synergy rather than excellent value. Quickly promote premium strategic
-              theme areas vis-a-vis.</p>
-            <p>Appropriately maintain standards compliant total linkage with cutting-edge action items.
-              Enthusiastically create seamless synergy rather than excellent value.</p>
-            <br />
-            <br /> <img src="img/portfolio/02.jpg" alt="" class="img-responsive" />
-            <br />
-            <br />
-            <p>Appropriately maintain standards compliant total linkage with cutting-edge action items.
-              Enthusiastically create seamless synergy rather than excellent value. Quickly promote premium strategic
-              theme areas vis-a-vis.</p>
-            <p>Appropriately maintain standards compliant total linkage with cutting-edge action items.
-              Enthusiastically create seamless synergy rather than excellent value.</p>
-            <br />
-            <br />
-          </div>
+            <!-- Dynamic Question Steps -->
+            <div id="questionSteps"></div>
+
+            <!-- Final Question: Be My Valentine -->
+            <div class="step" id="finalStep">
+                <div class="progress" id="finalProgress"></div>
+                
+                <div class="content">
+                    <p class="valentine-question" id="finalQuestion"></p>
+                    <p class="valentine-note" id="finalNote"></p>
+                    
+                    <div class="valentine-btns">
+                        <button class="btn btn-yes" onclick="acceptValentine()">Yes</button>
+                        <button class="btn btn-no" onclick="showMischief()" id="noBtn">No</button>
+                    </div>
+                    
+                    <p class="mischief-text" id="mischief"></p>
+                </div>
+                
+                <div class="btn-group" style="margin-top: 3rem;">
+                    <button class="btn" onclick="prevStep()">Back</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-  <!--  plugins  -->
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.form.js"></script>
-  <script src="js/jquery.validate.min.js"></script>
-
-  <!--  main script  -->
-  <script src="js/custom.js"></script>
-
-  <!-- ion icon pack -->
-  <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
+    
+    <script>
+        // ============================================
+        // CONFIGURATION - EASY TO UPDATE
+        // ============================================
+        
+        const CONFIG = {
+            // ===== TEST MODE =====
+            // Set to true to test post-Valentine's quote screen
+            // Set to false for normal operation
+            testMode: false,
+            testDate: '2026-02-07', // Use format: 'YYYY-MM-DD' (only used if testMode is true)
+            
+            // ===== DATES & QUOTES =====
+            // Add special quotes for specific dates throughout the year
+            specialDates: {
+                // Format: 'MM-DD': { quote: '...', author: '...' }
+                '02-07': {
+                    quote: 'main chahta tha ki us ko gulab pesh karun </br> wo khud gulab tha us ko gulab kya deta',
+                    author: ''
+                },
+                '03-15': {
+                    quote: 'In all the world, there is no heart for me like yours',
+                    author: 'Maya Angelou'
+                },
+                '06-01': {
+                    quote: 'I love you not only for what you are, but for what I am when I am with you',
+                    author: 'Roy Croft'
+                },
+                '09-20': {
+                    quote: 'Whatever our souls are made of, his and mine are the same',
+                    author: 'Emily Brontë'
+                },
+                '12-25': {
+                    quote: 'The best thing to hold onto in life is each other',
+                    author: 'Audrey Hepburn'
+                }
+                // Add more dates as needed
+            },
+            
+            // Default quote (shown on dates without special quotes)
+            defaultQuote: {
+                quote: 'tum ko dekha to ye khayaal aaya, zindagi dhup tum ghana saya',
+                author: ''
+            },
+            
+            // Valentine's Week dates (Feb 7-14)
+            valentineWeekStart: '02-07',
+            valentineWeekEnd: '02-14',
+            
+            // ===== BACKGROUND & SETTINGS =====
+            backgroundPhoto: 'background.jpg',
+            whatsappNumber: '',
+            
+            // ===== WELCOME SCREEN =====
+            welcome: {
+                message: `suna hai us ke badan ki tarash aisi hai <br> ki phul apni qabaen katar ke dekhte hain`,
+                verse: '',
+                note: `I have a question for you my love...<br>but first, help me plan this special year`
+            },
+            
+            // ===== QUESTIONS =====
+            questions: [
+                {
+                    label: 'One',
+                    title: 'Where shall we go?',
+                    question: 'Pick a city you wanna travel this year',
+                    subtext: 'Can you believe we have travelled to 7 countries together already!',
+                    type: 'choice',
+                    allowCustom: true,
+                    customPlaceholder: 'or type in if its some other place...',
+                    options: [
+                        'Bali',
+                        'Lisbon',
+                        'Budapest',
+                        'Mallorca',
+                        'Lapland',
+                        'Amalfi Coast'
+                    ]
+                },
+                {
+                    label: 'Two',
+                    title: 'A gift for you',
+                    question: 'Pick a gadget as a gift for yourself this year',
+                    subtext: 'You deserve all the things in the world my love',
+                    type: 'choice',
+                    allowCustom: true,
+                    customPlaceholder: 'or type in if its something else...',
+                    options: [
+                        'DJI Osmo',
+                        'Dyson Airwrap',
+                        'AirPods',
+                        'Espresso Machine'
+                    ]
+                }
+            ],
+            
+            // ===== FINAL QUESTION =====
+            finalQuestion: {
+                title: '(heart racing)',
+                question: `Hey Myav, Will you be<br>my Valentine?`,
+                note: `Yes, I am lost.<br>But not in you.<br>I could spend my days watching your hands work<br>and I can't live myself<br>'cause I know you'd die for me`,
+                mischiefMessages: [
+                    "That button doesn't work... try the other one",
+                    "Come on now...",
+                    "Oops! Try again 😉",
+                    "Hmm… I think that button is shy",
+                    "I bet you can’t resist saying yes",
+                    "Keep trying… but you know the right answer",
+                    "Are you sure? Maybe double-check ❤️",
+                    "Try the other button… it’s magical ✨",
+                    "Nope, that’s not it! Think again 💕",
+                    "Just say yes already"
+                ]
+            },
+            
+            // ===== WHATSAPP MESSAGE =====
+            whatsappMessage: (answers) => {
+                let message = `✨ She said YES! ✨\n\n`;
+                answers.forEach((answer, index) => {
+                    const q = CONFIG.questions[index];
+                    message += `${q.title}: ${answer}\n`;
+                });
+                message += `\nBest Valentine's ever! 💕`;
+                return message;
+            }
+        };
+        
+        // ============================================
+        // APP LOGIC
+        // ============================================
+        
+        let currentStep = 0;
+        let answers = [];
+        let noClickCount = 0;
+        
+        // Get current date
+        function getCurrentDate() {
+            if (CONFIG.testMode) {
+                return new Date(CONFIG.testDate);
+            }
+            return new Date();
+        }
+        
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}`;
+        }
+        
+        function getDateKey(date) {
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${month}-${day}`;
+        }
+        
+        function isValentineWeek(dateKey) {
+            return dateKey >= CONFIG.valentineWeekStart && dateKey <= CONFIG.valentineWeekEnd;
+        }
+        
+        // Initialize app based on date
+        function initializeApp() {
+            const today = getCurrentDate();
+            const dateKey = getDateKey(today);
+            
+            // Set current date
+            document.getElementById('currentDate').textContent = formatDate(today);
+            
+            // Check if it's Valentine's week
+            if (isValentineWeek(dateKey)) {
+                // Show normal questionnaire
+                showQuestionnaire();
+            } else {
+                // Show quote screen
+                showQuoteScreen(dateKey);
+            }
+        }
+        
+        function showQuestionnaire() {
+            document.getElementById('splashScreen').style.display = 'flex';
+            document.getElementById('quoteScreen').classList.remove('active');
+            document.getElementById('mainContainer').style.display = 'block';
+            
+            // Set background photo
+            if (CONFIG.backgroundPhoto !== 'YOUR_PHOTO_URL_HERE') {
+                document.querySelector('.bg-photo img').src = CONFIG.backgroundPhoto;
+            }
+            
+            // Initialize welcome screen
+            document.getElementById('welcomeMessage').innerHTML = CONFIG.welcome.message;
+            document.getElementById('welcomeVerse').innerHTML = CONFIG.welcome.verse;
+            document.getElementById('welcomeNote').innerHTML = CONFIG.welcome.note;
+            
+            // Generate questions
+            generateQuestions();
+            
+            // Initialize final question
+            document.getElementById('finalQuestion').innerHTML = CONFIG.finalQuestion.question;
+            document.getElementById('finalNote').innerHTML = CONFIG.finalQuestion.note;
+        }
+        
+        function showQuoteScreen(dateKey) {
+            document.getElementById('splashScreen').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'none';
+            document.getElementById('quoteScreen').classList.add('active');
+            
+            // Get quote for today
+            const quoteData = CONFIG.specialDates[dateKey] || CONFIG.defaultQuote;
+            
+            const today = getCurrentDate();
+            document.getElementById('quoteDate').textContent = formatDate(today);
+            document.getElementById('quoteText').textContent = quoteData.quote;
+            document.getElementById('quoteAuthor').textContent = `— ${quoteData.author}`;
+        }
+        
+        // Generate question steps
+        function generateQuestions() {
+            const container = document.getElementById('questionSteps');
+            
+            CONFIG.questions.forEach((q, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step';
+                stepDiv.id = `step${index + 1}`;
+                
+                let optionsHTML = '';
+                if (q.type === 'choice') {
+                    optionsHTML = `<div class="options-grid">`;
+                    q.options.forEach(option => {
+                        optionsHTML += `
+                            <label class="option">
+                                <input type="radio" name="q${index}" value="${option}">
+                                <div class="option-card">
+                                    <div class="option-name">${option}</div>
+                                </div>
+                            </label>
+                        `;
+                    });
+                    optionsHTML += `</div>`;
+                    
+                    if (q.allowCustom) {
+                        optionsHTML += `
+                            <input type="text" 
+                                   class="text-input" 
+                                   id="custom${index}" 
+                                   placeholder="${q.customPlaceholder}">
+                        `;
+                    }
+                }
+                
+                stepDiv.innerHTML = `
+                    <div class="progress" id="progress${index + 1}"></div>
+                    <div class="header">
+                        <p class="verse-label">${q.label}</p>
+                        <h2 class="title">${q.title}</h2>
+                    </div>
+                    <div class="content">
+                        <p class="question">${q.question}</p>
+                        <p class="subtext">${q.subtext}</p>
+                        ${optionsHTML}
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn" onclick="prevStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Next</button>
+                    </div>
+                `;
+                
+                container.appendChild(stepDiv);
+                
+                // Add event listeners for custom input
+                if (q.allowCustom) {
+                    setTimeout(() => {
+                        const customInput = document.getElementById(`custom${index}`);
+                        const radios = document.querySelectorAll(`input[name="q${index}"]`);
+                        
+                        customInput.addEventListener('input', function() {
+                            if (this.value) {
+                                radios.forEach(radio => radio.checked = false);
+                            }
+                        });
+                        
+                        radios.forEach(radio => {
+                            radio.addEventListener('change', function() {
+                                customInput.value = '';
+                            });
+                        });
+                    }, 100);
+                }
+            });
+            
+            updateAllProgress();
+        }
+        
+        // Update progress indicators
+        function updateAllProgress() {
+            const totalSteps = CONFIG.questions.length + 2;
+            
+            CONFIG.questions.forEach((q, index) => {
+                const progressDiv = document.getElementById(`progress${index + 1}`);
+                let progressHTML = '';
+                for (let i = 0; i < totalSteps; i++) {
+                    const activeClass = i <= index + 1 ? 'active' : '';
+                    progressHTML += `<div class="progress-line ${activeClass}"></div>`;
+                }
+                progressDiv.innerHTML = progressHTML;
+            });
+            
+            const finalProgressDiv = document.getElementById('finalProgress');
+            let finalProgressHTML = '';
+            for (let i = 0; i < totalSteps; i++) {
+                const activeClass = i < totalSteps ? 'active' : '';
+                finalProgressHTML += `<div class="progress-line ${activeClass}"></div>`;
+            }
+            finalProgressDiv.innerHTML = finalProgressHTML;
+        }
+        
+        // Confetti animation
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.classList.add('active');
+            
+            const colors = ['#8B4049', '#9B5A5F', '#F77F00', '#E63946'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+                container.classList.remove('active');
+            }, 4000);
+        }
+        
+        // Navigation functions
+        function nextStep() {
+            if (currentStep > 0 && currentStep <= CONFIG.questions.length) {
+                const qIndex = currentStep - 1;
+                const q = CONFIG.questions[qIndex];
+                
+                if (q.type === 'choice') {
+                    const radio = document.querySelector(`input[name="q${qIndex}"]:checked`);
+                    const customInput = q.allowCustom ? document.getElementById(`custom${qIndex}`) : null;
+                    const customValue = customInput ? customInput.value : '';
+                    
+                    if (!radio && !customValue) {
+                        alert('Please select an option');
+                        return;
+                    }
+                    
+                    answers[qIndex] = customValue || radio.value;
+                }
+            }
+            
+            const steps = document.querySelectorAll('.step');
+            steps[currentStep].classList.remove('active');
+            
+            currentStep++;
+            if (currentStep <= CONFIG.questions.length) {
+                document.getElementById(`step${currentStep}`).classList.add('active');
+            } else {
+                document.getElementById('finalStep').classList.add('active');
+            }
+        }
+        
+        function prevStep() {
+            const steps = document.querySelectorAll('.step');
+            steps[currentStep].classList.remove('active');
+            currentStep--;
+            
+            if (currentStep === 0) {
+                document.getElementById('step0').classList.add('active');
+            } else {
+                document.getElementById(`step${currentStep}`).classList.add('active');
+            }
+        }
+        
+        function showMischief() {
+            const noBtn = document.getElementById('noBtn');
+            const mischief = document.getElementById('mischief');
+            
+            if (noClickCount < CONFIG.finalQuestion.mischiefMessages.length) {
+                mischief.style.display = 'block';
+                mischief.textContent = CONFIG.finalQuestion.mischiefMessages[noClickCount];
+                
+                if (noClickCount === 0) {
+                    noBtn.textContent = 'Still no?';
+                } else if (noClickCount === 1) {
+                    noBtn.textContent = 'Maybe?';
+                } else if (noClickCount === 2) {
+                    noBtn.textContent = 'Maybe?';
+                }  else {
+                    noBtn.style.display = 'none';
+                }
+                
+                noClickCount++;
+            }
+        }
+        
+        function acceptValentine() {
+            // Trigger confetti
+            createConfetti();
+            
+            // Show sending overlay after confetti starts
+            setTimeout(() => {
+                document.getElementById('sendingOverlay').classList.add('active');
+                
+                // Prepare WhatsApp message
+                const message = CONFIG.whatsappMessage(answers);
+                const encodedMessage = encodeURIComponent(message);
+                
+                let whatsappUrl;
+                if (CONFIG.whatsappNumber) {
+                    whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+                } else {
+                    whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+                }
+                
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = whatsappUrl;
+                }, 1500);
+            }, 2000);
+        }
+        
+        // Initialize app
+        initializeApp();
+    </script>
 </body>
-
 </html>
