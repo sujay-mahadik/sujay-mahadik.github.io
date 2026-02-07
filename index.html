@@ -61,6 +61,278 @@
             filter: blur(3px) brightness(1.1);
         }
         
+        /* Elegant Background Animations */
+        .bg-ornaments {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .ornament {
+            position: absolute;
+            opacity: 0.06;
+            animation: float-ornament 25s ease-in-out infinite;
+        }
+        
+        @keyframes float-ornament {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(-5deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(3deg);
+            }
+        }
+        
+        .ornament-1 {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .ornament-2 {
+            top: 15%;
+            right: 8%;
+            animation-delay: 5s;
+        }
+        
+        .ornament-3 {
+            bottom: 15%;
+            left: 10%;
+            animation-delay: 10s;
+        }
+        
+        .ornament-4 {
+            bottom: 20%;
+            right: 12%;
+            animation-delay: 15s;
+        }
+        
+        .ornament-5 {
+            top: 50%;
+            left: 3%;
+            animation-delay: 20s;
+        }
+        
+        .ornament-6 {
+            top: 60%;
+            right: 5%;
+            animation-delay: 8s;
+        }
+        
+        /* Floating particles */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--burgundy);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particle-rise 20s linear infinite;
+        }
+        
+        @keyframes particle-rise {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0);
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 4s; width: 2px; height: 2px; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 8s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 12s; width: 4px; height: 4px; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 16s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 3s; width: 2px; height: 2px; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 7s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 11s; width: 3px; height: 3px; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 15s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 19s; width: 2px; height: 2px; }
+        
+        /* Animated Background Text */
+        .bg-text-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .bg-text {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--burgundy);
+            opacity: 0;
+            white-space: nowrap;
+            animation: text-float 30s linear infinite;
+        }
+        
+        @keyframes text-float {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%) translateY(0) rotate(-5deg);
+            }
+            10% {
+                opacity: 0.04;
+            }
+            90% {
+                opacity: 0.04;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100vw) translateY(-50px) rotate(5deg);
+            }
+        }
+        
+        .bg-text:nth-child(1) {
+            top: 15%;
+            font-size: 3rem;
+            animation-delay: 0s;
+            animation-duration: 35s;
+        }
+        
+        .bg-text:nth-child(2) {
+            top: 30%;
+            font-size: 2.5rem;
+            animation-delay: 7s;
+            animation-duration: 40s;
+        }
+        
+        .bg-text:nth-child(3) {
+            top: 50%;
+            font-size: 3.5rem;
+            animation-delay: 14s;
+            animation-duration: 38s;
+        }
+        
+        .bg-text:nth-child(4) {
+            top: 70%;
+            font-size: 2.8rem;
+            animation-delay: 21s;
+            animation-duration: 42s;
+        }
+        
+        .bg-text:nth-child(5) {
+            top: 85%;
+            font-size: 2.2rem;
+            animation-delay: 28s;
+            animation-duration: 36s;
+        }
+        
+        .bg-text:nth-child(6) {
+            top: 40%;
+            font-size: 2rem;
+            animation-delay: 10s;
+            animation-duration: 45s;
+        }
+        
+        .bg-text:nth-child(7) {
+            top: 60%;
+            font-size: 3.2rem;
+            animation-delay: 18s;
+            animation-duration: 41s;
+        }
+        
+        .bg-text:nth-child(8) {
+            top: 25%;
+            font-size: 2.6rem;
+            animation-delay: 25s;
+            animation-duration: 39s;
+        }
+        
+        /* Elegant corner decorations */
+        .corner-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.08;
+        }
+        
+        .corner-decoration.top-left {
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at top left, var(--burgundy) 0%, transparent 70%);
+            animation: pulse-corner 8s ease-in-out infinite;
+        }
+        
+        .corner-decoration.top-right {
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at top right, var(--deep-burgundy) 0%, transparent 70%);
+            animation: pulse-corner 8s ease-in-out infinite;
+            animation-delay: 4s;
+        }
+        
+        .corner-decoration.bottom-left {
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at bottom left, var(--accent) 0%, transparent 70%);
+            animation: pulse-corner 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        .corner-decoration.bottom-right {
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at bottom right, var(--burgundy) 0%, transparent 70%);
+            animation: pulse-corner 8s ease-in-out infinite;
+            animation-delay: 6s;
+        }
+        
+        @keyframes pulse-corner {
+            0%, 100% {
+                opacity: 0.08;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.12;
+                transform: scale(1.1);
+            }
+        }
+        
         /* Confetti */
         .confetti-container {
             position: fixed;
@@ -664,41 +936,98 @@
     <!-- Confetti Container -->
     <div class="confetti-container" id="confettiContainer"></div>
     
+    <!-- Background Decorations -->
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particle-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Animated Background Text -->
+    <div class="bg-text-container">
+        <!-- Text is dynamically populated from CONFIG.backgroundText -->
+    </div>
+    
+    <!-- Ornamental Decorations -->
+    <div class="bg-ornaments">
+        <svg class="ornament ornament-1" width="120" height="120" viewBox="0 0 120 120">
+            <path d="M60,10 Q80,30 60,50 Q40,30 60,10 M60,50 Q80,70 60,90 Q40,70 60,50 M60,50 Q80,50 100,60 Q80,70 60,60 M60,50 Q40,50 20,60 Q40,70 60,60" 
+                  fill="none" stroke="var(--burgundy)" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+        <svg class="ornament ornament-2" width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="30" fill="none" stroke="var(--deep-burgundy)" stroke-width="1.5" opacity="0.6"/>
+            <circle cx="50" cy="50" r="20" fill="none" stroke="var(--burgundy)" stroke-width="1" opacity="0.6"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.6"/>
+        </svg>
+        <svg class="ornament ornament-3" width="110" height="110" viewBox="0 0 110 110">
+            <path d="M55,20 L65,50 L95,50 L70,65 L80,95 L55,75 L30,95 L40,65 L15,50 L45,50 Z" 
+                  fill="none" stroke="var(--burgundy)" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+        <svg class="ornament ornament-4" width="90" height="90" viewBox="0 0 90 90">
+            <path d="M45,10 Q60,25 45,40 Q30,25 45,10 M45,40 Q60,55 45,70 Q30,55 45,40" 
+                  fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+            <circle cx="45" cy="25" r="3" fill="var(--burgundy)" opacity="0.6"/>
+            <circle cx="45" cy="55" r="3" fill="var(--burgundy)" opacity="0.6"/>
+        </svg>
+        <svg class="ornament ornament-5" width="95" height="95" viewBox="0 0 95 95">
+            <rect x="20" y="20" width="55" height="55" rx="5" fill="none" stroke="var(--burgundy)" stroke-width="1.5" opacity="0.6"/>
+            <rect x="30" y="30" width="35" height="35" rx="3" fill="none" stroke="var(--deep-burgundy)" stroke-width="1" opacity="0.6"/>
+        </svg>
+        <svg class="ornament ornament-6" width="105" height="105" viewBox="0 0 105 105">
+            <path d="M52.5,15 L65,45 L97.5,45 L70,62.5 L82.5,92.5 L52.5,72.5 L22.5,92.5 L35,62.5 L7.5,45 L40,45 Z" 
+                  fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+            <circle cx="52.5" cy="52.5" r="8" fill="none" stroke="var(--burgundy)" stroke-width="1" opacity="0.6"/>
+        </svg>
+    </div>
+    
     <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
         <div class="valentine-week">
-            <h1 class="splash-title">7 Days of Love <br> Myav + Ratz</h1>
+            <h1 class="splash-title">Days of Love <br> Myav + Ratz</h1>
             <div class="week-grid">
                 <div class="day-item">
                     <div class="day-icon">🌹</div>
-                    <div class="day-label">Rose</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">💝</div>
-                    <div class="day-label">Propose</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">🍫</div>
-                    <div class="day-label">Chocolate</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">🧸</div>
-                    <div class="day-label">Teddy</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">💛</div>
-                    <div class="day-label">Promise</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">💏</div>
-                    <div class="day-label">Kiss</div>
+                    <div class="day-label"></div>
                 </div>
                 <div class="day-item">
                     <div class="day-icon">❤️</div>
-                    <div class="day-label">Valentine</div>
+                    <div class="day-label"></div>
                 </div>
             </div>
-            <p class="splash-subtitle">February 7-14, 2025</p>
+            <p class="splash-subtitle">February, 2025</p>
         </div>
     </div>
     
@@ -776,6 +1105,17 @@
                     <p class="note" style="margin-top: 3rem;" id="welcomeNote"></p>
                 </div>
                 
+                <div class="label-row">
+                    <div class="label-item">
+                        <!-- <span>DATE:</span>
+                        <span id="currentDate"></span> -->
+                    </div>
+                    <div class="label-item">
+                        <span>FROM:</span>
+                        <span>Ratz</span>
+                    </div>
+                </div>
+
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="nextStep()">Continue</button>
                 </div>
@@ -817,15 +1157,278 @@
             // Set to true to test post-Valentine's quote screen
             // Set to false for normal operation
             testMode: false,
-            testDate: '2026-02-07', // Use format: 'YYYY-MM-DD' (only used if testMode is true)
+            testDate: '2026-02-08', // Use format: 'YYYY-MM-DD' (only used if testMode is true)
+            
+            // ===== VALENTINE'S WEEK SETTINGS =====
+            // Set to true to use different questions/messages each day of Valentine's week
+            // Set to false to use the same default questions throughout Valentine's week
+            enableDailyCustomization: true,
+            
+            // ===== ANIMATED BACKGROUND TEXT =====
+            // Elegant text phrases that float across the background
+            // You can customize these to your own romantic messages
+            backgroundText: [
+                'forever & always',
+                'you are my today and all of my tomorrows',
+                'love',
+                'in every lifetime, I choose you',
+                'my heart is yours',
+                'together',
+                'you are my greatest adventure',
+                'always & forever'
+            ],
             
             // ===== DATES & QUOTES =====
             // Add special quotes for specific dates throughout the year
+            // During Valentine's week (Feb 7-14), you can customize each day with:
+            // 
+            // - welcomeOverride: { message: '...', verse: '...', note: '...' }
+            // - questionsOverride: [...] (custom questions for that specific day)
+            // - skipQuestions: true (skip questions entirely)
+            // - skipFinalQuestion: true (skip the "Will you be my Valentine?" question)
+            // - finalQuestionOverride: { title: '...', question: '...', note: '...' }
+            // 
+            // ┌──────────────────────────────────────────────────────────────────────────────────┐
+            // │                           FLOW COMBINATIONS                                      │
+            // ├──────────────────┬────────────────────┬─────────────────────────────────────────┤
+            // │ skipQuestions    │ skipFinalQuestion  │ Flow                                    │
+            // ├──────────────────┼────────────────────┼─────────────────────────────────────────┤
+            // │ false (default)  │ false (default)    │ Welcome → Questions → Final Question    │
+            // │ false            │ true               │ Welcome → Questions → WhatsApp (no Q)   │
+            // │ true             │ false              │ Welcome → Final Question                │
+            // │ true             │ true               │ Welcome Message Only (no buttons/send)  │
+            // └──────────────────┴────────────────────┴─────────────────────────────────────────┘
+            //
+            // ┌──────────────────────────────────────────────────────────────────────────────────┐
+            // │                              EXAMPLES                                            │
+            // ├──────────────────────────────────────────────────────────────────────────────────┤
+            // │ FULL EXPERIENCE (default):                                                       │
+            // │   '02-14': {                                                                     │
+            // │     // No flags needed - full flow with questions and final question            │
+            // │   }                                                                              │
+            // ├──────────────────────────────────────────────────────────────────────────────────┤
+            // │ JUST QUESTIONNAIRE (no romantic question):                                       │
+            // │   '02-10': {                                                                     │
+            // │     questionsOverride: [...],                                                    │
+            // │     skipFinalQuestion: true  // Answer questions, skip "Be my Valentine?"       │
+            // │   }                                                                              │
+            // ├──────────────────────────────────────────────────────────────────────────────────┤
+            // │ ROMANTIC QUESTION ONLY (no questionnaire):                                       │
+            // │   '02-12': {                                                                     │
+            // │     skipQuestions: true,  // Skip questions, show only final question           │
+            // │     finalQuestionOverride: {...}                                                 │
+            // │   }                                                                              │
+            // ├──────────────────────────────────────────────────────────────────────────────────┤
+            // │ GREETING ONLY (just display a message):                                         │
+            // │   '02-13': {                                                                     │
+            // │     welcomeOverride: {...},                                                      │
+            // │     skipQuestions: true,                                                         │
+            // │     skipFinalQuestion: true  // Just shows welcome, no buttons, no WhatsApp     │
+            // │   }                                                                              │
+            // │   Perfect for: Sweet messages, daily greetings, love notes                      │
+            // └──────────────────────────────────────────────────────────────────────────────────┘
             specialDates: {
-                // Format: 'MM-DD': { quote: '...', author: '...' }
+                // Format: 'MM-DD': { quote: '...', author: '...', welcomeOverride: {...}, questionsOverride: [...] }
                 '02-07': {
                     quote: 'main chahta tha ki us ko gulab pesh karun </br> wo khud gulab tha us ko gulab kya deta',
-                    author: ''
+                    author: '',
+                    skipQuestions: true,
+                    skipFinalQuestion: true,
+                    welcomeOverride: {
+                        message: `main chahta tha ki us ko gulab pesh karun<br>wo khud gulab tha us ko gulab kya deta`,
+                        verse: '. . .',
+                        note: `i know you don't like roses,<br>but allow these flowers to fulfill their destiny,<br>hope you like them!<br>❤︎`
+                    },
+                    questionsOverride: [
+                        {
+                            label: 'Rose Day Question',
+                            title: 'Pick your favorite flower',
+                            question: 'Which flower represents our love?',
+                            subtext: 'Every flower has a meaning...',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or type your favorite...',
+                            options: [
+                                'Red Rose',
+                                'White Rose',
+                                'Sunflower',
+                                'Tulip',
+                                'Lily',
+                                'Orchid'
+                            ]
+                        }
+                    ],
+                    finalQuestionOverride: {
+                        title: '(presenting a rose)',
+                        question: `Will you accept this rose<br>and be my Valentine?`,
+                        note: `Like a rose, our love is beautiful,<br>delicate, and worth every thorn`
+                    }
+                },
+                '02-08': {
+                    quote: 'I would find you in any lifetime',
+                    author: 'Unknown',
+                    skipQuestions: true,
+                    skipFinalQuestion: true,
+                    welcomeOverride: {
+                        message: `Will you be mine?<br>Not just for today,<br>but for all our tomorrows`,
+                        verse: '. . .',
+                        note: `A question asked with hope,<br>answered with a heart full of yes`
+                    },
+                    questionsOverride: [
+                        {
+                            label: 'Propose Day Question',
+                            title: 'Our future together',
+                            question: 'What dream do you want us to chase together?',
+                            subtext: 'Let\'s dream big...',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or share your dream...',
+                            options: [
+                                'Build our dream home',
+                                'Travel the world',
+                                'Start a family',
+                                'Grow old together',
+                                'Create memories',
+                                'Support each other\'s goals'
+                            ]
+                        }
+                    ],
+                    finalQuestionOverride: {
+                        title: '(on one knee)',
+                        question: `Myav, will you be<br>my Valentine forever?`,
+                        note: `Today I propose not just my love,<br>but my life, my dreams, my everything`
+                    }
+                },
+                '02-09': {
+                    quote: 'All you need is love. But a little chocolate now and then doesn\'t hurt',
+                    author: 'Charles M. Schulz',
+                    welcomeOverride: {
+                        message: `Life is like a box of chocolates,<br>and with you,<br>I always get the best one`,
+                        verse: '. . .',
+                        note: `Sweet moments,<br>sweeter memories`
+                    },
+                    questionsOverride: [
+                        {
+                            label: 'Chocolate Day Question',
+                            title: 'Sweet indulgence',
+                            question: 'Pick your favorite chocolate treat',
+                            subtext: 'Because you deserve the sweetest things',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or your favorite sweet...',
+                            options: [
+                                'Dark Chocolate',
+                                'Milk Chocolate',
+                                'Ferrero Rocher',
+                                'Godiva Truffles',
+                                'Lindt',
+                                'Chocolate Cake'
+                            ]
+                        }
+                    ],
+                    finalQuestionOverride: {
+                        title: '(offering chocolates)',
+                        question: `Sweet Myav,<br>will you be my Valentine?`,
+                        note: `Like chocolate melts in your mouth,<br>my heart melts for you`
+                    }
+                },
+                '02-10': {
+                    quote: 'A teddy bear is a faithful friend you can pick him up at either end',
+                    author: 'Unknown',
+                    welcomeOverride: {
+                        message: `You\'re my comfort,<br>my warmth,<br>my constant`,
+                        verse: '. . .',
+                        note: `Like a teddy bear\'s embrace,<br>your love surrounds me`
+                    },
+                    questionsOverride: [
+                        {
+                            label: 'Teddy Day Question',
+                            title: 'Comfort and warmth',
+                            question: 'What makes you feel most comfortable with me?',
+                            subtext: 'Our little moments of comfort...',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or share what comforts you...',
+                            options: [
+                                'Cuddling together',
+                                'Long conversations',
+                                'Quiet moments',
+                                'Your embrace',
+                                'Just being near you',
+                                'Your presence'
+                            ]
+                        }
+                    ],
+                    skipFinalQuestion: true  // Skip the final Valentine question on this day
+                },
+                '02-11': {
+                    quote: 'I promise to love you forever, every single day of forever',
+                    author: 'Stephenie Meyer',
+                    welcomeOverride: {
+                        message: `I promise to choose you,<br>every single day,<br>in every lifetime`,
+                        verse: '. . .',
+                        note: `A vow made from the heart,<br>kept for eternity`
+                    },
+                    questionsOverride: [
+                        {
+                            label: 'Promise Day Question',
+                            title: 'A promise to you',
+                            question: 'What promise means the most to you?',
+                            subtext: 'Let me promise you the world...',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or tell me your wish...',
+                            options: [
+                                'Always be honest',
+                                'Support your dreams',
+                                'Love you unconditionally',
+                                'Make you smile daily',
+                                'Grow together',
+                                'Never give up on us'
+                            ]
+                        }
+                    ],
+                    finalQuestionOverride: {
+                        title: '(making a promise)',
+                        question: `I promise to love you,<br>will you be my Valentine?`,
+                        note: `Today I promise you my heart,<br>tomorrow and every day after`
+                    }
+                },
+                '02-12': {
+                    quote: 'A kiss is a lovely trick designed by nature to stop speech when words become superfluous',
+                    author: 'Ingrid Bergman',
+                    welcomeOverride: {
+                        message: `In your kiss,<br>I find the words<br>we never need to say`,
+                        verse: '. . .',
+                        note: `When words fall short,<br>our hearts speak louder`
+                    },
+                    skipQuestions: true, // Skip questions and go straight to final question
+                    finalQuestionOverride: {
+                        title: '(leaning closer)',
+                        question: `May I kiss my Valentine?<br>Will you be mine?`,
+                        note: `In every kiss, I find home,<br>in you, I find forever`
+                    }
+                },
+                '02-13': {
+                    quote: 'The day before Valentine\'s Day is the calm before the storm of love',
+                    author: 'Unknown',
+                    welcomeOverride: {
+                        message: `Tomorrow we celebrate,<br>but today,<br>I just want to be with you`,
+                        verse: '. . .',
+                        note: `The anticipation of tomorrow,<br>the beauty of today<br><br>No questions today, my love.<br>Just this moment with you.`
+                    },
+                    skipQuestions: true,      // Skip questions
+                    skipFinalQuestion: true   // Skip final question (welcome message only)
+                },
+                '02-14': {
+                    quote: 'You are my today and all of my tomorrows',
+                    author: 'Leo Christopher',
+                    welcomeOverride: {
+                        message: `Happy Valentine\'s Day, Myav<br>You are my greatest love,<br>my dearest friend`,
+                        verse: 'Valentine\'s Day',
+                        note: `Every day with you is Valentine\'s,<br>but today, we celebrate us`
+                    }
+                    // Uses default questions for Valentine's Day (or you can add questionsOverride here too)
                 },
                 '03-15': {
                     quote: 'In all the world, there is no heart for me like yours',
@@ -941,6 +1544,7 @@
         let currentStep = 0;
         let answers = [];
         let noClickCount = 0;
+        let activeQuestions = []; // Stores the current set of questions being used
         
         // Get current date
         function getCurrentDate() {
@@ -973,6 +1577,9 @@
             // Set current date
             document.getElementById('currentDate').textContent = formatDate(today);
             
+            // Initialize animated background text
+            initializeBackgroundText();
+            
             // Check if it's Valentine's week
             if (isValentineWeek(dateKey)) {
                 // Show normal questionnaire
@@ -981,6 +1588,23 @@
                 // Show quote screen
                 showQuoteScreen(dateKey);
             }
+        }
+        
+        // Initialize animated background text from config
+        function initializeBackgroundText() {
+            const container = document.querySelector('.bg-text-container');
+            if (!container) return;
+            
+            // Clear existing text
+            container.innerHTML = '';
+            
+            // Add text from config
+            CONFIG.backgroundText.forEach((text, index) => {
+                const textElement = document.createElement('div');
+                textElement.className = 'bg-text';
+                textElement.textContent = text;
+                container.appendChild(textElement);
+            });
         }
         
         function showQuestionnaire() {
@@ -993,17 +1617,47 @@
                 document.querySelector('.bg-photo img').src = CONFIG.backgroundPhoto;
             }
             
-            // Initialize welcome screen
-            document.getElementById('welcomeMessage').innerHTML = CONFIG.welcome.message;
-            document.getElementById('welcomeVerse').innerHTML = CONFIG.welcome.verse;
-            document.getElementById('welcomeNote').innerHTML = CONFIG.welcome.note;
+            // Check if today has a welcome override (only if daily customization is enabled)
+            const today = getCurrentDate();
+            const dateKey = getDateKey(today);
+            const todayData = CONFIG.specialDates[dateKey];
+            
+            // Use welcome override if available AND daily customization is enabled
+            if (CONFIG.enableDailyCustomization && todayData && todayData.welcomeOverride) {
+                document.getElementById('welcomeMessage').innerHTML = todayData.welcomeOverride.message;
+                document.getElementById('welcomeVerse').innerHTML = todayData.welcomeOverride.verse;
+                document.getElementById('welcomeNote').innerHTML = todayData.welcomeOverride.note;
+            } else {
+                document.getElementById('welcomeMessage').innerHTML = CONFIG.welcome.message;
+                document.getElementById('welcomeVerse').innerHTML = CONFIG.welcome.verse;
+                document.getElementById('welcomeNote').innerHTML = CONFIG.welcome.note;
+            }
+            
+            // Check if we should skip everything (just welcome message)
+            if (CONFIG.enableDailyCustomization && todayData && todayData.skipQuestions && todayData.skipFinalQuestion) {
+                // Hide the continue button - this is just a greeting/message display
+                const continueBtn = document.querySelector('#step0 .btn-group');
+                if (continueBtn) {
+                    continueBtn.style.display = 'none';
+                }
+                
+                // Just display the message - no auto-send, no confetti
+                // User can simply read the message and close/navigate away when done
+                
+                return; // Don't generate questions or show final question
+            }
             
             // Generate questions
             generateQuestions();
             
-            // Initialize final question
-            document.getElementById('finalQuestion').innerHTML = CONFIG.finalQuestion.question;
-            document.getElementById('finalNote').innerHTML = CONFIG.finalQuestion.note;
+            // Use final question override if available AND daily customization is enabled
+            if (CONFIG.enableDailyCustomization && todayData && todayData.finalQuestionOverride) {
+                document.getElementById('finalQuestion').innerHTML = todayData.finalQuestionOverride.question;
+                document.getElementById('finalNote').innerHTML = todayData.finalQuestionOverride.note;
+            } else {
+                document.getElementById('finalQuestion').innerHTML = CONFIG.finalQuestion.question;
+                document.getElementById('finalNote').innerHTML = CONFIG.finalQuestion.note;
+            }
         }
         
         function showQuoteScreen(dateKey) {
@@ -1024,7 +1678,26 @@
         function generateQuestions() {
             const container = document.getElementById('questionSteps');
             
-            CONFIG.questions.forEach((q, index) => {
+            // Clear any existing questions
+            container.innerHTML = '';
+            
+            // Check if today has custom questions (only if daily customization is enabled)
+            const today = getCurrentDate();
+            const dateKey = getDateKey(today);
+            const todayData = CONFIG.specialDates[dateKey];
+            
+            // Check if we should skip questions entirely
+            if (CONFIG.enableDailyCustomization && todayData && todayData.skipQuestions) {
+                activeQuestions = [];
+                return; // Don't generate any question steps
+            }
+            
+            // Use custom questions if available AND daily customization is enabled
+            activeQuestions = (CONFIG.enableDailyCustomization && todayData && todayData.questionsOverride) 
+                ? todayData.questionsOverride 
+                : CONFIG.questions;
+            
+            activeQuestions.forEach((q, index) => {
                 const stepDiv = document.createElement('div');
                 stepDiv.className = 'step';
                 stepDiv.id = `step${index + 1}`;
@@ -1099,9 +1772,9 @@
         
         // Update progress indicators
         function updateAllProgress() {
-            const totalSteps = CONFIG.questions.length + 2;
+            const totalSteps = activeQuestions.length + 2;
             
-            CONFIG.questions.forEach((q, index) => {
+            activeQuestions.forEach((q, index) => {
                 const progressDiv = document.getElementById(`progress${index + 1}`);
                 let progressHTML = '';
                 for (let i = 0; i < totalSteps; i++) {
@@ -1145,9 +1818,9 @@
         
         // Navigation functions
         function nextStep() {
-            if (currentStep > 0 && currentStep <= CONFIG.questions.length) {
+            if (currentStep > 0 && currentStep <= activeQuestions.length) {
                 const qIndex = currentStep - 1;
-                const q = CONFIG.questions[qIndex];
+                const q = activeQuestions[qIndex];
                 
                 if (q.type === 'choice') {
                     const radio = document.querySelector(`input[name="q${qIndex}"]:checked`);
@@ -1167,11 +1840,74 @@
             steps[currentStep].classList.remove('active');
             
             currentStep++;
-            if (currentStep <= CONFIG.questions.length) {
-                document.getElementById(`step${currentStep}`).classList.add('active');
+            
+            // Check if we've finished all questions
+            if (currentStep > activeQuestions.length) {
+                // Check if we should skip the final question
+                const today = getCurrentDate();
+                const dateKey = getDateKey(today);
+                const todayData = CONFIG.specialDates[dateKey];
+                
+                if (CONFIG.enableDailyCustomization && todayData && todayData.skipFinalQuestion) {
+                    // Skip final question - send answers and redirect to WhatsApp
+                    sendAnswersToWhatsApp();
+                } else {
+                    // Show final question
+                    document.getElementById('finalStep').classList.add('active');
+                }
             } else {
-                document.getElementById('finalStep').classList.add('active');
+                // Show next question step
+                document.getElementById(`step${currentStep}`).classList.add('active');
             }
+        }
+        
+        // Function to send answers to WhatsApp without showing final question
+        function sendAnswersToWhatsApp() {
+            // Check if we should skip confetti (when skipFinalQuestion is true but skipQuestions is false)
+            const today = getCurrentDate();
+            const dateKey = getDateKey(today);
+            const todayData = CONFIG.specialDates[dateKey];
+            const shouldSkipConfetti = CONFIG.enableDailyCustomization && todayData && todayData.skipFinalQuestion;
+            
+            // Only trigger confetti if we're not skipping it
+            if (!shouldSkipConfetti) {
+                createConfetti();
+            }
+            
+            // Show sending overlay (with or without delay based on confetti)
+            const delay = shouldSkipConfetti ? 0 : 2000;
+            setTimeout(() => {
+                document.getElementById('sendingOverlay').classList.add('active');
+                
+                // Prepare WhatsApp message
+                let message = '';
+                
+                if (answers.length > 0) {
+                    message = `✨ My Answers ✨\n\n`;
+                    answers.forEach((answer, index) => {
+                        const q = activeQuestions[index];
+                        message += `${q.title}: ${answer}\n`;
+                    });
+                    message += `\n💕`;
+                } else {
+                    // No questions were asked, send a simple message
+                    message = `💕 Thinking of you 💕`;
+                }
+                
+                const encodedMessage = encodeURIComponent(message);
+                
+                let whatsappUrl;
+                if (CONFIG.whatsappNumber) {
+                    whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
+                } else {
+                    whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+                }
+                
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = whatsappUrl;
+                }, 1500);
+            }, delay);
         }
         
         function prevStep() {
@@ -1216,8 +1952,14 @@
             setTimeout(() => {
                 document.getElementById('sendingOverlay').classList.add('active');
                 
-                // Prepare WhatsApp message
-                const message = CONFIG.whatsappMessage(answers);
+                // Prepare WhatsApp message - create custom function call with activeQuestions
+                let message = `✨ She said YES! ✨\n\n`;
+                answers.forEach((answer, index) => {
+                    const q = activeQuestions[index];
+                    message += `${q.title}: ${answer}\n`;
+                });
+                message += `\nBest Valentine's ever! 💕`;
+                
                 const encodedMessage = encodeURIComponent(message);
                 
                 let whatsappUrl;
