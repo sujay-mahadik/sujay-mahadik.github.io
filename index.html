@@ -815,7 +815,7 @@
             line-height: 1.4;
         }
         
-        .valentine-note {
+        .valentine-note, .valentine-title {
             font-size: 1.1rem;
             color: var(--accent);
             text-align: center;
@@ -1129,6 +1129,7 @@
                 <div class="progress" id="finalProgress"></div>
                 
                 <div class="content">
+                    <p class="valentine-title" id="finalTitle"></p>
                     <p class="valentine-question" id="finalQuestion"></p>
                     <p class="valentine-note" id="finalNote"></p>
                     
@@ -1265,19 +1266,17 @@
                     }
                 },
                 '02-08': {
-                    quote: 'I would find you in any lifetime',
+                    quote: 'ye zulf agar khul ke bikhar jae to achchha is raat ki taqdir sanwar jae to achchha<br>jis tarah se thodi si tere sath kati hai baqi bhi usi tarah guzar jae to achchha<br>',
                     author: 'Unknown',
                     skipQuestions: true,
-                    skipFinalQuestion: true,
+                    skipFinalQuestion: false,
                     welcomeOverride: {
-                        message: `Will you be mine?<br>Not just for today,<br>but for all our tomorrows`,
+                        message: `ye zulf agar khul ke bikhar jae to achchha<br>is raat ki taqdir sanwar jae to achchha<br><br>jis tarah se thodi si tere sath kati hai<br>baqi bhi usi tarah guzar jae to achchha<br>`,
                         verse: '. . .',
-                        note: `A question asked with hope,<br>answered with a heart full of yes`
+                        note: `(heart racing)`
                     },
                     questionsOverride: [
                         {
-                            label: 'Propose Day Question',
-                            title: 'Our future together',
                             question: 'What dream do you want us to chase together?',
                             subtext: 'Let\'s dream big...',
                             type: 'choice',
@@ -1292,12 +1291,7 @@
                                 'Support each other\'s goals'
                             ]
                         }
-                    ],
-                    finalQuestionOverride: {
-                        title: '(on one knee)',
-                        question: `Myav, will you be<br>my Valentine forever?`,
-                        note: `Today I propose not just my love,<br>but my life, my dreams, my everything`
-                    }
+                    ]
                 },
                 '02-09': {
                     quote: 'All you need is love. But a little chocolate now and then doesn\'t hurt',
@@ -1508,31 +1502,28 @@
             
             // ===== FINAL QUESTION =====
             finalQuestion: {
-                title: '(heart racing)',
-                question: `Hey Myav, Will you be<br>my Valentine?`,
-                note: `Yes, I am lost.<br>But not in you.<br>I could spend my days watching your hands work<br>and I can't live myself<br>'cause I know you'd die for me`,
+                title: 'sixteen years since we met,<br>almost three years since you said yes to be my girl<br>but this question i want to keep asking for the rest of our lives',
+                question: `hey myav, will you be<br>my valentine?`,
+                note: `and am always gonna feel nervous about what you gonna say`,
                 mischiefMessages: [
                     "That button doesn't work... try the other one",
                     "Come on now...",
-                    "Oops! Try again 😉",
-                    "Hmm… I think that button is shy",
+                    "Are you sure? Maybe double-check ❤️",
                     "I bet you can’t resist saying yes",
                     "Keep trying… but you know the right answer",
-                    "Are you sure? Maybe double-check ❤️",
-                    "Try the other button… it’s magical ✨",
-                    "Nope, that’s not it! Think again 💕",
+                    "Bas jhala!",
                     "Just say yes already"
                 ]
             },
             
             // ===== WHATSAPP MESSAGE =====
             whatsappMessage: (answers) => {
-                let message = `✨ She said YES! ✨\n\n`;
+                let message = `✨ YES! ✨\n\n`;
                 answers.forEach((answer, index) => {
                     const q = CONFIG.questions[index];
                     message += `${q.title}: ${answer}\n`;
                 });
-                message += `\nBest Valentine's ever! 💕`;
+                message += `\n`;
                 return message;
             }
         };
@@ -1655,6 +1646,7 @@
                 document.getElementById('finalQuestion').innerHTML = todayData.finalQuestionOverride.question;
                 document.getElementById('finalNote').innerHTML = todayData.finalQuestionOverride.note;
             } else {
+                document.getElementById('finalTitle').innerHTML = CONFIG.finalQuestion.title;
                 document.getElementById('finalQuestion').innerHTML = CONFIG.finalQuestion.question;
                 document.getElementById('finalNote').innerHTML = CONFIG.finalQuestion.note;
             }
@@ -1935,8 +1927,14 @@
                 } else if (noClickCount === 1) {
                     noBtn.textContent = 'Maybe?';
                 } else if (noClickCount === 2) {
-                    noBtn.textContent = 'Maybe?';
-                }  else {
+                    noBtn.textContent = 'Maybe? :(';
+                } else if (noClickCount === 3) {
+                    noBtn.textContent = 'Really? :`(';
+                } else if (noClickCount === 4) {
+                    noBtn.textContent = 'Pakka?';
+                }else if (noClickCount === 5) {
+                    noBtn.textContent = 'Kharach nahi?';
+                }else {
                     noBtn.style.display = 'none';
                 }
                 
@@ -1953,12 +1951,12 @@
                 document.getElementById('sendingOverlay').classList.add('active');
                 
                 // Prepare WhatsApp message - create custom function call with activeQuestions
-                let message = `✨ She said YES! ✨\n\n`;
+                let message = `✨ YES! ✨\n\n`;
                 answers.forEach((answer, index) => {
                     const q = activeQuestions[index];
                     message += `${q.title}: ${answer}\n`;
                 });
-                message += `\nBest Valentine's ever! 💕`;
+                message += ``;
                 
                 const encodedMessage = encodeURIComponent(message);
                 
