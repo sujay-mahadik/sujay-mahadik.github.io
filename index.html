@@ -545,15 +545,17 @@
             position: relative;
             z-index: 2;
             margin-bottom: 4rem; /* add space for scrolling on mobile */
+            /* fill-opacity: 0.5; */
         }
         
         .card {
-            background: rgba(254, 253, 251, 0.95);
+            background: rgba(254, 253, 251, 0.5);
             padding: 4rem 3rem;
             position: relative;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(139, 64, 73, 0.15);
             backdrop-filter: blur(10px);
+            opacity: 0.5;
         }
         
         .card::before {
@@ -1157,8 +1159,8 @@
             // ===== TEST MODE =====
             // Set to true to test post-Valentine's quote screen
             // Set to false for normal operation
-            testMode: false,
-            testDate: '2026-02-08', // Use format: 'YYYY-MM-DD' (only used if testMode is true)
+            testMode: true,
+            testDate: '2026-02-14', // Use format: 'YYYY-MM-DD' (only used if testMode is true)
             
             // ===== VALENTINE'S WEEK SETTINGS =====
             // Set to true to use different questions/messages each day of Valentine's week
@@ -1294,45 +1296,42 @@
                     ]
                 },
                 '02-09': {
-                    quote: 'All you need is love. But a little chocolate now and then doesn\'t hurt',
-                    author: 'Charles M. Schulz',
+                    quote: '',
+                    author: '',
+                    skipQuestions: false,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `Life is like a box of chocolates,<br>and with you,<br>I always get the best one`,
+                        message: `aaj dekha hai tujh ko der ke baad<br>aaj ka din guzar na jae kahin`,
                         verse: '. . .',
-                        note: `Sweet moments,<br>sweeter memories`
+                        note: ``
                     },
                     questionsOverride: [
                         {
-                            label: 'Chocolate Day Question',
-                            title: 'Sweet indulgence',
-                            question: 'Pick your favorite chocolate treat',
-                            subtext: 'Because you deserve the sweetest things',
+                            label: '',
+                            title: 'sweets for my myav',
+                            question: 'pick your choice for the day',
+                            subtext: 'because you deserve the sweetest things',
                             type: 'choice',
                             allowCustom: true,
                             customPlaceholder: 'or your favorite sweet...',
                             options: [
-                                'Dark Chocolate',
-                                'Milk Chocolate',
-                                'Ferrero Rocher',
-                                'Godiva Truffles',
-                                'Lindt',
-                                'Chocolate Cake'
+                                'dark chocolate',
+                                'tiramisu',
+                                'cheese cake',
+                                'chocolate cake'
                             ]
                         }
-                    ],
-                    finalQuestionOverride: {
-                        title: '(offering chocolates)',
-                        question: `Sweet Myav,<br>will you be my Valentine?`,
-                        note: `Like chocolate melts in your mouth,<br>my heart melts for you`
-                    }
+                    ]
                 },
                 '02-10': {
-                    quote: 'A teddy bear is a faithful friend you can pick him up at either end',
-                    author: 'Unknown',
+                    skipQuestions: true,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `You\'re my comfort,<br>my warmth,<br>my constant`,
-                        verse: '. . .',
-                        note: `Like a teddy bear\'s embrace,<br>your love surrounds me`
+                        message: `
+<br>tum jiyo hazaaron saal
+<br>saal ke din ho pachaas hazaar ..`,
+                        verse: 'Happy Birthday Baby Girl!',
+                        note: ``
                     },
                     questionsOverride: [
                         {
@@ -1356,89 +1355,108 @@
                     skipFinalQuestion: true  // Skip the final Valentine question on this day
                 },
                 '02-11': {
-                    quote: 'I promise to love you forever, every single day of forever',
-                    author: 'Stephenie Meyer',
+                    skipQuestions: true,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `I promise to choose you,<br>every single day,<br>in every lifetime`,
-                        verse: '. . .',
-                        note: `A vow made from the heart,<br>kept for eternity`
-                    },
-                    questionsOverride: [
-                        {
-                            label: 'Promise Day Question',
-                            title: 'A promise to you',
-                            question: 'What promise means the most to you?',
-                            subtext: 'Let me promise you the world...',
-                            type: 'choice',
-                            allowCustom: true,
-                            customPlaceholder: 'or tell me your wish...',
-                            options: [
-                                'Always be honest',
-                                'Support your dreams',
-                                'Love you unconditionally',
-                                'Make you smile daily',
-                                'Grow together',
-                                'Never give up on us'
-                            ]
-                        }
-                    ],
-                    finalQuestionOverride: {
-                        title: '(making a promise)',
-                        question: `I promise to love you,<br>will you be my Valentine?`,
-                        note: `Today I promise you my heart,<br>tomorrow and every day after`
+                        message: `khushi ho gham ho hairat ho koi jazba ho<br>
+                        
+                        is mein jab kahin ek mod aae to wahan pal bhar ko<br>
+                        
+                        sari duniya pichhe chhut jati hai wahan pal bhar ko<br>
+                        is kath-putli jaisi zindagi ki dori tut jati hai<br>
+                        mujhe us mod par bas ek tumhaari hi zarurat hai<br><br>
+
+                        magar ye zindagi ki khubsurat ek haqiqat hai<br>
+                        ki meri rah mein jab aisa koi mod aaya hai<br>
+                        to har us mod par main ne<br>
+                        tumhein ham-rah paya hai<br>
+`,
+                        verse: 'promise to be with you all along and always, muah',
+                        note: `hope you like the small gift! its just a start tho :P`
                     }
                 },
                 '02-12': {
-                    quote: 'A kiss is a lovely trick designed by nature to stop speech when words become superfluous',
-                    author: 'Ingrid Bergman',
+                    skipQuestions: false,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `In your kiss,<br>I find the words<br>we never need to say`,
+                        message: `tum us tarah ki ladki ho<br>
+                        jiski tasveer batuye mai rakhi jaati hai<br>
+                        jiske aane ki khabar khud titliya le kar aati hai <br>
+                        jiske inaam se mardon mai jung chidd jati hai<br><br>
+                        tum us tarah ki ladki ho<br>
+                        jis pe ghazalein likhe jaati ho<br>
+                        chaand ko dekh kar tumhari yaad aati hai<br>
+                        tum us tarah ki ladki ho<br>`,
                         verse: '. . .',
-                        note: `When words fall short,<br>our hearts speak louder`
+                        note: `logs of hugs forever`
                     },
-                    skipQuestions: true, // Skip questions and go straight to final question
-                    finalQuestionOverride: {
-                        title: '(leaning closer)',
-                        question: `May I kiss my Valentine?<br>Will you be mine?`,
-                        note: `In every kiss, I find home,<br>in you, I find forever`
-                    }
+                    questionsOverride :[
+                        {
+                            label: '',
+                            title: 'A gift for you',
+                            question: 'Pick a gadget as a gift for yourself this year',
+                            subtext: 'You deserve all the things in the world my love',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or type in if its something else...',
+                            options: [
+                                'DJI Osmo',
+                                'Dyson Airwrap',
+                                'AirPods',
+                                'Espresso Machine'
+                            ]
+                        }
+                    ]
                 },
                 '02-13': {
                     quote: 'The day before Valentine\'s Day is the calm before the storm of love',
                     author: 'Unknown',
+                    skipQuestions: false,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `Tomorrow we celebrate,<br>but today,<br>I just want to be with you`,
+                        message: `raat bhar tareef karte rahe apki chand se,<br>chand itna jala ki subhe tak suraj ho gaya`,
                         verse: '. . .',
-                        note: `The anticipation of tomorrow,<br>the beauty of today<br><br>No questions today, my love.<br>Just this moment with you.`
+                        note: `muah muah muaaah!<br>a thousand kisses for my love`
                     },
-                    skipQuestions: true,      // Skip questions
-                    skipFinalQuestion: true   // Skip final question (welcome message only)
+                    questionsOverride : [
+                        {
+                            label: '',
+                            title: 'Where shall we go?',
+                            question: 'Pick a city you wanna travel this year',
+                            subtext: 'Can you believe we have travelled to 7 countries together already!',
+                            type: 'choice',
+                            allowCustom: true,
+                            customPlaceholder: 'or type in if its some other place...',
+                            options: [
+                                'Bali',
+                                'Lisbon',
+                                'Budapest',
+                                'Mallorca',
+                                'Lapland',
+                                'Amalfi Coast'
+                            ]
+                        },
+                    ]
                 },
                 '02-14': {
-                    quote: 'You are my today and all of my tomorrows',
-                    author: 'Leo Christopher',
+                    quote: `mai tumhari aakho mai pyar bankar rehta hu,<br>
+                    noor bankar basta hu,<br>
+                    khwaab bankar zinda hu,<br>
+                    mere saare khwaabon ko<rbr>
+                    in haseen aakhon se ek kone mai tum chupa ke rakh lena`,
+                    author: '',
+                    skipQuestions: true,
+                    skipFinalQuestion: true,
                     welcomeOverride: {
-                        message: `Happy Valentine\'s Day, Myav<br>You are my greatest love,<br>my dearest friend`,
-                        verse: 'Valentine\'s Day',
-                        note: `Every day with you is Valentine\'s,<br>but today, we celebrate us`
+                        message: `mai tumhari aakho mai pyar bankar rehta hu,<br>
+                    noor bankar basta hu,<br>
+                    khwaab bankar zinda hu,<br>
+                    mere saare khwaabon ko<rbr>
+                    in haseen aakhon se ek kone mai tum chupa ke rakh lena`,
+                        verse: 'happy valentines day my love!',
+                        note: `. . .`
                     }
                     // Uses default questions for Valentine's Day (or you can add questionsOverride here too)
-                },
-                '03-15': {
-                    quote: 'In all the world, there is no heart for me like yours',
-                    author: 'Maya Angelou'
-                },
-                '06-01': {
-                    quote: 'I love you not only for what you are, but for what I am when I am with you',
-                    author: 'Roy Croft'
-                },
-                '09-20': {
-                    quote: 'Whatever our souls are made of, his and mine are the same',
-                    author: 'Emily Brontë'
-                },
-                '12-25': {
-                    quote: 'The best thing to hold onto in life is each other',
-                    author: 'Audrey Hepburn'
                 }
                 // Add more dates as needed
             },
@@ -1454,7 +1472,7 @@
             valentineWeekEnd: '02-14',
             
             // ===== BACKGROUND & SETTINGS =====
-            backgroundPhoto: 'background.jpg',
+            backgroundPhoto: 'background_paris.jpg',
             whatsappNumber: '',
             
             // ===== WELCOME SCREEN =====
