@@ -11,6 +11,16 @@
 </head>
 <body>
 
+<!-- loading screen -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-mark">S.</div>
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
 <div class="band">
   <div class="band-track" id="band"></div>
 </div>
@@ -136,6 +146,10 @@
     <div id="modal-body"></div>
   </div>
 </div>
+
+<!-- custom cursor -->
+<div id="cursor-dot"  aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
 
 <script src="src/content.js"></script>
 <script src="src/render.js"></script>

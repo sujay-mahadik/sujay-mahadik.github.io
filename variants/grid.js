@@ -7,6 +7,8 @@
   const $ = (id) => document.getElementById(id);
   const root = document.documentElement;
 
+  const loader = $('loader');
+
   // ─── Theme toggle ──────────────────────────────────────────
   root.dataset.theme  = localStorage.getItem('grid-theme')  || 'dark';
   root.dataset.accent = localStorage.getItem('grid-accent') || 'warm';
@@ -17,6 +19,36 @@
       localStorage.setItem('grid-theme', root.dataset.theme);
     });
   }
+
+  // ─── Custom cursor ─────────────────────────────────────────
+  (() => {
+    const dot  = $('cursor-dot');
+    const ring = $('cursor-ring');
+    if (!dot || !ring) return;
+    if (!window.matchMedia('(pointer: fine)').matches) {
+      dot.remove(); ring.remove(); return;
+    }
+
+    let mx = -200, my = -200, rx = -200, ry = -200;
+
+    const INTERACTIVE = 'a, button, [data-modal], .tg, .modal-close, .frame, label';
+
+    (function tick() {
+      rx += (mx - rx) * 0.13;
+      ry += (my - ry) * 0.13;
+      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(tick);
+    })();
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    document.addEventListener('mouseleave', () => root.classList.add('cursor-hidden'));
+    document.addEventListener('mouseenter', () => root.classList.remove('cursor-hidden'));
+    document.addEventListener('mouseover',  e => { if (e.target.closest(INTERACTIVE)) ring.classList.add('expanded'); });
+    document.addEventListener('mouseout',   e => { if (e.target.closest(INTERACTIVE)) ring.classList.remove('expanded'); });
+  })();
 
   // ─── Load everything ───────────────────────────────────────
   const [profile, now, contact, timeline, reading, certs, art, fieldNotes] = await Promise.all([
@@ -30,6 +62,12 @@
     Content.loadCollection('poetry', Content.MANIFESTS.poetry),
     Content.loadCollection('zines', Content.MANIFESTS.zines),
   ]);
+
+  // ─── Dismiss loader ────────────────────────────────────────
+  if (loader) {
+    loader.classList.add('done');
+    loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+  }
 
   // ─── Marquee: influences ───────────────────────────────────
   if (reading && reading.influences) {

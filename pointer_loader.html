@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pointer + loader samples</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── Shared token system (mirrors grid.css) ─── */
+:root {
+  --bg: #0c0d12;
+  --bg-2: #12141c;
+  --card: #191c28;
+  --card-2: #1e2232;
+  --card-hi: #24283c;
+  --ink: #eceef5;
+  --ink-2: #9098b0;
+  --ink-3: #606880;
+  --line: rgba(236,238,245,0.08);
+  --line-2: rgba(236,238,245,0.15);
+  --spark: #ddb060;
+  --spark-soft: color-mix(in srgb, var(--spark) 16%, transparent);
+  --r: 22px;
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+[data-theme="light"] {
+  --bg: #eef0f6;
+  --bg-2: #e4e7f0;
+  --card: #f6f7fc;
+  --card-2: #eceef8;
+  --card-hi: #e2e5f2;
+  --ink: #14161e;
+  --ink-2: #545870;
+  --ink-3: #8a8ea8;
+  --line: rgba(20,22,30,0.10);
+  --line-2: rgba(20,22,30,0.18);
+  --spark: #8a5c0a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  /* hide native cursor globally — custom cursor replaces it */
+  cursor: none;
+}
+
+/* ─── Page chrome ─── */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+}
+.page-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.page-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  margin-bottom: 56px;
+}
+.section {
+  margin-bottom: 64px;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+h2 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+p {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  max-width: 560px;
+}
+
+/* ─── Theme toggle ─── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+}
+.tg {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  background: var(--card);
+  color: var(--ink-2);
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.tg:hover { background: var(--card-hi); color: var(--ink); }
+
+/* option cards */
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.opt {
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  padding: 20px;
+  transition: border-color .2s;
+}
+.opt:hover { border-color: var(--spark); }
+.opt-name {
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--spark);
+  margin-bottom: 6px;
+}
+.opt-desc {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ──────────────────────────────────────────
+   1. CUSTOM CURSOR — three styles
+   ────────────────────────────────────────── */
+
+/* Base cursor dot — follows mouse */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* — Style A: Difference circle (recommended) — */
+/* A solid white circle with mix-blend-mode:difference
+   naturally inverts whatever is beneath it */
+#cursor-a {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition: width .18s ease, height .18s ease, opacity .18s ease;
+}
+#cursor-a.expanded {
+  width: 52px; height: 52px;
+}
+#cursor-a.hidden { opacity: 0; }
+
+/* — Style B: Outlined ring with theme spark fill on hover — */
+#cursor-b {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-2);
+  background: transparent;
+  transition: width .2s ease, height .2s ease,
+              background .2s ease, border-color .2s ease,
+              opacity .2s ease;
+}
+#cursor-b.expanded {
+  width: 48px; height: 48px;
+  background: var(--spark-soft);
+  border-color: var(--spark);
+}
+#cursor-b.hidden { opacity: 0; }
+
+/* — Style C: Dot + large trailing ring — */
+#cursor-c-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--spark);
+  transition: transform .1s ease, opacity .18s;
+}
+#cursor-c-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink-3);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: width .2s ease, height .2s ease,
+              border-color .2s ease, opacity .18s;
+}
+#cursor-c-ring.expanded {
+  width: 52px; height: 52px;
+  border-color: var(--spark);
+}
+#cursor-c-ring.hidden { opacity: 0; }
+
+/* Demo areas for cursor section */
+.cursor-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.demo-zone {
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  padding: 28px 20px;
+  min-height: 140px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.demo-zone-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+.demo-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--spark-soft);
+  color: var(--spark);
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: var(--mono);
+  border: 1px solid color-mix(in srgb, var(--spark) 30%, transparent);
+  align-self: flex-start;
+}
+.demo-img-placeholder {
+  width: 100%;
+  height: 70px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--card-2) 0%, var(--card-hi) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--ink-3);
+}
+
+/* Active cursor selector */
+.cursor-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.cs-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  background: var(--card);
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  cursor: none;
+  transition: all .2s;
+}
+.cs-btn.active, .cs-btn:hover {
+  border-color: var(--spark);
+  color: var(--spark);
+  background: var(--spark-soft);
+}
+
+
+/* ──────────────────────────────────────────
+   2. LOADING SCREEN — three styles
+   ────────────────────────────────────────── */
+
+.loader-demos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.loader-preview {
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  overflow: hidden;
+  position: relative;
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none;
+}
+
+.preview-label {
+  position: absolute;
+  bottom: 14px; left: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* — Loader A: Wordmark fade + progress bar — */
+.loader-a {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px;
+}
+.la-mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  color: var(--ink);
+  animation: la-pulse 2s ease-in-out infinite;
+}
+@keyframes la-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.la-bar-track {
+  width: 80px;
+  height: 1.5px;
+  background: var(--line-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.la-bar-fill {
+  height: 100%;
+  background: var(--spark);
+  border-radius: 2px;
+  animation: la-fill 2.5s ease-in-out infinite;
+}
+@keyframes la-fill {
+  0% { width: 0%; }
+  60% { width: 90%; }
+  80% { width: 90%; }
+  100% { width: 100%; opacity: 0; }
+}
+
+/* — Loader B: Full dark sweep reveal — */
+.loader-b {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.lb-curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-2);
+  transform-origin: bottom;
+  animation: lb-rise 2.5s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+@keyframes lb-rise {
+  0% { transform: scaleY(1); }
+  65% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+.lb-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  position: relative;
+  z-index: 1;
+}
+
+/* — Loader C: Spark dot bounce — */
+.loader-c {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.lc-dots {
+  display: flex; gap: 7px; align-items: flex-end;
+}
+.lc-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--spark);
+}
+.lc-dot:nth-child(1) { animation: lc-bounce 1.1s ease-in-out -.22s infinite; }
+.lc-dot:nth-child(2) { animation: lc-bounce 1.1s ease-in-out -.11s infinite; }
+.lc-dot:nth-child(3) { animation: lc-bounce 1.1s ease-in-out 0s infinite; }
+@keyframes lc-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-10px); opacity: 1; }
+}
+
+/* Trigger buttons */
+.loader-triggers {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.trigger-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  background: var(--card);
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  cursor: none;
+  transition: all .2s;
+}
+.trigger-btn:hover {
+  border-color: var(--spark);
+  color: var(--spark);
+  background: var(--spark-soft);
+}
+
+/* Full-screen loader overlay (triggered by buttons) */
+#loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  pointer-events: none;
+  opacity: 0;
+}
+#loader-overlay.visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+/* Overlay A */
+#loader-overlay.style-a {
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px;
+  transition: opacity .5s ease;
+}
+#loader-overlay.style-a.fade-out {
+  opacity: 0;
+  transition: opacity .6s ease .2s;
+}
+#loader-overlay.style-a .la-mark {
+  font-size: 42px;
+  animation: none;
+}
+#loader-overlay.style-a .la-bar-track {
+  width: 120px;
+}
+
+/* Overlay B */
+#loader-overlay.style-b {
+  background: var(--bg-2);
+  display: flex; align-items: center; justify-content: center;
+  transition: none;
+}
+#loader-overlay.style-b.fade-out {
+  animation: lb-exit .9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+@keyframes lb-exit {
+  0% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(100% 0 0 0); }
+}
+#loader-overlay.style-b .lb-text {
+  font-size: 13px;
+}
+
+/* Overlay C */
+#loader-overlay.style-c {
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .4s ease;
+}
+#loader-overlay.style-c.fade-out { opacity: 0; }
+
+
+/* ──────────────────────────────────────────
+   3. IMAGE LOADING — skeleton + lazy
+   ────────────────────────────────────────── */
+
+.img-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.img-card {
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.img-thumb {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--card-2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Skeleton state */
+.img-thumb.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--ink) 5%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Loaded state */
+.img-thumb.loaded {
+  background-color: transparent;
+}
+.img-thumb.loaded::after { display: none; }
+.img-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .5s ease;
+  display: block;
+}
+.img-thumb.loaded img { opacity: 1; }
+
+.img-card-body {
+  padding: 14px;
+}
+.img-card-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.img-card-meta {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  margin: 0;
+}
+
+/* Blur-up variant */
+.img-thumb.blurred img {
+  filter: blur(12px) scale(1.05);
+  opacity: 1;
+  transform: scale(1.06);
+  transition: filter .6s ease, transform .6s ease, opacity .3s ease;
+}
+.img-thumb.blurred.loaded img {
+  filter: none;
+  transform: scale(1);
+}
+
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: var(--line);
+  margin: 56px 0;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─ CUSTOM CURSORS ─ -->
+<!-- Style A: difference blend (active by default) -->
+<div class="cursor" id="cursor-a"></div>
+
+<!-- Style B: outlined ring with spark hover -->
+<div class="cursor" id="cursor-b" style="display:none"></div>
+
+<!-- Style C: dot + trailing ring -->
+<div class="cursor" id="cursor-c-dot" style="display:none"></div>
+<div id="cursor-c-ring" style="display:none"></div>
+
+<!-- ─ LOADER OVERLAY ─ -->
+<div id="loader-overlay" role="status" aria-live="polite"></div>
+
+<!-- ─ PAGE ─ -->
+<div class="page">
+
+  <div class="topbar">
+    <div>
+      <div class="page-title">pointer &amp; loader samples</div>
+      <div class="page-sub">interactive design explorations — move your mouse around each zone</div>
+    </div>
+    <button class="tg" id="theme-tg" title="Toggle theme">◐</button>
+  </div>
+
+
+  <!-- ═══ SECTION 1: CURSOR ═══ -->
+  <div class="section">
+    <div class="section-label">01 — custom cursor</div>
+    <h2>Circular pointer with inverse-theme hover</h2>
+    <p>Three approaches to a custom cursor. All hide the native pointer and replace it with a circular element that reacts to hoverable content. Pick a style to try it live — move around the page.</p>
+
+    <div class="cursor-selector">
+      <button class="cs-btn active" data-style="a">A — difference blend</button>
+      <button class="cs-btn" data-style="b">B — spark ring</button>
+      <button class="cs-btn" data-style="c">C — dot + trail</button>
+    </div>
+
+    <div class="options" style="margin-bottom: 24px;">
+      <div class="opt">
+        <div class="opt-name">A — difference blend ★ rec</div>
+        <div class="opt-desc">White circle, <code style="font-family:var(--mono);font-size:11px;color:var(--spark)">mix-blend-mode:difference</code>. Inverts any color beneath it — works in dark <em>and</em> light mode automatically. No JS color logic needed.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">B — spark ring</div>
+        <div class="opt-desc">Outlined circle that expands and fills with the amber/spark accent on hovered links and interactive elements. Matches the site's accent system precisely.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">C — dot + trail ring</div>
+        <div class="opt-desc">Small dot at the exact mouse position, plus a larger ring that lags slightly. More editorial/expressive — the ring turns spark on hover.</div>
+      </div>
+    </div>
+
+    <div class="cursor-demo-grid">
+      <div class="demo-zone">
+        <div class="demo-zone-label">text area</div>
+        <p style="font-size:13px;color:var(--ink-2);margin:0">Hover over this card and the card below to see contrast.</p>
+      </div>
+      <div class="demo-zone" style="background:var(--contrast);color:var(--contrast-ink)">
+        <div class="demo-zone-label" style="color:rgba(0,0,0,0.4)">contrast surface</div>
+        <p style="font-size:13px;color:rgba(0,0,0,0.5);margin:0">This card uses the high-contrast token — cursor inverts here too.</p>
+      </div>
+      <div class="demo-zone">
+        <div class="demo-zone-label">interactive</div>
+        <span class="demo-btn">hover me →</span>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--ink-3);font-family:var(--mono);margin:0">
+      cursor-a uses <code>mix-blend-mode: difference</code> — automatic inversion, zero theme coupling.<br>
+      cursor-b/c react to <code>[data-hoverable]</code> attribute on interactive elements.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══ SECTION 2: LOADING SCREEN ═══ -->
+  <div class="section">
+    <div class="section-label">02 — loading screen</div>
+    <h2>Full-screen preloader while content fetches</h2>
+    <p>Three visual styles for the preloader. It covers the page until all <code style="font-family:var(--mono);font-size:12px;color:var(--spark)">Promise.all()</code> fetches resolve in grid.js, then exits with an animation.</p>
+
+    <div class="loader-demos">
+      <div class="loader-preview">
+        <div class="loader-a">
+          <div class="la-mark">S.</div>
+          <div class="la-bar-track"><div class="la-bar-fill"></div></div>
+        </div>
+        <div class="preview-label">A — wordmark + bar</div>
+      </div>
+      <div class="loader-preview">
+        <div class="loader-b">
+          <div class="lb-curtain"></div>
+          <span class="lb-text">loading</span>
+        </div>
+        <div class="preview-label">B — curtain reveal ★ rec</div>
+      </div>
+      <div class="loader-preview">
+        <div class="loader-c">
+          <div class="lc-dots">
+            <div class="lc-dot"></div>
+            <div class="lc-dot"></div>
+            <div class="lc-dot"></div>
+          </div>
+        </div>
+        <div class="preview-label">C — dot bounce</div>
+      </div>
+    </div>
+
+    <div class="options" style="margin-bottom: 24px;">
+      <div class="opt">
+        <div class="opt-name">A — wordmark + progress bar</div>
+        <div class="opt-desc">Italic "S." wordmark pulses while loading. A thin spark-colored bar fills to signal real progress. Minimal, typographic, on-brand.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">B — curtain reveal ★ rec</div>
+        <div class="opt-desc">Full dark panel slides up to reveal the page underneath. Fast, cinematic, zero extra elements. The exit animation becomes the first thing the visitor sees.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">C — dot bounce</div>
+        <div class="opt-desc">Three spark-colored dots bounce in sequence. Familiar, lightweight, works at any screen size. Simplest to implement.</div>
+      </div>
+    </div>
+
+    <div class="loader-triggers">
+      <button class="trigger-btn" data-loader="a">preview A (2.5s)</button>
+      <button class="trigger-btn" data-loader="b">preview B (2.5s)</button>
+      <button class="trigger-btn" data-loader="c">preview C (2.5s)</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══ SECTION 3: IMAGE LOADING ═══ -->
+  <div class="section">
+    <div class="section-label">03 — image loading</div>
+    <h2>Skeleton shimmer + lazy intersection loading</h2>
+    <p>Images in the bento grid currently load immediately with no feedback. Two improvements: a shimmer skeleton replaces the blank space while loading, and an Intersection Observer fires the actual fetch only when the card enters the viewport.</p>
+
+    <div class="options" style="margin-bottom: 24px;">
+      <div class="opt">
+        <div class="opt-name">skeleton shimmer</div>
+        <div class="opt-desc">Cards show an animated shimmer in the card background color until the image is fully downloaded. Works for both <code style="font-family:var(--mono);font-size:11px;color:var(--spark)">background-image</code> and <code style="font-family:var(--mono);font-size:11px;color:var(--spark)">&lt;img&gt;</code> elements.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">blur-up reveal</div>
+        <div class="opt-desc">Image appears blurred (from a cached tiny placeholder), then sharpens as the full image loads. Feels responsive even on slow connections.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-name">lazy intersection ★ rec</div>
+        <div class="opt-desc">Background images are stored in <code style="font-family:var(--mono);font-size:11px;color:var(--spark)">data-src</code> and only loaded when the element scrolls into view — cuts initial page weight significantly.</div>
+      </div>
+    </div>
+
+    <div class="img-demo-grid" id="img-demo">
+      <!-- Cards populated by JS below -->
+    </div>
+
+    <p style="font-size:12px;color:var(--ink-3);font-family:var(--mono);margin-top:16px;margin-bottom:0">
+      click "reload images" to replay the skeleton → loaded transition
+    </p>
+    <button class="trigger-btn" id="reload-imgs" style="margin-top:12px">reload images</button>
+  </div>
+
+</div><!-- /page -->
+
+
+<script>
+/* ─────────────────────────────────────────
+   CURSOR LOGIC
+───────────────────────────────────────── */
+const cursors = {
+  a: document.getElementById('cursor-a'),
+  b: document.getElementById('cursor-b'),
+  cDot: document.getElementById('cursor-c-dot'),
+  cRing: document.getElementById('cursor-c-ring'),
+};
+
+let activeCursorStyle = 'a';
+let mouseX = -200, mouseY = -200;
+let ringX = -200, ringY = -200;
+
+// Smooth ring position (for style C lag effect)
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  if (activeCursorStyle === 'c') {
+    cursors.cRing.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+  }
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  const t = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+  if (activeCursorStyle === 'a') cursors.a.style.transform = t;
+  if (activeCursorStyle === 'b') cursors.b.style.transform = t;
+  if (activeCursorStyle === 'c') cursors.cDot.style.transform = t;
+});
+
+document.addEventListener('mouseleave', () => {
+  [cursors.a, cursors.b, cursors.cDot, cursors.cRing].forEach(el => {
+    if (el) el.classList.add('hidden');
+  });
+});
+document.addEventListener('mouseenter', () => {
+  [cursors.a, cursors.b, cursors.cDot, cursors.cRing].forEach(el => {
+    if (el) el.classList.remove('hidden');
+  });
+});
+
+// Expand cursor on interactive elements
+const interactiveSelector = 'a, button, .opt, .demo-btn, .demo-zone, .trigger-btn, .cs-btn, .img-card, [data-hoverable]';
+document.addEventListener('mouseover', e => {
+  const target = e.target.closest(interactiveSelector);
+  if (target) {
+    cursors.a.classList.add('expanded');
+    cursors.b.classList.add('expanded');
+    cursors.cRing.classList.add('expanded');
+  }
+});
+document.addEventListener('mouseout', e => {
+  const target = e.target.closest(interactiveSelector);
+  if (target) {
+    cursors.a.classList.remove('expanded');
+    cursors.b.classList.remove('expanded');
+    cursors.cRing.classList.remove('expanded');
+  }
+});
+
+// Switch cursor styles
+function setActiveCursor(style) {
+  activeCursorStyle = style;
+  cursors.a.style.display = style === 'a' ? 'block' : 'none';
+  cursors.b.style.display = style === 'b' ? 'block' : 'none';
+  cursors.cDot.style.display = style === 'c' ? 'block' : 'none';
+  cursors.cRing.style.display = style === 'c' ? 'block' : 'none';
+}
+
+document.querySelectorAll('.cs-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cs-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    setActiveCursor(btn.dataset.style);
+  });
+});
+
+
+/* ─────────────────────────────────────────
+   LOADER LOGIC
+───────────────────────────────────────── */
+const overlay = document.getElementById('loader-overlay');
+
+function showLoader(style) {
+  // Reset
+  overlay.className = '';
+  overlay.innerHTML = '';
+
+  if (style === 'a') {
+    overlay.innerHTML = `
+      <div class="la-mark">S.</div>
+      <div class="la-bar-track"><div class="la-bar-fill" id="la-fill-live"></div></div>
+    `;
+    overlay.classList.add('visible', 'style-a');
+    // Simulate real progress
+    let pct = 0;
+    const fill = overlay.querySelector('.la-bar-fill');
+    if (fill) {
+      fill.style.animation = 'none';
+      const inc = setInterval(() => {
+        pct = Math.min(pct + Math.random() * 18, 95);
+        fill.style.width = pct + '%';
+      }, 200);
+      setTimeout(() => {
+        clearInterval(inc);
+        fill.style.width = '100%';
+        setTimeout(() => {
+          overlay.classList.add('fade-out');
+          setTimeout(() => { overlay.className = ''; overlay.innerHTML = ''; }, 800);
+        }, 300);
+      }, 2200);
+    }
+  }
+
+  if (style === 'b') {
+    overlay.innerHTML = `<span class="lb-text">loading</span>`;
+    overlay.classList.add('visible', 'style-b');
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+      setTimeout(() => { overlay.className = ''; overlay.innerHTML = ''; }, 900);
+    }, 2000);
+  }
+
+  if (style === 'c') {
+    overlay.innerHTML = `
+      <div class="lc-dots">
+        <div class="lc-dot"></div>
+        <div class="lc-dot"></div>
+        <div class="lc-dot"></div>
+      </div>
+    `;
+    overlay.classList.add('visible', 'style-c');
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+      setTimeout(() => { overlay.className = ''; overlay.innerHTML = ''; }, 400);
+    }, 2200);
+  }
+}
+
+document.querySelectorAll('.trigger-btn[data-loader]').forEach(btn => {
+  btn.addEventListener('click', () => showLoader(btn.dataset.loader));
+});
+
+
+/* ─────────────────────────────────────────
+   IMAGE SKELETON DEMO
+───────────────────────────────────────── */
+// Use picsum for demo images (different seeds = different images)
+const demoImages = [
+  { seed: 10, title: 'Tokyo, 2024', meta: 'Ricoh GR IIIx' },
+  { seed: 237, title: 'Studio session', meta: 'Canon AE-1' },
+  { seed: 433, title: 'Coastal light', meta: 'iPhone 15 Pro' },
+  { seed: 64, title: 'Architecture', meta: 'Leica M6' },
+  { seed: 678, title: 'Still life', meta: 'Mamiya RB67' },
+  { seed: 888, title: 'Portraits', meta: 'Contax T2' },
+];
+
+function buildImgCards() {
+  const grid = document.getElementById('img-demo');
+  grid.innerHTML = '';
+  demoImages.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'img-card';
+
+    const thumb = document.createElement('div');
+    thumb.className = 'img-thumb skeleton';
+
+    const img = document.createElement('img');
+    // Stagger load delay to visually show skeleton
+    const delay = i * 350;
+    // Use a real image URL to demonstrate actual loading
+    img.src = `https://picsum.photos/seed/${item.seed}/400/300`;
+    img.alt = item.title;
+
+    img.addEventListener('load', () => {
+      setTimeout(() => {
+        thumb.classList.remove('skeleton');
+        thumb.classList.add('loaded');
+      }, delay);
+    });
+    img.addEventListener('error', () => {
+      thumb.classList.remove('skeleton');
+      thumb.style.background = 'var(--card-hi)';
+    });
+
+    thumb.appendChild(img);
+    card.appendChild(thumb);
+
+    const body = document.createElement('div');
+    body.className = 'img-card-body';
+    body.innerHTML = `
+      <div class="img-card-title">${item.title}</div>
+      <div class="img-card-meta">${item.meta}</div>
+    `;
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+}
+
+buildImgCards();
+document.getElementById('reload-imgs').addEventListener('click', buildImgCards);
+
+
+/* ─────────────────────────────────────────
+   THEME TOGGLE
+───────────────────────────────────────── */
+document.getElementById('theme-tg').addEventListener('click', () => {
+  const root = document.documentElement;
+  root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+});
+</script>
+</body>
+</html>
