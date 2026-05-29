@@ -550,6 +550,7 @@ a.frame:hover { opacity: 0.82; }
   .overlay { padding: 16px; }
 }
 @media (max-width: 620px) {
+  body { zoom: 0.9; }
   .masthead { align-items: center; padding: 14px 20px 10px; }
   .masthead .edition { display: none; }
   .grid { grid-template-columns: 1fr; grid-auto-rows: auto; padding: 6px 18px 70px; gap: 12px; }
