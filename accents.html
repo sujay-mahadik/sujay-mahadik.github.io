@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>sujay.grid — accent options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── Shared Cool Dusk palette ───────────────────────────── */
+/* All three columns use the same surfaces — only --spark-3 differs */
+:root {
+  /* dark surfaces */
+  --bg:           #0c0d12;
+  --bg-2:         #12141c;
+  --card:         #191c28;
+  --card-2:       #1e2232;
+  --card-hi:      #24283c;
+  --ink:          #eceef5;
+  --ink-2:        #9098b0;
+  --ink-3:        #606880;
+  --line:         rgba(236, 238, 245, 0.08);
+  --line-2:       rgba(236, 238, 245, 0.15);
+  --contrast:     #e4e8f8;
+  --contrast-ink: #0e1020;
+  /* fixed accents */
+  --spark:        #ddb060;
+  --spark-soft:   color-mix(in srgb, var(--spark)   16%, transparent);
+  --spark-2:      #52a8a0;
+  --spark-2-soft: color-mix(in srgb, var(--spark-2) 16%, transparent);
+}
+
+[data-theme="light"] {
+  --bg:           #eef0f6;
+  --bg-2:         #e4e7f0;
+  --card:         #f6f7fc;
+  --card-2:       #eceef8;
+  --card-hi:      #e2e5f2;
+  --ink:          #14161e;
+  --ink-2:        #545870;
+  --ink-3:        #8a8ea8;
+  --line:         rgba(20, 22, 30, 0.10);
+  --line-2:       rgba(20, 22, 30, 0.18);
+  --contrast:     #14161e;
+  --contrast-ink: #f0f2fc;
+  --spark:        #8a5c0a;
+  --spark-soft:   color-mix(in srgb, var(--spark)   13%, transparent);
+  --spark-2:      #2a7870;
+  --spark-2-soft: color-mix(in srgb, var(--spark-2) 13%, transparent);
+}
+
+/* ─── Third accent options (only --spark-3 differs) ─────── */
+
+/* A — Copper: reddish-amber, warm and earthy */
+.opt-a { --spark-3: #c87840; --spark-3-soft: color-mix(in srgb, #c87840 16%, transparent); }
+[data-theme="light"] .opt-a { --spark-3: #884018; --spark-3-soft: color-mix(in srgb, #884018 13%, transparent); }
+
+/* B — Honey Gold: lighter, more yellow-gold */
+.opt-b { --spark-3: #d4b840; --spark-3-soft: color-mix(in srgb, #d4b840 16%, transparent); }
+[data-theme="light"] .opt-b { --spark-3: #9c7c10; --spark-3-soft: color-mix(in srgb, #9c7c10 13%, transparent); }
+
+/* C — Sienna: deeper amber-orange, more saturated */
+.opt-c { --spark-3: #cc8050; --spark-3-soft: color-mix(in srgb, #cc8050 16%, transparent); }
+[data-theme="light"] .opt-c { --spark-3: #8c4820; --spark-3-soft: color-mix(in srgb, #8c4820 13%, transparent); }
+
+/* ─── Page shell ─────────────────────────────────────────── */
+body {
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  background: var(--bg-2);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+
+/* ─── Page header ────────────────────────────────────────── */
+.pg-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 30px 20px;
+  border-bottom: 1px solid var(--line-2);
+  max-width: 1380px;
+  margin: 0 auto;
+}
+.pg-hd .mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.pg-hd .mark b { color: var(--ink-2); font-weight: 500; }
+.pg-hd .right { display: flex; align-items: center; gap: 14px; }
+.pg-hd .hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: .55;
+}
+.tg-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 5px 14px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.tg-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+
+/* ─── Comparison layout ──────────────────────────────────── */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px 30px 60px;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+/* ─── Option panel ───────────────────────────────────────── */
+.opt {
+  background: var(--bg);
+  border: 1px solid var(--line-2);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background .4s ease, border-color .4s ease;
+}
+
+.opt-hd {
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: var(--card);
+  transition: background .4s ease, border-color .4s ease;
+}
+.opt-hd .letter {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--spark-3);
+  transition: color .4s ease;
+}
+.opt-hd .name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.opt-hd .hex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+  margin-left: auto;
+  transition: color .4s ease;
+}
+
+.opt-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+/* ─── Section micro-label ────────────────────────────────── */
+.sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: .5;
+}
+
+/* ─── Three-accent strip ─────────────────────────────────── */
+.accent-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.accent-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  transition: background .4s ease, border-color .4s ease;
+}
+.accent-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background .4s ease;
+}
+.accent-info {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .06em;
+  color: var(--ink-3);
+  line-height: 1.6;
+  flex: 1;
+  transition: color .4s ease;
+}
+.accent-info b {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color .4s ease;
+}
+.accent-info.new b { color: var(--spark-3); transition: color .4s ease; }
+.accent-chips { display: flex; gap: 5px; margin-top: 3px; }
+
+/* ─── Chips ──────────────────────────────────────────────── */
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .04em;
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+  transition: background .4s ease, color .4s ease, border-color .4s ease;
+}
+.chip.def  { color: var(--ink-2);        background: transparent;           border-color: var(--line-2); }
+.chip.hi   { color: var(--contrast-ink); background: var(--contrast);        border-color: var(--contrast); }
+.chip.sp   { color: var(--spark);        background: var(--spark-soft);      border-color: var(--spark-soft); }
+.chip.sp2  { color: var(--spark-2);      background: var(--spark-2-soft);    border-color: var(--spark-2-soft); }
+.chip.sp3  { color: var(--spark-3);      background: var(--spark-3-soft);    border-color: var(--spark-3-soft); }
+
+/* ─── Divider ────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--line);
+  transition: background .4s ease;
+}
+
+/* ─── Work card ──────────────────────────────────────────── */
+.g-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition: background .4s ease, border-color .4s ease;
+}
+.g-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .4s ease;
+}
+.g-live {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--spark);
+  flex-shrink: 0;
+  animation: pulse 2.4s ease-out infinite;
+  transition: background .4s ease;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 var(--spark-soft); }
+  70%  { box-shadow: 0 0 0 6px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.g-big {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 21px;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-top: 7px;
+  transition: color .4s ease;
+}
+.g-big em { font-style: italic; color: var(--contrast); transition: color .4s ease; }
+.g-sub {
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.4;
+  margin-top: 4px;
+  transition: color .4s ease;
+}
+.g-chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 9px; }
+
+/* ─── Statement card ─────────────────────────────────────── */
+.g-stmt {
+  background: var(--contrast);
+  border: 1px solid var(--contrast);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition: background .4s ease, border-color .4s ease;
+}
+.g-stmt .g-label {
+  color: color-mix(in srgb, var(--contrast-ink) 50%, transparent);
+  margin-bottom: 7px;
+}
+.g-quote {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.22;
+  color: var(--contrast-ink);
+  transition: color .4s ease;
+}
+.g-quote em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: var(--spark);
+  text-underline-offset: 3px;
+  transition: text-decoration-color .4s ease;
+}
+
+/* ─── Ledger ─────────────────────────────────────────────── */
+.g-ledger {
+  background: var(--card-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: background .4s ease, border-color .4s ease;
+}
+.g-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 13px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  transition: border-color .4s ease;
+}
+.g-row:last-child { border-bottom: none; }
+.g-row .l {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  flex-shrink: 0;
+  transition: color .4s ease;
+}
+.g-row .v { color: var(--ink); text-align: right; line-height: 1.3; transition: color .4s ease; }
+.g-row .v .lnk   { color: var(--spark);   transition: color .4s ease; }
+.g-row .v .lnk-2 { color: var(--spark-2); transition: color .4s ease; }
+.g-row .v .lnk-3 { color: var(--spark-3); transition: color .4s ease; }
+
+/* ─── Big number + hero name ─────────────────────────────── */
+.g-pair { display: flex; gap: 10px; align-items: stretch; }
+.g-num-block {
+  flex: 0 0 auto;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: background .4s ease, border-color .4s ease;
+}
+.g-num {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--spark-3);
+  transition: color .4s ease;
+}
+.g-num-sub { font-size: 11px; color: var(--ink-3); margin-top: 2px; transition: color .4s ease; }
+
+.g-hero-block {
+  flex: 1;
+  background: var(--card-hi);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: background .4s ease, border-color .4s ease;
+}
+.g-hero-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  transition: color .4s ease;
+}
+.g-hero-name em { font-style: italic; color: var(--contrast); transition: color .4s ease; }
+.g-hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--spark);
+  margin-top: 6px;
+  transition: color .4s ease;
+}
+
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="pg-hd">
+  <span class="mark">SUJAY <b>MAHADIK</b> — THIRD ACCENT OPTIONS</span>
+  <div class="right">
+    <span class="hint">Amber + Teal fixed · pick a third</span>
+    <button class="tg-btn" id="tg-btn">☀ Light</button>
+  </div>
+</div>
+
+<div class="compare">
+
+  <!-- ══════════ A — COPPER ══════════ -->
+  <div class="opt opt-a">
+    <div class="opt-hd">
+      <span class="letter">A</span>
+      <span class="name">Copper</span>
+      <span class="hex">dark #c87840 · light #884018</span>
+    </div>
+    <div class="opt-body">
+
+      <div class="accent-strip">
+        <div class="sec">all three accents</div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark)"></div>
+          <div class="accent-info">
+            <b>Amber — primary</b>
+            dark #ddb060 · light #8a5c0a
+            <div class="accent-chips">
+              <span class="chip sp">link</span>
+              <span class="chip sp">featured</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-2)"></div>
+          <div class="accent-info">
+            <b>Teal — secondary</b>
+            dark #52a8a0 · light #2a7870
+            <div class="accent-chips">
+              <span class="chip sp2">current</span>
+              <span class="chip sp2">live</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-3)"></div>
+          <div class="accent-info new">
+            <b>Copper — tertiary ✦ new</b>
+            reddish-amber, warm &amp; earthy
+            <div class="accent-chips">
+              <span class="chip sp3">writing</span>
+              <span class="chip sp3">reading</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sec">work card</div>
+      <div class="g-card">
+        <div class="g-label"><span class="g-live"></span> 01 · WORK</div>
+        <div class="g-big">Crafting <em>interfaces</em> that think</div>
+        <div class="g-sub">Product design &amp; engineering at scale.</div>
+        <div class="g-chips">
+          <span class="chip def">Product</span>
+          <span class="chip sp">Featured</span>
+          <span class="chip sp2">Current</span>
+          <span class="chip sp3">Writing</span>
+          <span class="chip hi">Open</span>
+        </div>
+      </div>
+
+      <div class="sec">statement (inverted)</div>
+      <div class="g-stmt">
+        <div class="g-label">Field Note</div>
+        <div class="g-quote">Design is <em>how it works</em>, not how it looks.</div>
+      </div>
+
+      <div class="sec">now ledger</div>
+      <div class="g-ledger">
+        <div class="g-row">
+          <span class="l">Reading</span>
+          <span class="v"><span class="lnk">The Master &amp; Margarita</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Building</span>
+          <span class="v"><span class="lnk-2">portfolio v3</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Writing</span>
+          <span class="v"><span class="lnk-3">on attention spans</span></span>
+        </div>
+      </div>
+
+      <div class="sec">certs · hero</div>
+      <div class="g-pair">
+        <div class="g-num-block">
+          <div class="g-num">12</div>
+          <div class="g-num-sub">certs</div>
+        </div>
+        <div class="g-hero-block">
+          <div class="g-hero-name">Sujay <em>Mahadik</em></div>
+          <div class="g-hero-tag">Engineer · Designer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ B — HONEY GOLD ══════════ -->
+  <div class="opt opt-b">
+    <div class="opt-hd">
+      <span class="letter">B</span>
+      <span class="name">Honey Gold</span>
+      <span class="hex">dark #d4b840 · light #9c7c10</span>
+    </div>
+    <div class="opt-body">
+
+      <div class="accent-strip">
+        <div class="sec">all three accents</div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark)"></div>
+          <div class="accent-info">
+            <b>Amber — primary</b>
+            dark #ddb060 · light #8a5c0a
+            <div class="accent-chips">
+              <span class="chip sp">link</span>
+              <span class="chip sp">featured</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-2)"></div>
+          <div class="accent-info">
+            <b>Teal — secondary</b>
+            dark #52a8a0 · light #2a7870
+            <div class="accent-chips">
+              <span class="chip sp2">current</span>
+              <span class="chip sp2">live</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-3)"></div>
+          <div class="accent-info new">
+            <b>Honey Gold — tertiary ✦ new</b>
+            yellow-amber, warm &amp; luminous
+            <div class="accent-chips">
+              <span class="chip sp3">writing</span>
+              <span class="chip sp3">reading</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sec">work card</div>
+      <div class="g-card">
+        <div class="g-label"><span class="g-live"></span> 01 · WORK</div>
+        <div class="g-big">Crafting <em>interfaces</em> that think</div>
+        <div class="g-sub">Product design &amp; engineering at scale.</div>
+        <div class="g-chips">
+          <span class="chip def">Product</span>
+          <span class="chip sp">Featured</span>
+          <span class="chip sp2">Current</span>
+          <span class="chip sp3">Writing</span>
+          <span class="chip hi">Open</span>
+        </div>
+      </div>
+
+      <div class="sec">statement (inverted)</div>
+      <div class="g-stmt">
+        <div class="g-label">Field Note</div>
+        <div class="g-quote">Design is <em>how it works</em>, not how it looks.</div>
+      </div>
+
+      <div class="sec">now ledger</div>
+      <div class="g-ledger">
+        <div class="g-row">
+          <span class="l">Reading</span>
+          <span class="v"><span class="lnk">The Master &amp; Margarita</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Building</span>
+          <span class="v"><span class="lnk-2">portfolio v3</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Writing</span>
+          <span class="v"><span class="lnk-3">on attention spans</span></span>
+        </div>
+      </div>
+
+      <div class="sec">certs · hero</div>
+      <div class="g-pair">
+        <div class="g-num-block">
+          <div class="g-num">12</div>
+          <div class="g-num-sub">certs</div>
+        </div>
+        <div class="g-hero-block">
+          <div class="g-hero-name">Sujay <em>Mahadik</em></div>
+          <div class="g-hero-tag">Engineer · Designer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ C — SIENNA ══════════ -->
+  <div class="opt opt-c">
+    <div class="opt-hd">
+      <span class="letter">C</span>
+      <span class="name">Sienna</span>
+      <span class="hex">dark #cc8050 · light #8c4820</span>
+    </div>
+    <div class="opt-body">
+
+      <div class="accent-strip">
+        <div class="sec">all three accents</div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark)"></div>
+          <div class="accent-info">
+            <b>Amber — primary</b>
+            dark #ddb060 · light #8a5c0a
+            <div class="accent-chips">
+              <span class="chip sp">link</span>
+              <span class="chip sp">featured</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-2)"></div>
+          <div class="accent-info">
+            <b>Teal — secondary</b>
+            dark #52a8a0 · light #2a7870
+            <div class="accent-chips">
+              <span class="chip sp2">current</span>
+              <span class="chip sp2">live</span>
+            </div>
+          </div>
+        </div>
+        <div class="accent-row">
+          <div class="accent-dot" style="background:var(--spark-3)"></div>
+          <div class="accent-info new">
+            <b>Sienna — tertiary ✦ new</b>
+            deep amber-orange, saturated
+            <div class="accent-chips">
+              <span class="chip sp3">writing</span>
+              <span class="chip sp3">reading</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sec">work card</div>
+      <div class="g-card">
+        <div class="g-label"><span class="g-live"></span> 01 · WORK</div>
+        <div class="g-big">Crafting <em>interfaces</em> that think</div>
+        <div class="g-sub">Product design &amp; engineering at scale.</div>
+        <div class="g-chips">
+          <span class="chip def">Product</span>
+          <span class="chip sp">Featured</span>
+          <span class="chip sp2">Current</span>
+          <span class="chip sp3">Writing</span>
+          <span class="chip hi">Open</span>
+        </div>
+      </div>
+
+      <div class="sec">statement (inverted)</div>
+      <div class="g-stmt">
+        <div class="g-label">Field Note</div>
+        <div class="g-quote">Design is <em>how it works</em>, not how it looks.</div>
+      </div>
+
+      <div class="sec">now ledger</div>
+      <div class="g-ledger">
+        <div class="g-row">
+          <span class="l">Reading</span>
+          <span class="v"><span class="lnk">The Master &amp; Margarita</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Building</span>
+          <span class="v"><span class="lnk-2">portfolio v3</span></span>
+        </div>
+        <div class="g-row">
+          <span class="l">Writing</span>
+          <span class="v"><span class="lnk-3">on attention spans</span></span>
+        </div>
+      </div>
+
+      <div class="sec">certs · hero</div>
+      <div class="g-pair">
+        <div class="g-num-block">
+          <div class="g-num">12</div>
+          <div class="g-num-sub">certs</div>
+        </div>
+        <div class="g-hero-block">
+          <div class="g-hero-name">Sujay <em>Mahadik</em></div>
+          <div class="g-hero-tag">Engineer · Designer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+const btn = document.getElementById('tg-btn');
+btn.addEventListener('click', () => {
+  const isDark = document.body.dataset.theme === 'dark';
+  document.body.dataset.theme = isDark ? 'light' : 'dark';
+  btn.textContent = isDark ? '◐ Dark' : '☀ Light';
+});
+</script>
+</body>
+</html>

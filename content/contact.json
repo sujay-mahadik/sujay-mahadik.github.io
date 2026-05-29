@@ -1,0 +1,11 @@
+{
+  "email": "hello@sujaymahadik.com",
+  "links": [
+    { "label": "LinkedIn", "url": "https://linkedin.com/in/sujay-mahadik" },
+    { "label": "GitHub", "url": "https://github.com/sujay-mahadik" },
+    { "label": "Behance", "url": "https://www.behance.net/sujay-mahadik" },
+    { "label": "Instagram", "url": "https://www.instagram.com/sujaym_" },
+    { "label": "Now Playing", "url": "https://sujay-mahadik.github.io/now-playing", "note": "live" }
+  ],
+  "openTo": "interesting things · collaborations · slow conversations"
+}

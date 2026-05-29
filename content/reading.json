@@ -1,0 +1,56 @@
+{
+  "currently_reading": [
+    {
+      "title": "A World Appears",
+      "author": "Michael Pollan"
+    },
+    {
+      "title": "बहुत दूर, कितना दूर होता है",
+      "author": "Manav Kaul"
+    },
+    {
+      "title": "रहमतों की बारिश - ",
+      "author": "Bashir Badr"
+    }
+  ],
+  "read": [
+    {
+      "title": "An Honest Thief",
+      "author": "Fyodor Dostoevsky"
+    },
+    {
+      "title": "White Nights",
+      "author": "Fyodor Dostoevsky"
+    }
+  ],
+  "to_read": [
+    {
+      "title": "Ariel",
+      "author": "Sylvia Plath"
+    },
+    {
+      "title": "Notes from Underground",
+      "author": "Fyodor Dostoevsky"
+    },
+    {
+      "title": "The Problems of Philosophy ",
+      "author": "Bertrand Russell"
+    },
+    {
+      "title": "The Idiot",
+      "author": "Dostoevsky"
+    }
+  ],
+  "influences": [
+    "Dieter Rams",
+    "Ellsworth Kelly",
+    "Ursula K. Le Guin",
+    "Edward Tufte",
+    "Donella Meadows",
+    "Massimo Vignelli",
+    "Robin Sloan",
+    "Cabel Sasser",
+    "Tom Sachs"
+  ],
+  "last_synced": "2026-05-29T17:29:24.415Z"
+}

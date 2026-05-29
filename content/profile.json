@@ -1,0 +1,42 @@
+{
+  "name": "Sujay Mahadik",
+  "shortName": "Sujay",
+  "tagline": "Developer · Designer · Dreamer",
+  "blurb": "An engineer who keeps a design studio in his pocket, and an economist who reads philosophy in the margins.",
+  "heroImage": "art/hero.jpg",
+  "longBio": [
+    "By trade I'm an SRE at Barclays in Knutsford, building observability for Infrastructure — Kafka, OpenTelemetry, Elastic, real-time alarm shipping.",
+    "Before that I co-founded two small studios — Infin8y Labs and The Jellyfish Collective.",
+    "B.E. in IT (top 3%) and an M.A. in Economics (8.88 CGPA). I think a lot about justice as a measurable concept."
+  ],
+  "location": { "city": "Knutsford", "country": "UK", "from": "Pune, India" },
+  "education": [
+    {
+      "year": "2019—21",
+      "what": "M.A. Economics",
+      "where": "Fergusson · SPPU",
+      "grade": "8.88 CGPA",
+      "description": "Post-graduate study in economics with a focus on justice, measurement, and political economy.",
+      "notes": [
+        "Graduated with 8.88 CGPA",
+        "Coursework in welfare theory, institutional economics, and social choice",
+        "Shaped ongoing thinking on justice as a measurable concept"
+      ]
+    },
+    {
+      "year": "2015—19",
+      "what": "B.E. Information Technology",
+      "where": "MIT · SPPU",
+      "grade": "8.61 CGPA · top 3%",
+      "description": "Undergraduate engineering degree, graduating in the top 3% of the cohort while running two student ventures.",
+      "notes": [
+        "Top 3% of graduating cohort — 8.61 CGPA",
+        "Published research on distributed systems in IJSER (2019)",
+        "Co-founded Infin8y Labs and led MIT CREON alongside studies"
+      ]
+    }
+  ],
+  "publications": [
+    { "title": "Zeppelin Server", "venue": "IJSER · Vol 10, Issue 9", "date": "2019-09" }
+  ]
+}

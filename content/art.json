@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "id": "01-monsoon",
+      "kind": "photo",
+      "src": "art/01-monsoon.jpg",
+      "caption": "the last monsoon",
+      "location": "Pune",
+      "date": "2024-08",
+      "tags": ["street", "rain"]
+    },
+    {
+      "id": "02-knutsford-fog",
+      "kind": "photo",
+      "src": "art/02-knutsford-fog.jpg",
+      "caption": "morning fog, 5:42 a.m.",
+      "location": "Knutsford, UK",
+      "date": "2025-11"
+    },
+    {
+      "id": "03-kitchen",
+      "kind": "photo",
+      "src": "art/03-kitchen.jpg",
+      "caption": "a friend's kitchen",
+      "location": "Pune",
+      "date": "2023-09"
+    },
+    {
+      "id": "04-paris",
+      "kind": "photo",
+      "src": "art/04-paris.jpg",
+      "caption": "paris, brief",
+      "location": "Paris",
+      "date": "2021-06"
+    },
+    {
+      "id": "05-album",
+      "kind": "design",
+      "src": "art/05-album.jpg",
+      "caption": "album cover study",
+      "client": "personal",
+      "date": "2022-04",
+      "tags": ["editorial", "type"]
+    },
+    {
+      "id": "06-jellyfish",
+      "kind": "design",
+      "src": "art/06-jellyfish.jpg",
+      "caption": "Jellyfish wordmark",
+      "client": "The Jellyfish Collective",
+      "date": "2020-09",
+      "tags": ["logo", "identity"]
+    },
+    {
+      "id": "07-infin8y",
+      "kind": "design",
+      "src": "art/07-infin8y.jpg",
+      "caption": "fandom poster",
+      "client": "Infin8y Labs",
+      "date": "2018-07",
+      "tags": ["poster"]
+    },
+    {
+      "id": "08-coffee",
+      "kind": "photo",
+      "src": "art/08-coffee.jpg",
+      "caption": "coffee at seven",
+      "location": "Knutsford",
+      "date": "2026-01"
+    }
+  ]
+}

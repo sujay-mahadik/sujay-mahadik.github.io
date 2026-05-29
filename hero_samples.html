@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero Photo Treatment — Samples</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ── Shared tokens ──────────────────────────────────────────── */
+:root {
+  --spark:      #d8643f;
+  --spark-soft: color-mix(in srgb, #d8643f 16%, transparent);
+  --r:          18px;
+  --serif:      'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --mono:       'JetBrains Mono', ui-monospace, monospace;
+  --sans:       'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Dark mode tokens (matches variants/grid.css :root) ─────── */
+.mode-dark {
+  --bg:          #0b0b0c;
+  --card:        #161618;
+  --card-2:      #1b1b1e;
+  --ink:         #ecebe4;
+  --ink-2:       #9b988f;
+  --ink-3:       #67645d;
+  --line:        rgba(232,230,223,0.08);
+  --line-2:      rgba(232,230,223,0.16);
+  --frame-stripe:rgba(232,230,223,0.05);
+  --contrast:    #e8e6df;
+  --contrast-ink:#16140f;
+}
+
+/* ── Light mode tokens (matches variants/grid.css [data-theme="light"]) */
+.mode-light {
+  --bg:          #f2f0ea;
+  --card:        #fbfaf6;
+  --card-2:      #efece4;
+  --ink:         #1a1712;
+  --ink-2:       #6a665c;
+  --ink-3:       #9c988c;
+  --line:        rgba(20,18,12,0.10);
+  --line-2:      rgba(20,18,12,0.18);
+  --frame-stripe:rgba(20,18,12,0.06);
+  --contrast:    #1a1712;
+  --contrast-ink:#f3f1ea;
+}
+
+/* ── Page chrome ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  background: #0b0b0c;
+  color: #ecebe4;
+  font-family: var(--mono);
+  min-height: 100vh;
+  padding: 40px 32px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* film grain — matches grid.css body::before */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  opacity: 0.5; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Page header ────────────────────────────────────────────── */
+.page-header { margin-bottom: 36px; }
+.page-header h1 {
+  font-family: var(--serif);
+  font-size: 24px; font-weight: 400;
+  color: #ecebe4; letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.page-header p {
+  font-size: 10.5px; color: #67645d;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.page-header p span { color: var(--spark); }
+
+/* ── Mode section wrapper ───────────────────────────────────── */
+.mode-section { margin-bottom: 48px; }
+.mode-section + .mode-section { margin-top: 8px; }
+
+.mode-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #67645d; margin-bottom: 16px;
+}
+.mode-label::before {
+  content: ""; display: block;
+  width: 24px; height: 1px; background: #67645d;
+}
+
+/* ── Horizontal scroll row ──────────────────────────────────── */
+.scroll-row {
+  display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px;
+  scrollbar-width: thin; scrollbar-color: rgba(232,230,223,0.12) transparent;
+}
+
+/* ── Sample column ──────────────────────────────────────────── */
+.sample { flex: 0 0 272px; display: flex; flex-direction: column; gap: 13px; }
+
+/* ── Card shell (matches .card from grid.css) ───────────────── */
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  width: 272px; height: 390px;
+  padding: 0;
+}
+
+/* ── Hero media base ────────────────────────────────────────── */
+.hero-media {
+  position: absolute; inset: 0; z-index: 0;
+  background-color: var(--card-2);
+  background-image: repeating-linear-gradient(
+    135deg, var(--frame-stripe) 0 8px, transparent 8px 16px);
+  background-size: cover;
+  background-position: center 22%;
+  background-repeat: no-repeat;
+}
+/* Photo loaded state — JS sets the inline style, here we handle the CSS class */
+.hero-media.has-photo {
+  background-image: url('content/art/hero.jpg');
+}
+
+/* shared ::before/::after are transparent by default */
+.hero-media::before,
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+}
+
+/* ── Hero inner overlay (matches grid.css .hero-inner) ─────── */
+.hero-inner {
+  position: relative; z-index: 2; height: 100%;
+  padding: 22px 24px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+/* ── Label (matches grid.css .label) ───────────────────────── */
+.label {
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+.label .n { color: var(--ink-2); }
+
+/* ── Live-now indicator (matches grid.css .live-now) ───────── */
+.live-now {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+  display: inline-flex; align-items: center; gap: 7px;
+  max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--spark);
+  box-shadow: 0 0 0 0 var(--spark-soft);
+  animation: pulse 2.4s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0   var(--spark-soft); }
+  70%  { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0   transparent; }
+}
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+
+/* ── Hero name (matches grid.css #hero-name) ────────────────── */
+.hero-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 14px 0 0;
+}
+.hero-name em { color: var(--contrast); font-style: italic; }
+
+/* ── Hero tag (matches grid.css .hero-tag) ─────────────────── */
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--spark); margin: 14px 0 8px;
+}
+
+/* ── Hero blurb (matches grid.css .hero-blurb) ─────────────── */
+.hero-blurb {
+  font-family: var(--sans);
+  font-size: 13px; line-height: 1.55; color: var(--ink-2);
+}
+
+/* ── Hero links (matches grid.css .hero-links a) ───────────── */
+.hero-links { display: flex; gap: 7px; margin-top: 13px; flex-wrap: wrap; }
+.hero-links a {
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.04em;
+  padding: 6px 12px;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  color: var(--ink);
+}
+
+/* ── Top row of hero inner ──────────────────────────────────── */
+.hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+
+/* ── Option tag below each card ─────────────────────────────── */
+.option-tag {
+  display: flex; align-items: baseline; gap: 8px;
+}
+.option-letter {
+  display: inline-block;
+  background: var(--spark); color: #1a0f0a;
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 4px;
+  flex-shrink: 0;
+}
+.option-name {
+  font-family: var(--mono); font-size: 10.5px;
+  color: #ecebe4; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.option-desc {
+  font-family: var(--mono); font-size: 10px;
+  color: #67645d; line-height: 1.55; letter-spacing: 0.02em;
+  margin-top: 4px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  height: 1px; background: rgba(232,230,223,0.08); margin: 40px 0 8px;
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+footer {
+  font-size: 10.5px; color: #67645d; letter-spacing: 0.04em; margin-top: 40px;
+}
+footer code { color: var(--spark); font-family: var(--mono); }
+
+
+/* ════════════════════════════════════════════════════════════
+   A — WARM DUOTONE
+   Grayscale photo + multiply blend: dark-brown shadows, rust highlights.
+   Editorial print aesthetic. Stays entirely on-palette.
+════════════════════════════════════════════════════════════ */
+.opt-a .hero-media.has-photo {
+  filter: grayscale(1) contrast(1.1) brightness(0.82);
+}
+.opt-a .hero-media::before {
+  background: linear-gradient(to top, #d8643f 0%, #1a0f0a 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.88;
+}
+.opt-a .hero-media::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--card) 30%, transparent) 0%,
+    transparent 18%, transparent 40%,
+    color-mix(in srgb, var(--card) 82%, transparent) 100%);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   B — FULL COLOR + VIGNETTE ONLY
+   No color manipulation. Natural portrait — personality shows through.
+   Accent remains in tag + links, not the photo.
+════════════════════════════════════════════════════════════ */
+.opt-b .hero-media.has-photo {
+  filter: brightness(0.88) contrast(1.06) saturate(1.08);
+}
+.opt-b .hero-media::before {
+  background: radial-gradient(ellipse at 50% 50%,
+    transparent 28%, var(--bg) 90%);
+  mix-blend-mode: normal;
+  opacity: 0.62;
+}
+.opt-b .hero-media::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--card) 38%, transparent) 0%,
+    transparent 18%, transparent 38%,
+    color-mix(in srgb, var(--card) 88%, transparent) 100%);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   C — FILM GRADE (SEPIA + WARM WASH)
+   Desaturated + sepia for analog warmth. Rust as a whisper
+   soft-light overlay. Most cohesive with the serif typography.
+════════════════════════════════════════════════════════════ */
+.opt-c .hero-media.has-photo {
+  filter: sepia(0.5) saturate(0.75) brightness(0.9) contrast(1.08);
+}
+.opt-c .hero-media::before {
+  background: var(--spark);
+  mix-blend-mode: soft-light;
+  opacity: 0.18;
+}
+.opt-c .hero-media::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--card) 42%, transparent) 0%,
+    transparent 20%, transparent 36%,
+    color-mix(in srgb, var(--card) 90%, transparent) 100%);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   D — MUTED DESATURATE + ACCENT SPOTLIGHT
+   Near-monochrome photo with a warm spark glow rising from
+   the text corner. Accent supports the reading area, not the face.
+════════════════════════════════════════════════════════════ */
+.opt-d .hero-media.has-photo {
+  filter: saturate(0.12) brightness(0.9) contrast(1.1);
+}
+.opt-d .hero-media::before {
+  background: radial-gradient(ellipse at 25% 95%,
+    color-mix(in srgb, var(--spark) 55%, transparent) 0%,
+    transparent 62%);
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+/* light mode: screen blends differently on light surfaces — switch to overlay */
+.mode-light .opt-d .hero-media::before {
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+.opt-d .hero-media::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--card) 38%, transparent) 0%,
+    transparent 18%, transparent 40%,
+    color-mix(in srgb, var(--card) 86%, transparent) 100%);
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   E — PURE INK (B&W, NO COLOR CAST)
+   High-contrast monochrome. No color overlay at all.
+   Accent lives only in the tag, links, and live-dot.
+════════════════════════════════════════════════════════════ */
+.opt-e .hero-media.has-photo {
+  filter: grayscale(1) contrast(1.25) brightness(0.8);
+}
+/* no ::before */
+.opt-e .hero-media::after {
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--card) 42%, transparent) 0%,
+    transparent 22%, transparent 55%,
+    color-mix(in srgb, var(--card) 85%, transparent) 100%);
+}
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Hero Photo Treatment <em style="color:var(--spark)">Samples</em></h1>
+  <p><span>variants/grid.css:234</span> · dark + light · pick one → apply</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     DARK MODE ROW
+══════════════════════════════════════════════════════════ -->
+<div class="mode-section mode-dark">
+  <div class="mode-label">Dark mode</div>
+  <div class="scroll-row">
+
+    <!-- A: WARM DUOTONE -->
+    <div class="sample opt-a">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">A</span>
+          <span class="option-name">Warm Duotone</span>
+        </div>
+        <p class="option-desc">Grayscale → multiply blend: dark-brown shadows, rust highlights. Most editorial.</p>
+      </div>
+    </div>
+
+    <!-- B: FULL COLOR + VIGNETTE -->
+    <div class="sample opt-b">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">B</span>
+          <span class="option-name">Color + Vignette</span>
+        </div>
+        <p class="option-desc">Natural photo, no color shift. Edge fade blends to card. Personality-first.</p>
+      </div>
+    </div>
+
+    <!-- C: FILM GRADE -->
+    <div class="sample opt-c">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">C</span>
+          <span class="option-name">Film Grade</span>
+        </div>
+        <p class="option-desc">Sepia + desaturate → warm analog feel. Rust as a whisper soft-light wash.</p>
+      </div>
+    </div>
+
+    <!-- D: ACCENT SPOTLIGHT -->
+    <div class="sample opt-d">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">D</span>
+          <span class="option-name">Accent Spotlight</span>
+        </div>
+        <p class="option-desc">Near-mono photo with a spark glow from the text corner. Accent supports, not dominates.</p>
+      </div>
+    </div>
+
+    <!-- E: PURE INK -->
+    <div class="sample opt-e">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">E</span>
+          <span class="option-name">Pure Ink</span>
+        </div>
+        <p class="option-desc">Hard B&amp;W, no color cast. Accent lives only in tag, links, and live-dot.</p>
+      </div>
+    </div>
+
+  </div><!-- .scroll-row -->
+</div><!-- .mode-dark -->
+
+
+<div class="divider"></div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     LIGHT MODE ROW
+══════════════════════════════════════════════════════════ -->
+<div class="mode-section mode-light">
+  <div class="mode-label" style="color:#9c988c;">Light mode</div>
+  <div class="scroll-row">
+
+    <!-- A: WARM DUOTONE -->
+    <div class="sample opt-a">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">A</span>
+          <span class="option-name" style="color:#1a1712;">Warm Duotone</span>
+        </div>
+        <p class="option-desc">Grayscale → multiply blend: dark-brown shadows, rust highlights. Most editorial.</p>
+      </div>
+    </div>
+
+    <!-- B: FULL COLOR + VIGNETTE -->
+    <div class="sample opt-b">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">B</span>
+          <span class="option-name" style="color:#1a1712;">Color + Vignette</span>
+        </div>
+        <p class="option-desc">Natural photo, no color shift. Edge fade blends to card. Personality-first.</p>
+      </div>
+    </div>
+
+    <!-- C: FILM GRADE -->
+    <div class="sample opt-c">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">C</span>
+          <span class="option-name" style="color:#1a1712;">Film Grade</span>
+        </div>
+        <p class="option-desc">Sepia + desaturate → warm analog feel. Rust as a whisper soft-light wash.</p>
+      </div>
+    </div>
+
+    <!-- D: ACCENT SPOTLIGHT -->
+    <div class="sample opt-d">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">D</span>
+          <span class="option-name" style="color:#1a1712;">Accent Spotlight</span>
+        </div>
+        <p class="option-desc">Near-mono photo with a spark glow from the text corner. Accent supports, not dominates.</p>
+      </div>
+    </div>
+
+    <!-- E: PURE INK -->
+    <div class="sample opt-e">
+      <div class="card">
+        <div class="hero-media has-photo"></div>
+        <div class="hero-inner">
+          <div class="hero-top">
+            <div class="label"><span class="n">01</span> · WHO</div>
+            <div class="live-now"><span class="live-dot"></span>Knutsford, UK</div>
+          </div>
+          <div>
+            <h1 class="hero-name">Sujay <em>Mahadik</em></h1>
+            <div class="hero-tag">Developer · Designer · Dreamer</div>
+            <p class="hero-blurb">An engineer who keeps a design studio in his pocket.</p>
+            <div class="hero-links">
+              <a href="#">GitHub</a>
+              <a href="#">Writing</a>
+              <a href="#">CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="option-tag">
+          <span class="option-letter">E</span>
+          <span class="option-name" style="color:#1a1712;">Pure Ink</span>
+        </div>
+        <p class="option-desc">Hard B&amp;W, no color cast. Accent lives only in tag, links, and live-dot.</p>
+      </div>
+    </div>
+
+  </div><!-- .scroll-row -->
+</div><!-- .mode-light -->
+
+
+<footer>
+  Pick an option → replace lines 234–246 in <code>variants/grid.css</code> with the matching CSS block above.<br>
+  Current: <code>grayscale(1)</code> + <code>mix-blend-mode: color</code> + <code>var(--spark)</code> at 50% opacity.
+</footer>
+
+</body>
+</html>

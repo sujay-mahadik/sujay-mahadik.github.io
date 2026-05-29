@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "Observability",
+      "items": [
+        { "title": "Elastic Certified Engineer", "issuer": "Elastic", "year": "2024" },
+        { "title": "Elastic Observability Engineer", "issuer": "Elastic", "year": "2024" },
+        { "title": "Elastic Certified Analyst", "issuer": "Elastic", "year": "2024" },
+        { "title": "Cribl Certified User", "issuer": "Cribl", "year": "2025" },
+        { "title": "Observe Associate", "issuer": "Observe", "year": "2025" },
+        { "title": "LFS148 · OpenTelemetry", "issuer": "Linux Foundation", "year": "2024" },
+        { "title": "Grafana, Prometheus, Loki, Tempo", "issuer": "Udemy", "year": "2025" },
+        { "title": "Kibana Fundamentals", "issuer": "Elastic", "year": "2023" }
+      ]
+    },
+    {
+      "name": "Data & Cloud",
+      "items": [
+        { "title": "ETL & Pipelines", "issuer": "Coursera", "year": "2023" },
+        { "title": "Data Analysis with Python", "issuer": "Coursera", "year": "2023" },
+        { "title": "AWS Cloud-Native", "issuer": "Coursera", "year": "2020" }
+      ]
+    },
+    {
+      "name": "Design & Humanities",
+      "items": [
+        { "title": "Justice", "issuer": "HarvardX", "year": "2021", "highlight": true },
+        { "title": "Philosophy", "issuer": "Edinburgh", "year": "2020", "highlight": true },
+        { "title": "Type & Spacing", "issuer": "CU Boulder", "year": "2020" },
+        { "title": "Branding & UX", "issuer": "CU Boulder", "year": "2020" }
+      ]
+    },
+    {
+      "name": "Green & AI",
+      "items": [
+        { "title": "LFC131 · Green Software", "issuer": "Linux Foundation", "year": "2023", "highlight": true },
+        { "title": "Agent Skills", "issuer": "Anthropic", "year": "2026" },
+        { "title": "Model Context Protocol", "issuer": "Anthropic", "year": "2026" }
+      ]
+    }
+  ]
+}

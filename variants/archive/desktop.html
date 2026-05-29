@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>sujay.dsk</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans:wght@400;500;600;700&family=Caveat:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="desktop.css">
+</head>
+<body>
+
+<div class="boot" id="boot" aria-hidden="true">
+  <div>SUJAY-OS · v1.0  (c) 2026</div>
+  <div>loading personality.bin ........ <span style="color:#fff">OK</span></div>
+  <div>loading résumé.dat ............. <span style="color:#fff">OK</span></div>
+  <div>mounting /now .................. <span class="blink">█</span></div>
+</div>
+
+<div id="desk" role="application" aria-label="Sujay's desktop">
+
+  <!-- ─── Desktop icons (column-grid) ─── -->
+  <div class="icon-row">
+  <button class="icon"          data-open="hero"    style="left:28px;top:32px"><div class="glyph">★</div>readme.txt</button>
+  <button class="icon tone-warm" data-open="about"  style="left:28px;top:140px"><div class="glyph">@</div>about.me</button>
+  <button class="icon tone-acc"  data-open="work"   style="left:28px;top:248px"><div class="glyph">◧</div>work/</button>
+  <button class="icon tone-dk"   data-open="now"    style="left:28px;top:356px"><div class="glyph">●</div>now.live</button>
+
+  <button class="icon"          data-open="exp"     style="left:140px;top:32px"><div class="glyph">$</div>résumé.sh</button>
+  <button class="icon tone-cool" data-open="photos" style="left:140px;top:140px"><div class="glyph">▣</div>photos/</button>
+  <button class="icon tone-warm" data-open="write"  style="left:140px;top:248px"><div class="glyph">✎</div>writing/</button>
+  <button class="icon"          data-open="read"    style="left:140px;top:356px"><div class="glyph">≡</div>reading/</button>
+
+  <button class="icon tone-cool" data-open="certs"   style="left:252px;top:32px"><div class="glyph">★</div>certs.zip</button>
+  <button class="icon tone-acc"  data-open="contact" style="left:252px;top:140px"><div class="glyph">✉</div>contact</button>
+  </div>
+
+  <!-- ─── Sticky notes — left positions so size-stable ─── -->
+  <div class="sticky drag"   data-pin="s1" style="left:1040px;top:520px">drag everything. <br>everything is <em>drag-able</em>.</div>
+  <div class="sticky b drag" data-pin="s2" style="left:850px;top:80px">double-click an icon <br>to open the window.</div>
+  <div class="sticky g drag" data-pin="s3" style="left:1100px;top:200px">"build the pipeline,<br>then write the poem<br>about the pipeline."</div>
+
+  <!-- ─── Polaroids ─── -->
+  <div class="polaroid drag" data-pin="p1" style="left:880px;top:340px;transform:rotate(-4deg)">
+    <div class="photo">PUNE · 2024</div>
+    the last monsoon
+  </div>
+  <div class="polaroid drag" data-pin="p2" style="left:1130px;top:430px;transform:rotate(5deg)">
+    <div class="photo">KNUTSFORD · 5:42</div>
+    morning fog
+  </div>
+
+  <!-- ─── Windows ─── -->
+  <section class="win hero-win focused" id="hero" role="dialog" aria-labelledby="hero-t"
+           style="left:380px;top:60px;width:560px;z-index:10">
+    <header class="bar">
+      <div class="ttl" id="hero-t">readme.txt</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body" id="hero-body">
+      <h1>hi, i'm <span class="ac">sujay</span>.</h1>
+      <span class="strap">Developer · Designer · Dreamer</span>
+      <p style="margin-top:14px">An engineer who keeps a design studio in his pocket, and an economist who reads philosophy in the margins. This portfolio is a <em>desktop</em>, not a feed — drag the icons, open the windows, leave the sticky notes where you want them.</p>
+      <p>By trade I'm an SRE at <em>Barclays</em> in Knutsford, building observability for Infrastructure. By temperament I'm a designer who co-founded two small studios in Pune. By degree I have an <em>M.A. in Economics</em> and a soft spot for justice as a measurable concept.</p>
+      <div class="divider"></div>
+      <p style="font-size:15px;color:var(--ink-3)">⌨ try: open <span class="kbd">work/</span> · drag a sticky · <span class="kbd">Esc</span> closes · type <span class="kbd">↑↑↓↓</span> for a surprise</p>
+    </div>
+  </section>
+
+  <section class="win" id="about" role="dialog" aria-labelledby="about-t" style="left:420px;top:120px;width:480px;display:none">
+    <header class="bar">
+      <div class="ttl" id="about-t">about.me</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body" id="about-body">
+      <h2>about, the long version</h2>
+      <p>I write data pipelines for a living and pretend I'm setting type for a periodical. The two crafts are closer than they look — both are about deciding what counts as a unit, where the gutters go, and which detail rewards a closer look.</p>
+      <p>I grew up in <em>Pune</em>, studied IT at MIT College of Engineering, then doubled back for a Master's in Economics at Fergusson because I wanted a vocabulary for the things engineering kept eliding.</p>
+      <p>Since 2019 I've been at <em>Barclays</em> — first as a Graduate Analyst, then on Service Delivery for Enterprise Data Integration, and now on the SRE Core team in Knutsford. On the side: <em>Infin8y Labs</em>, <em>The Jellyfish Collective</em>, photography, and the occasional essay on green software and the ethics of measurement.</p>
+      <h3>fluent in</h3>
+      <p>Python · Kafka · OpenTelemetry · Elastic · Grafana · Cribl · Airflow · Ab Initio · CHEF · SRE practice · brand design · editorial · poster · 35mm photo</p>
+    </div>
+  </section>
+
+  <section class="win" id="work" role="dialog" aria-labelledby="work-t" style="left:340px;top:80px;width:600px;display:none">
+    <header class="bar"><div class="ttl" id="work-t">work/</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body" id="work-body">
+      <h2>★ featured</h2>
+      <p><strong>now-playing.</strong> A live Spotify scrobbler I host at <em>sujay-mahadik.github.io/now-playing</em>. Vite + serverless OAuth + slowly-rotating postcard.</p>
+      <p><strong>netcool → kafka, in real time.</strong> A Python event-streaming pipeline at Barclays. Time-to-data: <em>3h → live</em>. Used by Global Command Centre + 10+ ops teams.</p>
+      <p><strong>the jellyfish collective.</strong> Branding studio I co-founded with friends. Long-term partnerships with startups; visual identity work from Paris (remote).</p>
+      <h3>the rest of the archive</h3>
+      <div class="tiles">
+        <div class="tile-mini"><div class="t">Spectrum × Kafka</div><div class="y">2024 · alarm pipeline</div></div>
+        <div class="tile-mini"><div class="t">Patch Dashboard</div><div class="y">2024 · Kibana</div></div>
+        <div class="tile-mini"><div class="t">Ab Initio Auto</div><div class="y">2021 · 15× faster</div></div>
+        <div class="tile-mini"><div class="t">CHEF cookbook</div><div class="y">2022 · Informatica</div></div>
+        <div class="tile-mini"><div class="t">Infin8y Labs</div><div class="y">2016 · posters</div></div>
+        <div class="tile-mini"><div class="t">IPFS Doc Transfer</div><div class="y">2019 · BE project</div></div>
+        <div class="tile-mini"><div class="t">Autonomous UAV</div><div class="y">2018 · Persistent</div></div>
+        <div class="tile-mini"><div class="t">Zeppelin Server</div><div class="y">2019 · IJSER</div></div>
+        <div class="tile-mini"><div class="t">MIT CREON</div><div class="y">2016 · web + SMTP</div></div>
+        <div class="tile-mini"><div class="t">File Post</div><div class="y">2018 · IPFS uploader</div></div>
+        <div class="tile-mini"><div class="t">Student ERP</div><div class="y">2017 · timetabling</div></div>
+        <div class="tile-mini"><div class="t">Zeppelin Server</div><div class="y">2019 · publication</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="win" id="now" role="dialog" aria-labelledby="now-t" style="left:480px;top:160px;width:380px;display:none">
+    <header class="bar"><div class="ttl" id="now-t">now.live</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body now-list" id="now-body">
+      <h2>· currently ·</h2>
+      <div id="now-rows">
+        <div class="row"><div class="l">Loading</div><div class="v">content/now.json …</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="win term" id="exp" role="dialog" aria-labelledby="exp-t" style="left:340px;top:100px;width:580px;display:none">
+    <header class="bar"><div class="ttl" id="exp-t">résumé.sh</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <div id="timeline-body"><div class="prompt">cat ~/career/timeline.txt</div>
+      <div class="row"><div class="l">2025—now</div><div>AVP, SRE Instrumentation · <em>Barclays · Knutsford</em></div></div>
+      <div class="row"><div class="l">2023—25</div><div>Data Integration Engineer, Observability · Barclays · Pune</div></div>
+      <div class="row"><div class="l">2021—23</div><div>Service Delivery, Enterprise DI · Barclays · Pune</div></div>
+      <div class="row"><div class="l">2019—21</div><div>Graduate Analyst · Barclays · Pune</div></div>
+      <div class="row"><div class="l">2020—22</div><div>Co-founder · <em>The Jellyfish Collective</em> · Paris (remote)</div></div>
+      <div class="row"><div class="l">2017—18</div><div>Project Intern · Persistent Systems</div></div>
+      <div class="row"><div class="l">2016—20</div><div>Co-founder · <em>Infin8y Labs</em> · Pune</div></div>
+      <div class="row"><div class="l">2016—18</div><div>Design &amp; Tech Lead · MIT CREON</div></div>
+      <div class="prompt">cat ~/education.txt</div>
+      <div class="row"><div class="l">2019—21</div><div>M.A. Economics · Fergusson · <em>8.88 CGPA</em></div></div>
+      <div class="row"><div class="l">2015—19</div><div>B.E. IT · MIT · <em>8.61 · top 3%</em></div></div>
+      <div class="prompt">echo "publications.bib"</div>
+      <div>· Zeppelin Server — IJSER, Vol 10 Issue 9, Sep 2019</div></div>
+    </div>
+  </section>
+
+  <section class="win" id="photos" role="dialog" aria-labelledby="photos-t" style="left:380px;top:100px;width:560px;display:none">
+    <header class="bar"><div class="ttl" id="photos-t">photos/</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <h2>photos/</h2>
+      <p>A drawer of pictures &amp; design work. Drop more in <code>content/art/</code> and add to <code>content/art.json</code>.</p>
+      <div class="photo-grid" id="art-body">
+        <div class="polaroid"><div class="photo">FIG 01</div>monsoon</div>
+        <div class="polaroid"><div class="photo">FIG 02</div>5:42 a.m.</div>
+        <div class="polaroid"><div class="photo">FIG 03</div>kitchen</div>
+        <div class="polaroid"><div class="photo">FIG 04</div>paris, brief</div>
+        <div class="polaroid"><div class="photo">FIG 05</div>coffee at 7</div>
+        <div class="polaroid"><div class="photo">FIG 06</div>album study</div>
+        <div class="polaroid"><div class="photo">FIG 07</div>street, blur</div>
+        <div class="polaroid"><div class="photo">FIG 08</div>untitled</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="win" id="write" role="dialog" aria-labelledby="write-t" style="left:440px;top:140px;width:480px;display:none">
+    <header class="bar"><div class="ttl" id="write-t">writing/</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <div id="write-body"><h2>writing/</h2>
+      <h3>essays</h3>
+      <ul>
+        <li>The ethics of the dashboard <span style="color:var(--ink-3);font-size:14px">· May 2026</span></li>
+        <li>Green software is just slow software, carefully <span style="color:var(--ink-3);font-size:14px">· Feb 2026</span></li>
+        <li>On Justice, after Sandel <span style="color:var(--ink-3);font-size:14px">· Nov 2025</span></li>
+        <li>Notes on building Now Playing <span style="color:var(--ink-3);font-size:14px">· Aug 2025</span></li>
+      </ul>
+      <h3>poetry corner</h3>
+      <p style="font-family:'Caveat',cursive;font-size:23px;line-height:1.35;background:#fff5a3;padding:14px;color:#3a3a1a;border-radius:3px;border:1px solid #c2a64a">
+        The pipeline is a kind of <em style="color:#a8362b;font-style:italic">prayer</em>:<br>
+        you put a thing in at one end<br>
+        and trust that it comes out<br>
+        on the other side <em style="color:#a8362b;font-style:italic">still itself</em>.
+      </p></div>
+    </div>
+  </section>
+
+  <section class="win" id="read" role="dialog" aria-labelledby="read-t" style="left:480px;top:160px;width:380px;display:none">
+    <header class="bar"><div class="ttl" id="read-t">reading/</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <h2>reading/</h2>
+      <h3>on the desk</h3>
+      <ul id="reading-body">
+        <li>Sandel — <em>Justice</em></li>
+        <li>Le Guin — <em>Steering the Craft</em></li>
+        <li>Donella Meadows — <em>Thinking in Systems</em></li>
+        <li>Hellerstein — <em>Designing Data-Intensive Apps</em></li>
+        <li>Camus — <em>The Myth of Sisyphus</em></li>
+        <li>Ellen Lupton — <em>Thinking with Type</em></li>
+      </ul>
+      <h3>influences</h3>
+      <p>Dieter Rams · Ellsworth Kelly · Le Guin · Tufte · Donella Meadows · Massimo Vignelli · Robin Sloan · Cabel Sasser · Tom Sachs</p>
+    </div>
+  </section>
+
+  <section class="win" id="certs" role="dialog" aria-labelledby="certs-t" style="left:400px;top:200px;width:460px;display:none">
+    <header class="bar"><div class="ttl" id="certs-t">certs.zip</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <h2>certs.zip</h2>
+      <p>A small streak of self-taught credentials, grouped:</p>
+      <div id="certs-body">
+      <h3>observability</h3>
+      <span class="chip">Elastic Engineer</span><span class="chip">Elastic Obs</span><span class="chip">Elastic Analyst</span><span class="chip">Cribl User</span><span class="chip">Observe Assoc.</span><span class="chip">LFS148 OTel</span><span class="chip">Grafana/Loki/Tempo</span><span class="chip">Kibana Fund.</span>
+      <h3>data &amp; cloud</h3>
+      <span class="chip">ETL · Kafka · Airflow</span><span class="chip">Data Analysis · Python</span><span class="chip">AWS Cloud-Native</span><span class="chip">Data Scientist's Toolbox</span>
+      <h3>design &amp; humanities</h3>
+      <span class="chip ac">Justice · HarvardX</span><span class="chip ac">Philosophy · Edinburgh</span><span class="chip">Type &amp; Spacing · CU</span><span class="chip">Branding &amp; UX · CU</span>
+      <h3>green</h3>
+      <span class="chip ac">LFC131 — Green Software</span>
+      <h3>ai</h3>
+      <span class="chip">Anthropic — Skills</span><span class="chip">Anthropic — MCP</span></div>
+    </div>
+  </section>
+
+  <section class="win" id="contact" role="dialog" aria-labelledby="contact-t" style="left:460px;top:220px;width:400px;display:none">
+    <header class="bar"><div class="ttl" id="contact-t">contact</div>
+      <div class="ctrls">
+        <button class="ctrl min" aria-label="Minimize">_</button>
+        <button class="ctrl max" aria-label="Maximize">□</button>
+        <button class="ctrl close" aria-label="Close">×</button>
+      </div>
+    </header>
+    <div class="body">
+      <div id="contact-body"><h2>say hi.</h2>
+      <p>Open to: interesting projects, slow conversations, design crit, observability nerdery, and posters.</p>
+      <ul style="font-size:18px;line-height:1.7">
+        <li><a href="mailto:hello@sujaymahadik.com">email →</a></li>
+        <li><a href="https://linkedin.com/in/sujay-mahadik">linkedin →</a></li>
+        <li><a href="https://github.com/sujay-mahadik">github →</a></li>
+        <li><a href="https://sujay-mahadik.github.io/now-playing">now-playing →</a></li>
+      </ul></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="help">
+  <kbd>Tab</kbd> through icons · <kbd>Enter</kbd> opens · <kbd>Esc</kbd> closes · drag titlebars to move
+</div>
+
+<div id="dock" role="toolbar" aria-label="Application dock">
+  <div class="start"><span class="ind"></span>SUJAY</div>
+  <div id="tasks" style="display:flex;gap:6px"></div>
+  <div class="spacer"></div>
+  <div class="clock" id="clock">--:--</div>
+</div>
+
+<script src="../src/content.js"></script>
+<script src="../src/render.js"></script>
+<script src="desktop.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{
+  "entries": [
+    {
+      "year": "2025 → Present",
+      "role": "SRE Instrumentation",
+      "org": "Barclays",
+      "where": "Manchester, UK",
+      "description": "Building observability infrastructure for Barclays — Kafka pipelines, OpenTelemetry instrumentation, and real-time alarm shipping via Elastic.",
+      "notes": [
+        "Kafka pipeline instrumentation and end-to-end monitoring",
+        "OpenTelemetry integration for distributed tracing across services",
+        "Real-time alarm routing and SRE on-call practices"
+      ]
+    },
+    {
+      "year": "2023 → 25",
+      "role": "Observability Engineer",
+      "org": "Barclays",
+      "where": "Pune, India",
+      "description": "Expanded observability capabilities across integration services, building telemetry collection systems and cross-team dashboarding standards.",
+      "notes": [
+        "Telemetry collection pipelines for distributed services",
+        "Dashboards and alerting for service health visibility",
+        "Established observability standards adopted across teams"
+      ]
+    },
+    {
+      "year": "2021 → 23",
+      "role": "Data Integration Engineer",
+      "org": "Barclays",
+      "where": "Pune, India",
+      "description": "Led service delivery across integration services, managing incident response, SLA tracking, and cross-team coordination.",
+      "notes": [
+        "Incident management and SLA adherence",
+        "Cross-functional coordination across integration domains",
+        "Process improvements to reduce mean time to resolution"
+      ]
+    },
+    {
+      "year": "2019 → 21",
+      "role": "Analyst",
+      "org": "Barclays",
+      "where": "Pune, India",
+      "description": "First role at Barclays — onboarded into integration services, learned the estate, and began contributing to reliability work.",
+      "notes": [
+        "System analysis and integration support",
+        "Documentation and runbook authoring",
+        "Foundation in enterprise service delivery"
+      ]
+    },
+    {
+      "year": "2020 → 22",
+      "role": "Co-founder / Designer",
+      "org": "The Jellyfish Collective",
+      "where": "Paris (remote)",
+      "description": "Co-founded a remote creative studio producing design strategy, brand identity, and editorial work for clients across Europe.",
+      "notes": [
+        "Studio co-founding, positioning, and brand direction",
+        "Client project design and end-to-end delivery",
+        "Remote-first team operations across time zones"
+      ]
+    },
+    {
+      "year": "2017 → 18",
+      "role": "Project Intern",
+      "org": "Persistent Systems",
+      "where": "Pune, India",
+      "description": "Internship in enterprise software development, contributing to integration and deployment work on live projects.",
+      "notes": [
+        "Software development and systems integration",
+        "Exposure to enterprise-scale delivery processes"
+      ]
+    },
+    {
+      "year": "2016 → 20",
+      "role": "Co-founder",
+      "org": "Infin8y Labs",
+      "where": "Pune, India",
+      "description": "Co-founded a student-run product studio building tools and digital products, run in parallel with undergraduate studies.",
+      "notes": [
+        "Product development from concept to launch",
+        "Engineering, design, and operations leadership",
+        "Ran the studio through four years of undergraduate study"
+      ]
+    },
+    {
+      "year": "2016 → 18",
+      "role": "Design & Tech Lead",
+      "org": "MIT CREON",
+      "where": "Pune, India",
+      "description": "Led design and technology for MIT's student entrepreneurship cell, building community and running events across campus.",
+      "notes": [
+        "Design systems and technology infrastructure",
+        "Event management and community programming",
+        "Cross-disciplinary team leadership"
+      ]
+    }
+  ]
+}

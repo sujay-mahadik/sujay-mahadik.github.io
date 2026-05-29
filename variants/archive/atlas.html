@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Sujay — Atlas</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atlas.css">
+</head>
+<body>
+
+<nav class="hud" aria-label="Region navigation">
+  <button data-go="overview" aria-current="true">Overview</button>
+  <button data-go="about">About</button>
+  <button data-go="work">Work</button>
+  <button data-go="photo">Photo</button>
+  <button data-go="words">Words</button>
+  <button data-go="contact">Contact</button>
+</nav>
+
+<div class="controls">
+  <button onclick="zoomBy(1.2)" aria-label="Zoom in">＋</button>
+  <button onclick="zoomBy(0.83)" aria-label="Zoom out">−</button>
+  <button onclick="zoomFit()" aria-label="Fit to view">⛶</button>
+  <button onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+</div>
+
+<div class="legend">drag · <kbd>↑↓←→</kbd> pan · <kbd>+−</kbd> zoom · <kbd>0</kbd> fit · <kbd>1–6</kbd> jump</div>
+
+<aside class="minimap" aria-hidden="true">
+  <div class="minimap-head"><span>Atlas</span><span id="mm-zoom">70%</span></div>
+  <div class="minimap-inner" id="mm"></div>
+</aside>
+
+<main id="stage">
+  <div id="world">
+
+    <!-- ═══ REGION I · OVERVIEW ════════════════════════ -->
+    <div class="region" style="left:200px;top:120px"><b>I</b> Overview</div>
+
+    <article class="card hero" id="overview" style="left:200px;top:160px" tabindex="0">
+      <div class="k">An atlas, not a résumé</div>
+      <h1 class="name">Sujay <em>Mahadik</em></h1>
+      <div class="role">Developer · Designer · Dreamer</div>
+      <p class="blurb">An engineer who keeps a <em>design studio</em> in his pocket, and an economist who reads <em>philosophy</em> in the margins.</p>
+      <div class="tags">
+        <span class="tag">SRE @ Barclays</span>
+        <span class="tag">Kafka · OTel · ELK</span>
+        <span class="tag">Co-founder · Jellyfish</span>
+        <span class="tag">MA Economics</span>
+        <span class="tag accent">Knutsford ⇄ Pune</span>
+      </div>
+    </article>
+
+    <article class="card now" id="now" style="left:820px;top:160px" tabindex="0">
+      <div class="k"><span class="badge-live">Now · live</span></div>
+      <h3>Currently</h3>
+      <div class="row"><span class="l">Listening</span><span class="v" id="np">—</span></div>
+      <div class="row"><span class="l">Reading</span><span class="v">Sandel · <em>Justice</em></span></div>
+      <div class="row"><span class="l">Brewing</span><span class="v">Yirgacheffe v60</span></div>
+      <div class="row"><span class="l">Learning</span><span class="v">OTel Collector</span></div>
+      <div class="row"><span class="l">Watching</span><span class="v">Severance · S2</span></div>
+      <div class="row"><span class="l">In</span><span class="v">Knutsford</span></div>
+      <div class="meta">Pulled weekly from /now-playing</div>
+    </article>
+
+    <article class="card writing" id="words" style="left:1180px;top:160px" tabindex="0">
+      <div class="k">Words · 5 notes</div>
+      <h3 style="margin-bottom:6px">Recent essays</h3>
+      <div class="post">
+        <h4>The ethics of the dashboard</h4>
+        <div class="d">May 2026 · 8 min</div>
+      </div>
+      <div class="post">
+        <h4>Green software is just slow software, carefully</h4>
+        <div class="d">Feb 2026 · 6 min</div>
+      </div>
+      <div class="post">
+        <h4>On Justice, after Sandel</h4>
+        <div class="d">Nov 2025 · 12 min</div>
+      </div>
+      <div class="post">
+        <h4>Notes on building Now Playing</h4>
+        <div class="d">Aug 2025 · 4 min</div>
+      </div>
+      <div class="post">
+        <h4>A pipeline is a kind of prayer</h4>
+        <div class="d">Mar 2025 · poem</div>
+      </div>
+    </article>
+
+    <!-- ═══ REGION II · ABOUT ══════════════════════════ -->
+    <div class="region" style="left:200px;top:680px"><b>II</b> About</div>
+
+    <article class="card" id="about" style="left:200px;top:720px;width:580px" tabindex="0">
+      <div class="k">The longer story</div>
+      <h2>I write data pipelines for a living and pretend I'm setting type for a periodical.</h2>
+      <p>By trade I'm an <strong>SRE at Barclays</strong> in Knutsford, building observability for Infrastructure — Kafka, OpenTelemetry, Elastic, real-time alarm shipping. Before that I spent four years on Data Integration in Pune, automating the unromantic parts of the job.</p>
+      <p>Before that I co-founded two small studios — <em>Infin8y Labs</em> (fandom posters with a friend) and <em>The Jellyfish Collective</em> (branding for early-stage startups, Paris-remote).</p>
+      <p>I have a B.E. in IT (top 3% of department) and an M.A. in Economics (8.88 CGPA, Fergusson). I keep a <a href="#now">Now page</a>, take <a href="#photo">photos</a>, write <a href="#words">essays</a>, and think a lot about justice as a measurable concept.</p>
+    </article>
+
+    <article class="card timeline" id="timeline" style="left:820px;top:720px" tabindex="0">
+      <div class="k">Timeline · 2015 → today</div>
+      <h3 style="margin-bottom:8px">The road here</h3>
+      <div class="yr"><div class="y">2025 →</div><div class="t">AVP, SRE Instrumentation</div><div class="o">Barclays · Knutsford</div></div>
+      <div class="yr"><div class="y">2023 — 25</div><div class="t">Data Integration Engineer</div><div class="o">Barclays · Pune</div></div>
+      <div class="yr"><div class="y">2021 — 23</div><div class="t">Service Delivery, EDI</div><div class="o">Barclays · Pune</div></div>
+      <div class="yr"><div class="y">2020 — 22</div><div class="t">Co-founder, Jellyfish</div><div class="o">Paris · remote</div></div>
+      <div class="yr"><div class="y">2019 — 21</div><div class="t">M.A. Economics · 8.88</div><div class="o">Fergusson</div></div>
+      <div class="yr"><div class="y">2017 — 18</div><div class="t">Project Intern · UAV</div><div class="o">Persistent</div></div>
+      <div class="yr"><div class="y">2016 — 20</div><div class="t">Co-founder, Infin8y Labs</div><div class="o">Pune</div></div>
+      <div class="yr"><div class="y">2015 — 19</div><div class="t">B.E. IT · 8.61</div><div class="o">MIT · SPPU</div></div>
+    </article>
+
+    <!-- ═══ REGION III · WORK ══════════════════════════ -->
+    <div class="region" style="left:200px;top:1280px"><b>III</b> Selected Work</div>
+
+    <article class="card tile featured" id="work" style="left:200px;top:1320px" tabindex="0">
+      <div class="thumb thumb-2">Now Playing.</div>
+      <div class="k">★ Featured · 2025 · live toy</div>
+      <h3>A Spotify scrobbler.</h3>
+      <p>A small site that pulls what I'm listening to from Spotify and renders it as a slowly-rotating postcard. Built with Vite + a serverless OAuth shim. Hosted on GitHub Pages.</p>
+      <div style="margin-top:10px">
+        <span class="tag">Vite</span><span class="tag">Spotify</span><span class="tag">GH Pages</span>
+      </div>
+    </article>
+
+    <article class="card tile featured" style="left:620px;top:1320px" tabindex="0">
+      <div class="thumb thumb-1">3h → real-time.</div>
+      <div class="k">★ Featured · 2024 · observability</div>
+      <h3>Netcool → Kafka.</h3>
+      <p>Designed and built a Python event-streaming pipeline from IBM Netcool to Kafka. Time-to-data went from <strong>3 hours to live</strong>. Now feeds Barclays' Global Command Centre &amp; 10+ ops teams.</p>
+      <div style="margin-top:10px">
+        <span class="tag">Python</span><span class="tag">Kafka</span><span class="tag">SRE</span>
+      </div>
+    </article>
+
+    <article class="card tile featured" style="left:1040px;top:1320px" tabindex="0">
+      <div class="thumb thumb-5">Jellyfish.</div>
+      <div class="k">★ Featured · 2020 — 22 · branding</div>
+      <h3>The Jellyfish Collective.</h3>
+      <p>Co-founded a small studio for branding, visual identity &amp; design systems for early-stage startups. Long-term partnerships, not sprints.</p>
+      <div style="margin-top:10px">
+        <span class="tag">Branding</span><span class="tag">Identity</span><span class="tag">Paris</span>
+      </div>
+    </article>
+
+    <article class="card tile" style="left:200px;top:1820px" tabindex="0">
+      <div class="thumb thumb-1">Spectrum × Kafka</div>
+      <div class="k">2024 · alarm pipeline</div>
+      <h3>An alarm pipeline.</h3>
+      <p>Integrated Broadcom Spectrum's alarm notifier with Kafka. Trend analysis for network ops, early incident detection, measurable MTTR drop.</p>
+    </article>
+
+    <article class="card tile" style="left:540px;top:1820px" tabindex="0">
+      <div class="thumb thumb-6">Patch Dashboard</div>
+      <div class="k">2024 · Kibana</div>
+      <h3>Patch Analysis Dashboard.</h3>
+      <p>JDBC Kafka Connector → Elastic → Kibana. A single pane of glass for historical &amp; current patch trends. Replaced a spreadsheet ritual.</p>
+    </article>
+
+    <article class="card tile" style="left:880px;top:1820px" tabindex="0">
+      <div class="thumb thumb-3">15× faster</div>
+      <div class="k">2021 · tooling</div>
+      <h3>Ab Initio Automation.</h3>
+      <p>Python automation over Service First API for Ab Initio project creation. 15× speedup, ~20 hrs/month reclaimed.</p>
+    </article>
+
+    <article class="card tile" style="left:1220px;top:1820px" tabindex="0">
+      <div class="thumb thumb-4">IPFS · ETH</div>
+      <div class="k">2019 · BE project</div>
+      <h3>Secure Document Transfer.</h3>
+      <p>IPFS + Ethereum smart contracts + React. Content-addressable file sharing without third parties.</p>
+    </article>
+
+    <article class="card tile" style="left:200px;top:2200px" tabindex="0">
+      <div class="thumb thumb-1">UAV</div>
+      <div class="k">2018 · Persistent</div>
+      <h3>Autonomous UAV.</h3>
+      <p>NVIDIA Jetson TX2, ZED stereo, Pixhawk. I owned the Unity-3D simulation and terrain design.</p>
+    </article>
+
+    <article class="card tile" style="left:540px;top:2200px" tabindex="0">
+      <div class="thumb thumb-2">Infin8y</div>
+      <div class="k">2016 — 20 · posters</div>
+      <h3>Infin8y Labs.</h3>
+      <p>Fandom posters, mugs, totes, hoodies. Sold via FranklyWearing across India, with Gauri Karekar.</p>
+    </article>
+
+    <article class="card tile" style="left:880px;top:2200px" tabindex="0">
+      <div class="thumb thumb-5">IJSER</div>
+      <div class="k">2019 · publication</div>
+      <h3>Zeppelin Server.</h3>
+      <p>"A Novel Approach to Data Sharing and Digital Identity Management" — published in IJSER Vol 10 Issue 9.</p>
+    </article>
+
+    <article class="card tile" style="left:1220px;top:2200px" tabindex="0">
+      <div class="thumb thumb-3">CREON</div>
+      <div class="k">2016 — 18 · MIT CREON</div>
+      <h3>Design &amp; Tech Lead.</h3>
+      <p>Web dev, digital marketing &amp; graphic design for CREON '17 &amp; '18. Included an SMTP ticketing platform.</p>
+    </article>
+
+    <!-- ═══ REGION IV · PHOTOGRAPHY ════════════════════ -->
+    <div class="region" style="left:1900px;top:120px"><b>IV</b> Photography</div>
+
+    <article class="card photo" id="photo" style="left:1900px;top:160px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 01</span></div>
+      <div class="cap">Pune, the last monsoon</div>
+    </article>
+    <article class="card photo" style="left:2160px;top:160px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 02</span></div>
+      <div class="cap">Knutsford, 5:42 a.m.</div>
+    </article>
+    <article class="card photo" style="left:2420px;top:160px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 03</span></div>
+      <div class="cap">A friend's kitchen</div>
+    </article>
+    <article class="card photo" style="left:1900px;top:530px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 04</span></div>
+      <div class="cap">Paris, brief</div>
+    </article>
+    <article class="card photo" style="left:2160px;top:530px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 05</span></div>
+      <div class="cap">Coffee at seven</div>
+    </article>
+    <article class="card photo" style="left:2420px;top:530px" tabindex="0">
+      <div class="frame"><span class="num">FIG · 06</span></div>
+      <div class="cap">Album cover study</div>
+    </article>
+
+    <!-- ═══ REGION V · READING & CERTS ═════════════════ -->
+    <div class="region" style="left:1900px;top:920px"><b>V</b> Reading &amp; Credentials</div>
+
+    <article class="card reading" id="reading" style="left:1900px;top:960px" tabindex="0">
+      <div class="k">Reading list · 2026</div>
+      <h3 style="margin-bottom:6px">On the desk</h3>
+      <ul>
+        <li><span class="dot"></span><span>Sandel — <em>Justice</em></span></li>
+        <li><span class="dot"></span><span>Le Guin — <em>Steering the Craft</em></span></li>
+        <li><span class="dot"></span><span>Donella Meadows — <em>Thinking in Systems</em></span></li>
+        <li><span class="dot"></span><span>Hellerstein — <em>Data-Intensive Apps</em></span></li>
+        <li><span class="dot"></span><span>Camus — <em>The Myth of Sisyphus</em></span></li>
+        <li><span class="dot"></span><span>Lupton — <em>Thinking with Type</em></span></li>
+      </ul>
+    </article>
+
+    <article class="card certs" id="certs" style="left:2240px;top:960px" tabindex="0">
+      <div class="k">Certifications · 17 in total</div>
+      <h3 style="margin-bottom:6px">A self-taught streak</h3>
+      <div class="row"><span>Elastic Certified Engineer</span><span class="yr">2024</span></div>
+      <div class="row"><span>Elastic Observability Engineer</span><span class="yr">2024</span></div>
+      <div class="row"><span>Elastic Certified Analyst</span><span class="yr">2024</span></div>
+      <div class="row"><span>Cribl Certified User</span><span class="yr">2025</span></div>
+      <div class="row"><span>Observe Associate</span><span class="yr">2025</span></div>
+      <div class="row"><span>LFS148 · OpenTelemetry</span><span class="yr">2024</span></div>
+      <div class="row"><span>LFC131 · Green Software</span><span class="yr">2023</span></div>
+      <div class="row"><span>Anthropic · Skills + MCP</span><span class="yr">2026</span></div>
+      <div class="row"><span>HarvardX · Justice (Sandel)</span><span class="yr">2021</span></div>
+      <div class="row"><span>Edinburgh · Philosophy</span><span class="yr">2020</span></div>
+      <div class="row"><span>CU Boulder · Type &amp; Spacing</span><span class="yr">2020</span></div>
+      <div class="meta">+ 6 more — Grafana, Kafka, AWS, data science…</div>
+    </article>
+
+    <!-- ═══ REGION VI · POETRY ═════════════════════════ -->
+    <div class="region" style="left:1900px;top:1560px"><b>VI</b> Poetry Corner</div>
+
+    <article class="card" id="poem" style="left:1900px;top:1600px;width:680px" tabindex="0">
+      <div class="k">A poem · written on call</div>
+      <h2 style="font-family:var(--f-display);font-style:italic;font-weight:300;font-size:30px;line-height:1.35;margin:14px 0 12px">The pipeline is a kind of <em>prayer</em>:<br>you put a thing in at one end<br>and trust that it comes out<br>on the other side <em>still itself</em>.</h2>
+      <div class="meta">— S.M. · 02:14 · somewhere in a Kafka cluster</div>
+    </article>
+
+    <!-- ═══ REGION VII · CONTACT ═══════════════════════ -->
+    <div class="region" style="left:1900px;top:1960px"><b>VII</b> Correspondence</div>
+
+    <article class="card contact" id="contact" style="left:1900px;top:2000px" tabindex="0">
+      <div class="k">Contact</div>
+      <h3 style="margin-bottom:10px">Write in.</h3>
+      <a href="mailto:hello@sujaymahadik.com"><span>Email</span><span class="arrow">hello@…</span></a>
+      <a href="https://linkedin.com/in/sujay-mahadik"><span>LinkedIn</span><span class="arrow">↗</span></a>
+      <a href="https://github.com/sujay-mahadik"><span>GitHub</span><span class="arrow">↗</span></a>
+      <a href="https://sujay-mahadik.github.io/now-playing"><span>Now Playing</span><span class="arrow">↗ live</span></a>
+      <div class="meta">Open to: interesting things · collaborations · slow conversations</div>
+    </article>
+
+  </div>
+</main>
+
+<script src="../src/content.js"></script>
+<script src="../src/render.js"></script>
+<script src="atlas.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Design tool artifacts (Claude Design export state)
+.design-canvas.state.json
+.thumbnail
+
+# Editor / IDE
+.vscode/
+.idea/
+.cursor/
+
+# Node.js (for future Astro migration and dev tooling)
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output (future Astro/static build)
+dist/
+.astro/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+#
+screenshots/
+uploads/
+CLAUDE.md
+.claude/
