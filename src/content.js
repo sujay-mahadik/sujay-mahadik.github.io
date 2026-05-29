@@ -2,7 +2,11 @@
 // Adjust BASE based on where the HTML lives.
 
 (function(){
-  const BASE = '../content';
+  // Script lives at <root>/src/content.js — repo root is one level up
+  const _cs = document.currentScript;
+  const BASE = _cs
+    ? new URL('../content', _cs.src).href.replace(/\/$/, '')
+    : 'content';
 
   async function loadJSON(name){
     try {

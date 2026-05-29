@@ -111,13 +111,7 @@ em { font-style: italic; }
 
 /* ─── Marquee band ─────────────────────────────────────────── */
 .band {
-  position: relative;
-  z-index: 2;
-  border-bottom: 1px solid var(--line);
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 9px 0;
-  background: var(--bg-2);
+  display: none;
 }
 .band-track {
   display: inline-block;
