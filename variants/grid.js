@@ -135,16 +135,28 @@
     renderNote(notes[0]);
 
     if (notes.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setInterval(() => {
-        bodyEl.classList.add('exit');
+      const noteDuration = (text) => Math.max(3000, Math.min(12000, (text || '').length * 40));
+      let queue = [];
+      const nextIdx = () => {
+        if (!queue.length) {
+          queue = notes.map((_, i) => i).filter(i => i !== noteIdx).sort(() => Math.random() - 0.5);
+        }
+        return queue.shift();
+      };
+      const cycle = () => {
         setTimeout(() => {
-          noteIdx = (noteIdx + 1) % notes.length;
-          bodyEl.classList.remove('exit');
-          bodyEl.classList.add('enter');
-          renderNote(notes[noteIdx]);
-          requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
-        }, 350);
-      }, 5000);
+          bodyEl.classList.add('exit');
+          setTimeout(() => {
+            noteIdx = nextIdx();
+            bodyEl.classList.remove('exit');
+            bodyEl.classList.add('enter');
+            renderNote(notes[noteIdx]);
+            requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
+            cycle();
+          }, 350);
+        }, noteDuration(notes[noteIdx].text));
+      };
+      cycle();
     }
   } else {
     $('statement-quote').innerHTML = 'The pipeline is a kind of <em>prayer</em>.';
@@ -327,7 +339,7 @@
         const sub = (n.subtitle || '').replace(/^[-–—]\s*/, '');
         const attrib = [sub, d].filter(Boolean).join(' · ');
         const lines = (n.text || '').split('\n').map(l => Render.md(l)).join('<br>');
-        return `<div class="m-poem">${lines}${attrib ? `<div class="attrib">— ${esc(attrib)}</div>` : ''}</div>`;
+        return `<div class="m-row"><div class="t" style="font-size:19px;font-style:italic">${lines}</div>${attrib ? `<div class="o">${esc(attrib)}</div>` : ''}</div>`;
       }).join('');
       return `<div class="m-kicker">01 · field notes</div><h2>Notes</h2>${items}`;
     },
