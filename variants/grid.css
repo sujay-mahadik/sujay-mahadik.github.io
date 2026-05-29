@@ -558,7 +558,7 @@ a.frame:hover { opacity: 0.82; }
   #c-hero { min-height: 320px; }
   #c-photos { min-height: 280px; }
   .hero-inner { padding: 22px 20px; }
-  #c-contact { flex-direction: column; align-items: flex-start; gap: 16px; }
+  #c-contact { flex-direction: column; align-items: flex-start; gap: 16px; order: 999; }
   .resume-wide { flex-direction: column; gap: 12px; }
   .r-lead { max-width: none; }
   .r-list .ri .rl { text-align: left; }
