@@ -89,7 +89,7 @@
       let v;
       if (it.label === 'Reading' && reading && reading.currently_reading && reading.currently_reading[0]) {
         const b = reading.currently_reading[0];
-        v = `${esc(b.author)} — <em>${esc(b.title)}</em>`;
+        v = `${esc(b.author)} / ${esc(b.title)}`;
       } else if (it.url) {
         v = `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.value)}</a>${live}`;
       } else {
