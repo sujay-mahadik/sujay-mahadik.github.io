@@ -5,6 +5,12 @@
   const _ROOT = _cs ? new URL('..', _cs.src).href : '';
   const esc = Render.esc;
   const $ = (id) => document.getElementById(id);
+  const noteSize = (text) => {
+    const len = (text || '').length;
+    if (len < 100) return 'clamp(22px, 2.5vw, 30px)';
+    if (len < 200) return 'clamp(16px, 1.8vw, 20px)';
+    return 'clamp(13px, 1.4vw, 16px)';
+  };
   const root = document.documentElement;
 
   const loader = $('loader');
@@ -107,14 +113,39 @@
   //   if (listening) $('live-now').innerHTML = `<span class="live-dot"></span> ${esc(listening.value)}`;
   // }
 
-  // ─── Statement (field note) ────────────────────────────────
-  const note = fieldNotes && fieldNotes.notes && fieldNotes.notes[0];
-  if (note) {
-    $('statement-quote').innerHTML = Render.md(note.text || '');
-    const d = note.date ? new Date(note.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
-    const sub = (note.subtitle || '').replace(/^[-–—]\s*/, '');
-    const attrib = [sub, d].filter(Boolean).join(' · ');
-    $('statement-attrib').textContent = attrib ? `— ${attrib}` : '— field note';
+  // ─── Statement (field notes — auto-cycle) ─────────────────
+  const notes = fieldNotes?.notes ?? [];
+  if (notes.length) {
+    let noteIdx = 0;
+    const bodyEl = $('note-body');
+    const qEl = $('statement-quote');
+    const aEl = $('statement-attrib');
+
+    function renderNote(note) {
+      qEl.innerHTML = Render.md(note.text || '');
+      qEl.style.fontSize = noteSize(note.text);
+      const d = note.date
+        ? (/^\d{4}$/.test(note.date) ? note.date : new Date(note.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }))
+        : '';
+      const sub = (note.subtitle || '').replace(/^[-–—]\s*/, '');
+      const attrib = [sub, d].filter(Boolean).join(' · ');
+      aEl.textContent = attrib ? `— ${attrib}` : '— field note';
+    }
+
+    renderNote(notes[0]);
+
+    if (notes.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(() => {
+        bodyEl.classList.add('exit');
+        setTimeout(() => {
+          noteIdx = (noteIdx + 1) % notes.length;
+          bodyEl.classList.remove('exit');
+          bodyEl.classList.add('enter');
+          renderNote(notes[noteIdx]);
+          requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
+        }, 350);
+      }, 5000);
+    }
   } else {
     $('statement-quote').innerHTML = 'The pipeline is a kind of <em>prayer</em>.';
     $('statement-attrib').textContent = '— field note';
@@ -287,6 +318,18 @@
       if (zines && zines.length) Render.renderZines('zwrap', zines, { variant: 'grid' });
       else $('zwrap') && ($('zwrap').innerHTML = '<p style="color:var(--ink-2)">No zines yet.</p>');
       return null;
+    },
+    notes(){
+      const items = (fieldNotes?.notes ?? []).map(n => {
+        const d = n.date
+          ? (/^\d{4}$/.test(n.date) ? n.date : new Date(n.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }))
+          : '';
+        const sub = (n.subtitle || '').replace(/^[-–—]\s*/, '');
+        const attrib = [sub, d].filter(Boolean).join(' · ');
+        const lines = (n.text || '').split('\n').map(l => Render.md(l)).join('<br>');
+        return `<div class="m-poem">${lines}${attrib ? `<div class="attrib">— ${esc(attrib)}</div>` : ''}</div>`;
+      }).join('');
+      return `<div class="m-kicker">01 · field notes</div><h2>Notes</h2>${items}`;
     },
   };
 

@@ -329,16 +329,32 @@ em { font-style: italic; }
 #c-statement {
   background: var(--contrast);
   border-color: var(--contrast);
-  justify-content: center;
+  overflow: hidden;
 }
-#c-statement .label { color: color-mix(in srgb, var(--contrast-ink) 52%, transparent); }
+#c-statement .label { color: color-mix(in srgb, var(--contrast-ink) 52%, transparent); flex-shrink: 0; }
+#c-statement .note-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  transition: opacity .45s ease, transform .45s ease;
+}
+#c-statement .note-body.exit {
+  opacity: 0;
+  transform: translateY(-3px);
+}
+#c-statement .note-body.enter {
+  opacity: 0;
+  transform: translateY(3px);
+  transition: none;
+}
 #c-statement .quote {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(22px, 2.5vw, 30px);
-  line-height: 1.18;
+  line-height: 1.25;
   color: var(--contrast-ink);
-  margin: 10px 0 0;
+  margin: 0;
 }
 #c-statement .quote em { font-style: italic; text-decoration: underline; text-decoration-color: var(--spark); text-underline-offset: 4px; }
 #c-statement .attrib { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: color-mix(in srgb, var(--contrast-ink) 58%, transparent); margin-top: 12px; text-transform: uppercase; }
@@ -676,3 +692,4 @@ a.frame:hover { opacity: 0.82; }
   #loader { transition: none; }
   .loader-dots span { animation: none; opacity: 1; }
 }
+
