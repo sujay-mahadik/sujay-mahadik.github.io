@@ -5,11 +5,11 @@
       "role": "SRE Instrumentation",
       "org": "Barclays",
       "where": "Manchester, UK",
-      "description": "Building observability infrastructure for Barclays — Kafka pipelines, OpenTelemetry instrumentation, and real-time alarm shipping via Elastic.",
+      "description": "AI evangelist building observability practices for Application and Infrastructure teams at Barclays, Kafka pipelines, OpenTelemetry instrumentation, Claude Skills, MCP deployments with site reliability and operations efficiency as the central theme",
       "notes": [
-        "Kafka pipeline instrumentation and end-to-end monitoring",
-        "OpenTelemetry integration for distributed tracing across services",
-        "Real-time alarm routing and SRE on-call practices"
+        "AI Native Observability usecases and recently turned evangelist",
+        "Kafka shipping patterns, instrumentation and end-to-end monitoring",
+        "Real-time alarm routing and SRE Dashboards for Global Command Centres"
       ]
     },
     {
@@ -29,7 +29,7 @@
       "role": "Data Integration Engineer",
       "org": "Barclays",
       "where": "Pune, India",
-      "description": "Led service delivery across integration services, managing incident response, SLA tracking, and cross-team coordination.",
+      "description": "Led service delivery across Enterprise and Data Integration Platform, managing incident response, SLA tracking, and cross-team coordination.",
       "notes": [
         "Incident management and SLA adherence",
         "Cross-functional coordination across integration domains",

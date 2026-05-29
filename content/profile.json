@@ -5,11 +5,11 @@
   "blurb": "An engineer who keeps a design studio in his pocket, and an economist who reads philosophy in the margins.",
   "heroImage": "art/hero.jpg",
   "longBio": [
-    "By trade I'm an SRE at Barclays in Knutsford, building observability for Infrastructure — Kafka, OpenTelemetry, Elastic, real-time alarm shipping.",
-    "Before that I co-founded two small studios — Infin8y Labs and The Jellyfish Collective.",
-    "B.E. in IT (top 3%) and an M.A. in Economics (8.88 CGPA). I think a lot about justice as a measurable concept."
+    "By trade I'm an SRE at Barclays in UK, building observability for Infrastructure — Kafka, OpenTelemetry, Elastic, real-time alarm shipping.",
+    "I co-founded two small studios — Infin8y Labs and The Jellyfish Collective.",
+    "Bachelor of Engineering in IT and a Masters in Economics. I think a lot about justice as a measurable concept."
   ],
-  "location": { "city": "Knutsford", "country": "UK", "from": "Pune, India" },
+  "location": { "city": "Manchester", "country": "UK", "from": "Pune, India" },
   "education": [
     {
       "year": "2019—21",
