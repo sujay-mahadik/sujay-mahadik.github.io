@@ -86,7 +86,15 @@
   if (now && now.items) {
     $('now-rows').innerHTML = now.items.slice(0,6).map(it => {
       const live = it.live ? '<span class="bd"></span>' : '';
-      const v = it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.value)}</a>${live}` : esc(it.value) + live;
+      let v;
+      if (it.label === 'Reading' && reading && reading.currently_reading && reading.currently_reading[0]) {
+        const b = reading.currently_reading[0];
+        v = `${esc(b.author)} — <em>${esc(b.title)}</em>`;
+      } else if (it.url) {
+        v = `<a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.value)}</a>${live}`;
+      } else {
+        v = esc(it.value) + live;
+      }
       return `<div class="row"><div class="l">${esc(it.label)}</div><div class="v">${v}</div></div>`;
     }).join('');
   }
