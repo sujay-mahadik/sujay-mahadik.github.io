@@ -3,6 +3,10 @@
 // Called from atlas.js and desktop.js after loading content.
 
 (function(){
+  // Script lives at <root>/src/render.js — compute repo root once
+  const _cs = document.currentScript;
+  const _ROOT = _cs ? new URL('..', _cs.src).href : '../';
+
   const esc = (s) => String(s ?? '')
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const md = (s) => esc(s)
@@ -181,7 +185,7 @@
     const el = document.getElementById(targetId);
     if (!el || !items) return;
     const variant = opts.variant || 'atlas';
-    const pathPrefix = '../';
+    const pathPrefix = _ROOT;
 
     if (!items.length){
       el.innerHTML = '<p style="color:var(--ink-3)">No zines yet — drop files in <code>zines/</code>.</p>';
@@ -226,7 +230,7 @@
   }
 
   function openZineReader(fm, variant){
-    const pathPrefix = '../';
+    const pathPrefix = _ROOT;
     const rawPages = Array.isArray(fm.pages) ? fm.pages : (fm.pages ? [fm.pages] : []);
     const spreadSet = new Set(
       (Array.isArray(fm.spreadIndices) ? fm.spreadIndices :

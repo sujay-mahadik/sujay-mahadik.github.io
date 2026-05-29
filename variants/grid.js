@@ -1,5 +1,8 @@
 /* sujay.grid — dark editorial bento. Loads shared content, renders bespoke. */
 (async () => {
+  // Capture before any await — document.currentScript is null after
+  const _cs = document.currentScript;
+  const _ROOT = _cs ? new URL('..', _cs.src).href : '';
   const esc = Render.esc;
   const $ = (id) => document.getElementById(id);
   const root = document.documentElement;
@@ -49,7 +52,7 @@
     // hero photo: drop a file at art/hero.jpg (or set profile.heroImage). Until then, placeholder.
     const media = $('hero-media');
     if (media) {
-      const heroPath = '../content/' + (profile.heroImage || 'art/hero.jpg');
+      const heroPath = _ROOT + 'content/' + (profile.heroImage || 'art/hero.jpg');
       const probe = new Image();
       probe.onload = () => { media.style.backgroundImage = `url('${heroPath}')`; media.classList.add('has-photo'); media.classList.remove('placeholder'); };
       probe.onerror = () => { media.classList.add('placeholder'); };
@@ -159,7 +162,7 @@
     if (z.frontmatter.cover) {
       const coverEl = document.querySelector('#c-zines .zcover');
       if (coverEl) {
-        coverEl.style.backgroundImage = `url('../${z.frontmatter.cover}')`;
+        coverEl.style.backgroundImage = `url('${_ROOT}${z.frontmatter.cover}')`;
         coverEl.style.backgroundSize = 'cover';
         coverEl.style.backgroundPosition = 'center';
       }
