@@ -17,11 +17,13 @@
       "role": "Observability Engineer",
       "org": "Barclays",
       "where": "Pune, India",
-      "description": "Expanded observability capabilities across integration services, building telemetry collection systems and cross-team dashboarding standards.",
+      "description": "Built observability and event streaming solutions for Enterprise Infrastructure using Kafka, Elastic, and Logstash.",
       "notes": [
-        "Telemetry collection pipelines for distributed services",
-        "Dashboards and alerting for service health visibility",
-        "Established observability standards adopted across teams"
+        "Designed Kafka Data Streaming Pipelines at scale clocking TBs of telemetry data per day",
+        "Delivered real-time Netcool-to-Kafka event streaming",
+        "Integrated Spectrum Alarm Notifier with Kafka",
+        "Built operational and patch analytics dashboards in Kibana",
+        "Drove observability adoption, training, and SRE initiatives"
       ]
     },
     {
@@ -29,11 +31,12 @@
       "role": "Data Integration Engineer",
       "org": "Barclays",
       "where": "Pune, India",
-      "description": "Led service delivery across Enterprise and Data Integration Platform, managing incident response, SLA tracking, and cross-team coordination.",
+      "description": "Supported and automated Enterprise Data Integration platforms, improving developer experience and operational efficiency.",
       "notes": [
-        "Incident management and SLA adherence",
-        "Cross-functional coordination across integration domains",
-        "Process improvements to reduce mean time to resolution"
+        "Built Ab Initio project provisioning automation in Python",
+        "Automated Informatica client deployment using Chef",
+        "Led incident reduction and operational improvement initiatives",
+        "Delivered platform onboarding, upgrades, and production support"
       ]
     },
     {
@@ -45,55 +48,61 @@
       "notes": [
         "System analysis and integration support",
         "Documentation and runbook authoring",
-        "Foundation in enterprise service delivery"
+        "Foundation in enterprise service delivery",
+        "Incident Support :)"
       ]
     },
-    {
-      "year": "2020 → 22",
-      "role": "Co-founder / Designer",
-      "org": "The Jellyfish Collective",
-      "where": "Paris (remote)",
-      "description": "Co-founded a remote creative studio producing design strategy, brand identity, and editorial work for clients across Europe.",
-      "notes": [
-        "Studio co-founding, positioning, and brand direction",
-        "Client project design and end-to-end delivery",
-        "Remote-first team operations across time zones"
-      ]
-    },
-    {
-      "year": "2017 → 18",
-      "role": "Project Intern",
-      "org": "Persistent Systems",
-      "where": "Pune, India",
-      "description": "Internship in enterprise software development, contributing to integration and deployment work on live projects.",
-      "notes": [
-        "Software development and systems integration",
-        "Exposure to enterprise-scale delivery processes"
-      ]
-    },
-    {
-      "year": "2016 → 20",
-      "role": "Co-founder",
-      "org": "Infin8y Labs",
-      "where": "Pune, India",
-      "description": "Co-founded a student-run product studio building tools and digital products, run in parallel with undergraduate studies.",
-      "notes": [
-        "Product development from concept to launch",
-        "Engineering, design, and operations leadership",
-        "Ran the studio through four years of undergraduate study"
-      ]
-    },
-    {
-      "year": "2016 → 18",
-      "role": "Design & Tech Lead",
-      "org": "MIT CREON",
-      "where": "Pune, India",
-      "description": "Led design and technology for MIT's student entrepreneurship cell, building community and running events across campus.",
-      "notes": [
-        "Design systems and technology infrastructure",
-        "Event management and community programming",
-        "Cross-disciplinary team leadership"
-      ]
-    }
+  {
+    "year": "2020 → 22",
+    "role": "Co-Founder & Designer",
+    "org": "The Jellyfish Collective",
+    "where": "Paris, France (Remote)",
+    "description": "Co-founded a remote design collective focused on branding and visual identity for startups.",
+    "notes": [
+      "Brand identity and visual design",
+      "Design systems and startup branding",
+      "Client project delivery",
+      "Remote collaboration"
+    ]
+  },
+  {
+    "year": "2017 → 18",
+    "role": "Project Intern",
+    "org": "Persistent Systems",
+    "where": "Pune, India",
+    "description": "Worked on an autonomous drone project as part of a six-person team.",
+    "notes": [
+      "Unity 3D simulation development",
+      "Terrain design and testing",
+      "Autonomous drone project",
+      "Team-based engineering delivery"
+    ]
+  },
+  {
+    "year": "2016 → 20",
+    "role": "Co-Founder & Designer",
+    "org": "Infin8y Labs",
+    "where": "Pune, India",
+    "description": "Co-founded a design studio creating fandom-themed merchandise and digital content.",
+    "notes": [
+      "Graphic design",
+      "Merchandise design",
+      "Brand development",
+      "Studio operations"
+    ]
+  },
+  {
+    "year": "2016 → 18",
+    "role": "Design & Technical Head",
+    "org": "MIT CREON",
+    "where": "Pune, India",
+    "description": "Led design, web development, and digital marketing for the student entrepreneurship cell.",
+    "notes": [
+      "Web development",
+      "Digital marketing",
+      "Event platform development",
+      "Design for events and campaigns"
+    ]
+  }
   ]
 }

@@ -1,22 +1,62 @@
-# CODING AGENTS: READ THIS FIRST
+# sujay-mahadik.github.io
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Personal portfolio for Sujay Mahadik — SRE, designer, economist. Lives at **sujay.site**.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+No framework. No build step. HTML, CSS, and JS served directly.
 
-## What you should do — IMPORTANT
+## Run locally
 
-**Find the primary design file under `sujay-portfolio/project/` and read it top to bottom.** Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+```
+npx serve .
+```
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+Visit `http://localhost:3000/` — the main site. The `variants/` folder holds the CSS and JS that `index.html` pulls in.
 
-## About the design files
+## Structure
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+```
+index.html          the site
+variants/
+  grid.css/js       editorial bento layout (active)
+  cycle-house.css/js  Slytherin accent theme (active)
+content/            all portfolio data (JSON + Markdown)
+scripts/            data-fetch scripts (Strava, reading)
+src/                shared content loader + render helpers
+design-studies/     experimental layouts (not linked)
+assets/             static assets
+```
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+### Content layer
 
-## Bundle contents
+Everything that changes lives in `content/`. Renderers read it at runtime via `fetch`.
 
-- `sujay-portfolio/README.md` — this file
-- `sujay-portfolio/project/` — the `sujay portfolio` project files (HTML prototypes, assets, components)
+| File | What it holds |
+|------|---------------|
+| `profile.json` | Name, bio, location, education |
+| `now.json` | "Currently" widget |
+| `contact.json` | Email + social links |
+| `timeline.json` | Work history |
+| `reading.json` | Books + influences |
+| `certs.json` | Certifications |
+| `art.json` | Photography + design index |
+| `strava.json` | Cycling activity (fetched by script) |
+| `field-notes.json` | Short notes / poems |
+| `work/*.md` | One file per project |
+| `writing/*.md` | One file per essay |
+| `poetry/*.md` | One file per poem |
+| `zines/*.md` | One file per zine |
+
+### Scripts
+
+`scripts/fetch-strava.mjs` — pulls recent Strava activity into `content/strava.json`.  
+`scripts/fetch-reading.mjs` — fetches reading data.
+
+Run with `node scripts/fetch-strava.mjs` etc. before committing updated data.
+
+## Planned migration
+
+Moving to **Astro** for GitHub Pages. `content/` stays unchanged; only the renderers will be replaced.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).

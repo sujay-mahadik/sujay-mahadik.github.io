@@ -1,43 +1,40 @@
-# Contributing to this portfolio
+# Contributing
 
-This site is content-first. Almost everything lives in `content/`.
+This site is content-first. Almost everything you'd want to change lives in `content/`.
 
 ## Folder layout
 
 ```
 content/
-├── profile.json     name, bio, location, education
-├── now.json         the "currently" widget
-├── contact.json     email + social links
-├── timeline.json    experience entries
-├── reading.json     books + influences
-├── certs.json       certifications, grouped
-├── art.json         photography & design (single index)
-├── work/            one .md file per project
-├── writing/         one .md file per essay
-├── poetry/          one .md file per poem
-└── zines/           one .md file per zine (cover + pages/PDF)
+├── profile.json       name, bio, location, education
+├── now.json           the "currently" widget
+├── contact.json       email + social links
+├── timeline.json      experience entries
+├── reading.json       books + influences
+├── certs.json         certifications, grouped
+├── art.json           photography & design index
+├── strava.json        cycling activity (fetched by script)
+├── field-notes.json   short notes / poems
+├── work/              one .md file per project
+├── writing/           one .md file per essay
+├── poetry/            one .md file per poem
+└── zines/             one .md file per zine
 
-art/                 the actual image files
-src/                 the shared loader + renderers (I write these)
-variants/            the themes — each is self-contained HTML/CSS/JS
-├── os.*             glassmorphism desktop  (active)
-├── grid.*           editorial bento        (active)
-├── atlas.*          spatial canvas         (archived)
-├── desktop.*        retro OS               (archived)
-└── almanac.html     almanac                (archived)
-index.html           launcher → opens either active direction
+content/art/           image files referenced by art.json
+src/                   shared loader (content.js) + render helpers (render.js) — don't edit casually
+variants/              CSS + JS for each layout theme
+scripts/               data-fetch scripts
 ```
 
 ## Rules of thumb
 
-- **JSON** = flat data. Keep keys stable.
-- **Markdown** = YAML frontmatter (between `---`) plus body. Frontmatter is **open** — add fields freely; the renderer ignores unknown keys.
+- **JSON** = flat data. Keep keys stable — renderers depend on exact key names.
+- **Markdown** = YAML frontmatter (between `---`) plus body. Frontmatter is open: add fields freely; unknown keys are ignored.
 - Use `order:` or `date:` in frontmatter to control ordering. Filenames don't matter.
 
 ## Add a project
 
-`content/work/your-slug.md`
+Create `content/work/your-slug.md`:
 
 ```yaml
 ---
@@ -45,43 +42,22 @@ title: Thing I made
 slug: thing-i-made
 year: 2025
 summary: One line for tiles.
-# optional:
 kind: web toy           # or "observability", "branding", "BE Project"...
-featured: true          # show as a big tile
+featured: true          # show as a big tile (optional)
 order: 1
 tags: [Python, Kafka]
 metric: 3h → live
 url: https://...
 repo: https://github.com/...
-thumbnail: art/foo.jpg
+thumbnail: content/art/foo.jpg
 ---
 
 Body in markdown.
 ```
 
-## Add photography or design to `art/`
-
-1. Drop the file in `art/` (e.g. `art/09-newpic.jpg`)
-2. Add an entry to `content/art.json`:
-
-```json
-{ "id": "09-newpic", "kind": "photo", "src": "art/09-newpic.jpg",
-  "caption": "what it is", "location": "where", "date": "2026-04" }
-```
-
-`kind` is `"photo"` or `"design"`. For design, use `client` instead of `location`.
-
-## Set the hero portrait (grid / bento)
-
-The "who" card in `grid.html` is a full-bleed photo slot. Drop your portrait at
-**`art/hero.jpg`** (portrait/3:4 crops best), or point `heroImage` in
-`content/profile.json` somewhere else. Until a file exists, the card shows a
-labelled placeholder. The photo is rendered as a duotone that recolors with the
-active accent swatch, with a scrim so the name stays legible.
-
 ## Add an essay
 
-`content/writing/your-slug.md`
+Create `content/writing/your-slug.md`:
 
 ```yaml
 ---
@@ -96,9 +72,21 @@ tags: [observability]
 Body in markdown.
 ```
 
+## Add photography or design
+
+1. Drop the file in `content/art/` (e.g. `content/art/newpic.jpg`)
+2. Add an entry to `content/art.json`:
+
+```json
+{ "id": "newpic", "kind": "photo", "src": "content/art/newpic.jpg",
+  "caption": "what it is", "location": "where", "date": "2026-04" }
+```
+
+`kind` is `"photo"` or `"design"`. For design, use `"client"` instead of `"location"`.
+
 ## Add a zine
 
-`content/zines/your-slug.md` — frontmatter only (no body needed):
+Create `content/zines/your-slug.md` — frontmatter only (no body needed):
 
 ```yaml
 ---
@@ -107,7 +95,7 @@ slug: my-zine
 date: 2024-03-01
 availability: available     # available | sold-out | free
 cover: zines/my-zine/cover.jpg
-pages:                      # page images, in order
+pages:
   - zines/my-zine/cover.jpg
   - zines/my-zine/spread-01.jpg
 spreadIndices: [1]          # which page indices are full-bleed spreads
@@ -115,44 +103,36 @@ pdf: zines/my-zine/my-zine.pdf   # optional download / fallback
 ---
 ```
 
-The reader (`src/render.js → openZineReader`) lays pages out as book spreads,
-or falls back to rendering the PDF if no page images are present.
-
 ## ⚠ Register new Markdown files
 
-Adding a `.md` to `work/`, `writing/`, `poetry/`, or `zines/` is **not** enough —
-list its slug in the `MANIFESTS` object in `src/content.js`. Filenames don't
-affect ordering (use `order:`/`date:`), but a slug missing from the manifest
-won't load.
+Adding a `.md` file is not enough — you must also add its slug to the `MANIFESTS` object in `src/content.js`. A slug missing from the manifest won't load.
 
-There are two **active** themes, both reading from `content/` via the shared
-`src/content.js` (loader) + `src/render.js` (helpers):
+## Set the hero portrait
 
-- `variants/os.html` — **sujay.os**, a glassmorphism desktop. A real window
-  manager: draggable windows with traffic lights, a floating dock, ⌘K spotlight,
-  scattered polaroids, a boot sequence, and a Konami easter egg. Dark by default
-  with a light toggle (persisted to `localStorage`). Topographic wallpaper is
-  drawn to a `<canvas>` in `os-app.js`.
-- `variants/grid.html` — **sujay.grid**, a dark editorial bento. Asymmetric card
-  grid set in Instrument Serif + Hanken Grotesk, an influences marquee, and
-  click-to-expand modals. Bone-on-black, one warm spark.
+The hero card expects a portrait at `content/art/hero.jpg` (portrait / 3:4 crops best), or point `heroImage` in `content/profile.json` to another path. Until a file exists, the card shows a labelled placeholder. The image is rendered as a duotone that recolors with the active theme.
 
-`atlas.*`, `desktop.*`, and `almanac.html` are kept **archived** in `variants/`
-for reference. `index.html` is a launcher that links to the two active ones.
+## Themes
 
-Each variant owns its own markup and styling — adding a section means editing
-that variant's `.js`/`.css`, not a shared template. Shared logic that's worth
-reusing (escaping, the zine reader) lives in `src/render.js`.
+`index.html` loads two themes from `variants/`:
+
+- **`grid.css` / `grid.js`** — editorial bento layout. Dark by default; light mode toggle persisted to `localStorage`.
+- **`cycle-house.css` / `cycle-house.js`** — Slytherin accent overlay, toggled by the crest button in the header.
+
+Each theme owns its own CSS and JS. Adding a section means editing those files, not a shared template. Shared logic (escaping, the zine reader) lives in `src/render.js`.
+
+## Fetch scripts
+
+```
+node scripts/fetch-strava.mjs   # updates content/strava.json
+node scripts/fetch-reading.mjs  # updates content/reading.json (or similar)
+```
+
+Run these and commit the resulting JSON when activity data needs refreshing.
 
 ## Preview locally
-
-No build step yet. Use any static server:
 
 ```
 npx serve .
 ```
 
-Visit `http://localhost:3000/` (launcher), or jump straight to
-`/variants/os.html` or `/variants/grid.html`.
-
-When we port to Astro, `content/` stays the same; only the renderers change.
+Visit `http://localhost:3000/`. No build step needed.

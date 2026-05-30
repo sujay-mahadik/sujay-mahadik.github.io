@@ -1,4 +1,4 @@
-/* sujay.grid — dark editorial bento. Loads shared content, renders bespoke. */
+/* sujay.site — dark editorial bento. Loads shared content, renders bespoke. */
 (async () => {
   // Capture before any await — document.currentScript is null after
   const _cs = document.currentScript;
@@ -7,9 +7,14 @@
   const $ = (id) => document.getElementById(id);
   const noteSize = (text) => {
     const len = (text || '').length;
-    if (len < 100) return 'clamp(22px, 2.5vw, 30px)';
-    if (len < 200) return 'clamp(16px, 1.8vw, 20px)';
-    return 'clamp(13px, 1.4vw, 16px)';
+    // if (len < 100) return 'clamp(14px, 1.6vw, 20px)';
+    // if (len < 200) return 'clamp(11px, 1.2vw, 14px)';
+    // if (len < 400) return 'clamp(9px, 1vw, 12px)';
+    // return 'clamp(8px, 0.9vw, 10px)';
+    if (len < 100) return 'clamp(12px, 1.3vw, 16px)';
+if (len < 200) return 'clamp(9px, 1vw, 12px)';
+if (len < 350) return 'clamp(7px, 0.8vw, 10px)';
+return 'clamp(6px, 0.7vw, 8px)';
   };
   const root = document.documentElement;
 
@@ -135,7 +140,10 @@
     renderNote(notes[0]);
 
     if (notes.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const noteDuration = (text) => Math.max(3000, Math.min(12000, (text || '').length * 40));
+      const noteDuration = (text) => {
+        const words = (text || '').trim().split(/\s+/).length;
+        return Math.max(5000, Math.min(9000, words * 900));
+      };
       let queue = [];
       const nextIdx = () => {
         if (!queue.length) {
@@ -153,7 +161,7 @@
             renderNote(notes[noteIdx]);
             requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
             cycle();
-          }, 350);
+          }, 500);
         }, noteDuration(notes[noteIdx].text));
       };
       cycle();
@@ -339,9 +347,9 @@
         const sub = (n.subtitle || '').replace(/^[-–—]\s*/, '');
         const attrib = [sub, d].filter(Boolean).join(' · ');
         const lines = (n.text || '').split('\n').map(l => Render.md(l)).join('<br>');
-        return `<div class="m-row"><div class="t" style="font-size:19px;font-style:italic">${lines}</div>${attrib ? `<div class="o">${esc(attrib)}</div>` : ''}</div>`;
+        return `<div class="m-row"><div class="quote" style="font-size:19px">${lines}</div>${attrib ? `<div class="t" style="font-size:16px"> - ${esc(attrib)}</div>` : ''}</div>`;
       }).join('');
-      return `<div class="m-kicker">01 · field notes</div><h2>Notes</h2>${items}`;
+      return `<div class="m-kicker">01 · notes</div><h2>Notes</h2>${items}`;
     },
   };
 

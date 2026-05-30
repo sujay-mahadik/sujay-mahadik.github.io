@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────
-   sujay.grid — cool dusk editorial bento
+   sujay.site — cool dusk editorial bento
    Instrument Serif (display) · Hanken Grotesk (text) · JetBrains Mono (meta)
    Blue-ink darks, cool lights. Amber primary, teal secondary.
    ─────────────────────────────────────────────────────────── */
@@ -180,17 +180,19 @@ em { font-style: italic; }
   padding: 6px 30px 90px;
 }
 
-#c-hero      { grid-column: 1 / 3; grid-row: 1 / 3; }
-#c-statement { grid-column: 3 / 5; grid-row: 1; }
-#c-now       { grid-column: 3;     grid-row: 2 / 4; }
-#c-photos    { grid-column: 4;     grid-row: 2 / 4; }
-#c-resume    { grid-column: 1 / 3; grid-row: 3; }
-#c-work      { grid-column: 1;     grid-row: 4; }
-#c-zines     { grid-column: 2 / 4; grid-row: 4; }
-#c-certs     { grid-column: 4;     grid-row: 4; }
-#c-contact   { grid-column: 1 / 3; grid-row: 5; }
-#c-reading   { grid-column: 3;     grid-row: 5; }
-#c-writing   { grid-column: 4;     grid-row: 5; }
+#c-hero      { grid-column: 1 / 4; grid-row: 1 / 3; }
+#c-statement { grid-column: 4 / 5; grid-row: 1 / 2; }
+#c-photos    { grid-column: 4 / 5; grid-row: 4 / 5; }
+#c-cycle     { grid-column: 1 / 3; grid-row: 3 / 5; }
+#c-reading   { grid-column: 3 / 4; grid-row: 4 / 5; }
+#c-now       { grid-column: 4 / 5; grid-row: 2 / 3; }
+#c-resume    { grid-column: 3 / 5; grid-row: 3 / 4; }
+#c-work      { grid-column: 1 / 2; grid-row: 5 / 6; }
+#c-zines     { grid-column: 2 / 4; grid-row: 5 / 6; }
+#c-certs     { grid-column: 4 / 5; grid-row: 5 / 6; }
+#c-contact   { grid-column: 1 / 5; grid-row: 6 / 7; }
+#c-house     { display: none; }
+#c-writing   { display: none; }
 
 /* ─── Card base ────────────────────────────────────────────── */
 .card {
@@ -338,26 +340,30 @@ em { font-style: italic; }
   flex-direction: column;
   justify-content: center;
   margin-top: 10px;
-  transition: opacity .45s ease, transform .45s ease;
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+  transition: opacity .5s ease, transform .5s ease;
 }
 #c-statement .note-body.exit {
   opacity: 0;
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 #c-statement .note-body.enter {
   opacity: 0;
-  transform: translateY(3px);
+  transform: translateY(4px);
   transition: none;
 }
 #c-statement .quote {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-style: italic;
   line-height: 1.25;
   color: var(--contrast-ink);
   margin: 0;
 }
 #c-statement .quote em { font-style: italic; text-decoration: underline; text-decoration-color: var(--spark); text-underline-offset: 4px; }
-#c-statement .attrib { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: color-mix(in srgb, var(--contrast-ink) 58%, transparent); margin-top: 12px; text-transform: uppercase; }
+#c-statement .attrib { font-family: var(--serif); font-size: 11px; letter-spacing: .08em; color: color-mix(in srgb, var(--contrast-ink) 58%, transparent); margin-top: 12px; text-transform: uppercase; }
 
 /* ─── Now ledger ───────────────────────────────────────────── */
 #c-now .rows { margin-top: 14px; display: flex; flex-direction: column; }
@@ -554,11 +560,13 @@ a.frame:hover { opacity: 0.82; }
 @media (max-width: 1040px) {
   .grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
   #c-hero{grid-column:1/3;grid-row:1/3} #c-statement{grid-column:1/3;grid-row:3}
-  #c-now{grid-column:1;grid-row:4/6} #c-photos{grid-column:2;grid-row:4/6}
-  #c-resume{grid-column:1/3;grid-row:6} #c-work{grid-column:1;grid-row:7}
-  #c-zines{grid-column:2;grid-row:7} #c-certs{grid-column:1;grid-row:8}
-  #c-reading{grid-column:2;grid-row:8} #c-writing{grid-column:1/3;grid-row:9}
-  #c-contact{grid-column:1/3;grid-row:10}
+  #c-photos{grid-column:1/3;grid-row:4}
+  #c-cycle{grid-column:1/3;grid-row:5/7}
+  #c-reading{grid-column:1;grid-row:7} #c-now{grid-column:2;grid-row:7}
+  #c-resume{grid-column:1/3;grid-row:8}
+  #c-work{grid-column:1;grid-row:9} #c-zines{grid-column:1/3;grid-row:10} #c-certs{grid-column:2;grid-row:9}
+  #c-contact{grid-column:1/3;grid-row:11}
+  #c-house{display:none}
 }
 @media (max-width: 768px) {
   .masthead { padding-left: 20px; padding-right: 20px; }

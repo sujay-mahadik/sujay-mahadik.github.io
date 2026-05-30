@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notes Tile · Design Study · sujay.site</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0d12; --bg-2: #12141c; --panel: #191c28;
+    --ink: #eceef5; --ink-2: #9098b0; --ink-3: #606880;
+    --line: rgba(236,238,245,.08); --line-2: rgba(236,238,245,.15);
+    --stripe: rgba(236,238,245,.05);
+    --spark: #ddb060;
+    --contrast: #e4e8f8; --contrast-ink: #0e1020;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Hanken Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --tw: 304px; --th: 172px; --tr: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans); background: var(--bg); color: var(--ink);
+    min-height: 100dvh; -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility; padding: 0 0 120px;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0;
+    pointer-events: none; opacity: .4; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── Page header ── */
+  .page-head { padding: 52px 0 36px; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--spark);
+  }
+  .page-title {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(36px, 5vw, 58px); line-height: .96;
+    letter-spacing: -.01em; margin: 12px 0 0;
+  }
+  .page-title em { font-style: italic; color: var(--contrast); }
+  .page-lede {
+    font-size: 15px; color: var(--ink-2); max-width: 600px;
+    margin: 14px 0 0; line-height: 1.6;
+  }
+  .page-meta {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ink-3);
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line-2); border-radius: 999px;
+    padding: 5px 14px; margin-top: 20px;
+  }
+
+  /* ── Study section ── */
+  .study { padding: 52px 0; border-bottom: 1px solid var(--line); }
+  .study-head {
+    display: flex; align-items: baseline; gap: 14px;
+    flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .study-tag {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--spark);
+    border: 1px solid color-mix(in srgb, var(--spark) 40%, transparent);
+    border-radius: 999px; padding: 5px 14px; flex-shrink: 0;
+  }
+  .study-name {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 26px; line-height: 1; color: var(--ink);
+  }
+  .study-body {
+    display: grid;
+    grid-template-columns: var(--tw) 1fr;
+    gap: 52px; align-items: start;
+  }
+
+  /* ── Tile wrapper ── */
+  .tile-stage { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+  .tile-dim {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .07em;
+    color: var(--ink-3); text-align: center; text-transform: uppercase;
+  }
+
+  /* ── The tile ── */
+  .tile {
+    width: var(--tw); height: var(--th);
+    background: var(--contrast);
+    border: 1px solid var(--contrast);
+    border-radius: var(--tr);
+    padding: 22px 24px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    position: relative; flex-shrink: 0;
+  }
+  .t-label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--contrast-ink) 52%, transparent);
+    flex-shrink: 0;
+  }
+  .t-quote {
+    font-family: var(--sans); font-style: normal;
+    line-height: 1.35; color: var(--contrast-ink); margin: 0;
+  }
+  .t-quote em {
+    font-style: italic; text-decoration: underline;
+    text-decoration-color: var(--spark); text-underline-offset: 3px;
+  }
+  .t-attrib {
+    font-family: var(--serif); font-size: 10px; letter-spacing: .08em;
+    color: color-mix(in srgb, var(--contrast-ink) 48%, transparent);
+    margin-top: 9px; text-transform: uppercase; flex-shrink: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── Annotations ── */
+  .annotations { display: flex; flex-direction: column; gap: 22px; }
+  .ann-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
+  }
+  .ann-text { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; max-width: 480px; }
+  .ann-code {
+    font-family: var(--mono); font-size: 12px; color: var(--spark);
+    background: rgba(221,176,96,.07); border: 1px solid rgba(221,176,96,.14);
+    border-radius: 6px; padding: 9px 14px; margin-top: 8px; line-height: 1.7;
+    white-space: pre;
+  }
+
+  /* ── Compare table ── */
+  .compare { padding: 52px 0; }
+  .compare-title {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 22px; color: var(--ink); margin: 12px 0 28px;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th, td {
+    text-align: left; padding: 12px 18px;
+    border-bottom: 1px solid var(--line); font-size: 13px;
+  }
+  th {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-3); font-weight: 400;
+  }
+  td { color: var(--ink-2); line-height: 1.4; }
+  td:first-child { font-family: var(--serif); font-size: 16px; color: var(--ink); }
+  tr:last-child td { border-bottom: none; }
+  .rec {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--spark);
+    border: 1px solid color-mix(in srgb, var(--spark) 40%, transparent);
+    border-radius: 999px; padding: 2px 9px; white-space: nowrap;
+  }
+
+  /* ── Tile body layouts (scoped) ── */
+
+  /* A — Smooth Curve */
+  .tb-a {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    margin-top: 10px; overflow: hidden; position: relative;
+    -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .tb-a.exit { opacity: 0; transform: translateY(-4px); }
+  .tb-a.enter { opacity: 0; transform: translateY(4px); transition: none; }
+
+  /* B — Fixed Stage */
+  .tb-b {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    margin-top: 10px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    transition: opacity .6s ease;
+  }
+  .tb-b.exit { opacity: 0; }
+  .tb-b.enter { opacity: 0; transition: none; }
+  #qb { font-size: 14px; line-height: 1.5; }
+
+  /* C — Pull-Quote Slot */
+  .tb-c {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    margin-top: 6px; overflow: hidden; position: relative;
+  }
+  #slot-c { transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .35s ease; }
+  #slot-c.exit-up { transform: translateY(-115%); opacity: 0; }
+  #slot-c.enter-below { transform: translateY(115%); opacity: 0; transition: none; }
+  #qc { font-size: 18px; line-height: 1.35; }
+  #ac { margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="eyebrow">Design Study · Notes Tile</div>
+    <h1 class="page-title">Three Fixes for <em>Field Notes</em></h1>
+    <p class="page-lede">Current tile: three-tier font jumps (30 → 20 → 16 px), 3 s minimum too brief for short quotes, long notes silently overflow 172 px. All three samples cycle the actual four notes at production scale.</p>
+    <div class="page-meta">304 × 172 px · production scale · live cycling</div>
+  </div>
+
+  <!-- ── A: Smooth Curve ───────────────────────── -->
+  <section class="study">
+    <div class="study-head">
+      <span class="study-tag">A</span>
+      <span class="study-name">Smooth Curve</span>
+    </div>
+    <div class="study-body">
+      <div class="tile-stage">
+        <div class="tile">
+          <div class="t-label">Notes</div>
+          <div class="tb-a" id="ba">
+            <p class="t-quote" id="qa"></p>
+            <div class="t-attrib" id="aa"></div>
+          </div>
+        </div>
+        <div class="tile-dim">A · smooth curve · 304 × 172</div>
+      </div>
+      <div class="annotations">
+        <div class="ann">
+          <div class="ann-label">Font Sizing</div>
+          <div class="ann-text">Continuous formula replaces the three hard tiers. Size slides from 27 px for a 10-word note down to 14 px for the longest. No layout reflow or visual jump between consecutive notes.</div>
+          <div class="ann-code">size = clamp(14, 27 − len × 0.075, 27)  px</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Overflow</div>
+          <div class="ann-text">Gradient mask fades the bottom 38% of the body. Long notes look intentionally cropped — the tile feels like a window into the quote rather than a container that failed to fit it.</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Timing</div>
+          <div class="ann-text">Word-count based. Short notes breathe; long notes don't overstay. The 5 s floor gives even a five-word fragment room to land.</div>
+          <div class="ann-code">ms = clamp(5000, words × 900, 9000)</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Transition</div>
+          <div class="ann-text">Fade + 4 px vertical translate over 500 ms. Feels like turning a page — unhurried, directional, one motion.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── B: Fixed Stage ───────────────────────── -->
+  <section class="study">
+    <div class="study-head">
+      <span class="study-tag">B</span>
+      <span class="study-name">Fixed Stage</span>
+    </div>
+    <div class="study-body">
+      <div class="tile-stage">
+        <div class="tile">
+          <div class="t-label">Notes</div>
+          <div class="tb-b" id="bb">
+            <p class="t-quote" id="qb"></p>
+            <div class="t-attrib" id="ab"></div>
+          </div>
+        </div>
+        <div class="tile-dim">B · fixed stage · 304 × 172</div>
+      </div>
+      <div class="annotations">
+        <div class="ann">
+          <div class="ann-label">Font Sizing</div>
+          <div class="ann-text">Eliminated entirely. Every note renders at 17 px / 1.38 leading. The eye settles into one reading rhythm and never re-calibrates between cycles. The tile feels typographically stable.</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Overflow</div>
+          <div class="ann-text">Same gradient mask as A. Because the font is fixed, the fade point is always at the same visual height — the tile has a consistent "waterline." Long notes fade below it, short notes clear it.</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Timing</div>
+          <div class="ann-text">Two-speed: short notes (≤ 50 chars) hold for 5 s; everything else holds for 8 s. Simple, predictable, easy to tune in one line.</div>
+          <div class="ann-code">ms = len ≤ 50 ? 5000 : 8000</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Transition</div>
+          <div class="ann-text">Pure crossfade over 600 ms — no translate. Still-camera dissolve. Most appropriate for literary content where motion should not distract from language.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── C: Pull-Quote Slot ───────────────────── -->
+  <section class="study">
+    <div class="study-head">
+      <span class="study-tag">C</span>
+      <span class="study-name">Pull-Quote Slot</span>
+    </div>
+    <div class="study-body">
+      <div class="tile-stage">
+        <div class="tile">
+          <div class="t-label">Notes</div>
+          <div class="tb-c">
+            <div id="slot-c">
+              <p class="t-quote" id="qc"></p>
+              <div class="t-attrib" id="ac"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tile-dim">C · pull-quote slot · 304 × 172</div>
+      </div>
+      <div class="annotations">
+        <div class="ann">
+          <div class="ann-label">Font Sizing</div>
+          <div class="ann-text">Fixed at 22 px — but only the first clause is extracted. Every note becomes structurally the same length on screen. Long quotes become apertures into a longer thought rather than problems to solve.</div>
+          <div class="ann-code">excerpt = text.split(/^.{12,60}?[.;!?]/)[0]</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Overflow</div>
+          <div class="ann-text">By design, N/A. The excerpt constraint does the work upstream. The tile never needs to clip or fade because the content is always short.</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Timing</div>
+          <div class="ann-text">Uniform 6 s for every note. Consistent cadence — the tile feels like a clock face. Works because all excerpts are approximately the same visual weight on screen.</div>
+        </div>
+        <div class="ann">
+          <div class="ann-label">Transition</div>
+          <div class="ann-text">Vertical slot: old note exits upward, new note enters from below. Mechanical, directional — a departures board or Solari flip. 400 ms cubic-bezier.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Compare ──────────────────────────────── -->
+  <section class="compare">
+    <div class="eyebrow">Summary</div>
+    <div class="compare-title">Side by side</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Sample</th>
+          <th>Font size</th>
+          <th>Overflow</th>
+          <th>Timing</th>
+          <th>Transition</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A · Smooth Curve</td>
+          <td>14 – 27 px continuous</td>
+          <td>Gradient fade, bottom 38%</td>
+          <td>Word-count · 5 – 9 s</td>
+          <td>Fade + slide · 500 ms</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>B · Fixed Stage</td>
+          <td>Fixed 17 px always</td>
+          <td>Gradient fade, stable waterline</td>
+          <td>Two-speed · 5 or 8 s</td>
+          <td>Crossfade · 600 ms</td>
+          <td><span class="rec">Recommended</span></td>
+        </tr>
+        <tr>
+          <td>C · Pull-Quote Slot</td>
+          <td>Fixed 22 px, first clause only</td>
+          <td>N/A by design</td>
+          <td>Uniform · 6 s</td>
+          <td>Vertical slide · 400 ms</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<script>
+const NOTES = [
+  { text: "I carry my awareness of defeat like a *banner of victory*.", subtitle: "Fernando Pessoa, The Book of Disquiet", date: "1982" },
+  { text: "I rebel; therefore *I exist*.", subtitle: "Albert Camus, The Rebel", date: "1951" },
+  { text: "Don't bend; don't water it down; don't try to make it logical; don't edit your own soul according to the fashion. Rather, follow your most intense obsessions *mercilessly*.", subtitle: "Franz Kafka" },
+  { text: "*Hazaaron khwahishen aisi* ke har khwahish pe dam nikle\nBahut niklay mere armaan, lekin phir bhi kam nikle", subtitle: "Mirza Ghalib" }
+];
+
+function md(t) {
+  return t.replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>');
+}
+function fmtAttrib(n) {
+  const d = n.date
+    ? (/^\d{4}$/.test(n.date) ? n.date : new Date(n.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }))
+    : '';
+  const s = (n.subtitle || '').replace(/^[-–—]\s*/, '');
+  const a = [s, d].filter(Boolean).join(' · ');
+  return a ? `— ${a}` : '— field note';
+}
+
+/* ── A: Smooth Curve ─────────────────────────────────── */
+(function () {
+  const bodyEl = document.getElementById('ba');
+  const qEl   = document.getElementById('qa');
+  const aEl   = document.getElementById('aa');
+  let idx = 0;
+
+  function size(text) {
+    const len = text.replace(/\*(.*?)\*/g, '$1').replace(/\n/g, ' ').length;
+    return Math.max(14, Math.min(27, 27 - len * 0.075)) + 'px';
+  }
+  function timing(text) {
+    const words = text.trim().split(/\s+/).length;
+    return Math.max(5000, Math.min(9000, words * 900));
+  }
+  function render(n) {
+    qEl.style.fontSize = size(n.text);
+    qEl.innerHTML = md(n.text);
+    aEl.textContent = fmtAttrib(n);
+  }
+
+  render(NOTES[0]);
+  (function cycle() {
+    setTimeout(() => {
+      bodyEl.classList.add('exit');
+      setTimeout(() => {
+        idx = (idx + 1) % NOTES.length;
+        bodyEl.classList.remove('exit');
+        bodyEl.classList.add('enter');
+        render(NOTES[idx]);
+        requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
+        cycle();
+      }, 500);
+    }, timing(NOTES[idx].text));
+  })();
+})();
+
+/* ── B: Fixed Stage ──────────────────────────────────── */
+(function () {
+  const bodyEl = document.getElementById('bb');
+  const qEl   = document.getElementById('qb');
+  const aEl   = document.getElementById('ab');
+  let idx = 0;
+
+  function timing(text) {
+    const len = text.replace(/\*(.*?)\*/g, '$1').length;
+    return len <= 50 ? 5000 : 8000;
+  }
+  function render(n) {
+    qEl.innerHTML = md(n.text);
+    aEl.textContent = fmtAttrib(n);
+  }
+
+  render(NOTES[0]);
+  (function cycle() {
+    setTimeout(() => {
+      bodyEl.classList.add('exit');
+      setTimeout(() => {
+        idx = (idx + 1) % NOTES.length;
+        bodyEl.classList.remove('exit');
+        bodyEl.classList.add('enter');
+        render(NOTES[idx]);
+        requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
+        cycle();
+      }, 600);
+    }, timing(NOTES[idx].text));
+  })();
+})();
+
+/* ── C: Pull-Quote Slot ──────────────────────────────── */
+(function () {
+  const slotEl = document.getElementById('slot-c');
+  const qEl    = document.getElementById('qc');
+  const aEl    = document.getElementById('ac');
+  let idx = 0;
+
+  function excerpt(text) {
+    const plain = text.replace(/\n/g, ' ');
+    const m = plain.match(/^.{12,60}?[.;!?]/);
+    if (m) return m[0];
+    const firstLine = text.split('\n')[0];
+    if (firstLine.length >= 12) return firstLine;
+    return plain.slice(0, 65);
+  }
+  function render(n) {
+    qEl.innerHTML = md(excerpt(n.text));
+    aEl.textContent = fmtAttrib(n);
+  }
+
+  render(NOTES[0]);
+  (function cycle() {
+    setTimeout(() => {
+      slotEl.classList.add('exit-up');
+      setTimeout(() => {
+        idx = (idx + 1) % NOTES.length;
+        slotEl.classList.remove('exit-up');
+        slotEl.classList.add('enter-below');
+        render(NOTES[idx]);
+        requestAnimationFrame(() => requestAnimationFrame(() => slotEl.classList.remove('enter-below')));
+        cycle();
+      }, 400);
+    }, 6000);
+  })();
+})();
+</script>
+</body>
+</html>

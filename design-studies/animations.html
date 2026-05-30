@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes Tile — Animation Samples</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d12;
+      --bg-2: #12141c;
+      --card: #191c28;
+      --ink: #eceef5;
+      --ink-2: #9098b0;
+      --ink-3: #606880;
+      --line: rgba(236,238,245,.08);
+      --line-2: rgba(236,238,245,.15);
+      --contrast: #e4e8f8;
+      --contrast-ink: #0e1020;
+      --spark: #ddb060;
+      --spark-2: #52a8a0;
+      --r: 22px;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Hanken Grotesk', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      padding: 56px 40px 100px;
+    }
+
+    /* ─── Page header ─── */
+    .page-header { margin-bottom: 60px; }
+
+    .page-kicker {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--spark);
+      margin-bottom: 12px;
+    }
+
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .page-sub {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-3);
+      letter-spacing: .04em;
+    }
+
+    /* ─── Demo grid ─── */
+    .demos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
+      gap: 28px;
+    }
+
+    .demo { display: flex; flex-direction: column; gap: 12px; }
+
+    .demo-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .demo-id {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--spark);
+      width: 16px;
+    }
+
+    .demo-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    .demo-desc {
+      font-size: 12px;
+      color: var(--ink-3);
+      letter-spacing: .01em;
+      margin-left: 26px;
+    }
+
+    /* ─── Card shell (mirrors #c-statement) ─── */
+    .card {
+      background: var(--contrast);
+      border-radius: var(--r);
+      border: 1px solid transparent;
+      padding: 28px 28px 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+      overflow: hidden;
+      position: relative;
+      cursor: default;
+    }
+
+    .card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--contrast-ink) 48%, transparent);
+      flex-shrink: 0;
+    }
+
+    .note-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 10px;
+    }
+
+    .quote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(18px, 2.2vw, 24px);
+      line-height: 1.22;
+      color: var(--contrast-ink);
+      margin: 0;
+    }
+
+    .quote em {
+      font-style: italic;
+      text-decoration: underline;
+      text-decoration-color: var(--spark);
+      text-underline-offset: 3px;
+    }
+
+    .attrib {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      color: color-mix(in srgb, var(--contrast-ink) 52%, transparent);
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
+    /* ─── Pip progress row ─── */
+    .pip-row {
+      display: flex;
+      gap: 5px;
+      margin-top: 16px;
+      flex-shrink: 0;
+    }
+
+    .pip {
+      height: 2px;
+      flex: 1;
+      border-radius: 2px;
+      background: color-mix(in srgb, var(--contrast-ink) 12%, transparent);
+      transition: background .4s ease;
+    }
+
+    .pip.active { background: var(--spark); }
+
+    /* ─── A · Fade ─── pure opacity, nothing moves */
+    .anim-fade .note-body {
+      transition: opacity .55s ease-in-out;
+    }
+    .anim-fade .note-body.exit { opacity: 0; }
+    .anim-fade .note-body.enter { opacity: 0; transition: none; }
+
+    /* ─── B · Drift ─── 3 px settle, barely perceptible motion */
+    .anim-drift .note-body {
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .anim-drift .note-body.exit  { opacity: 0; transform: translateY(-3px); }
+    .anim-drift .note-body.enter { opacity: 0; transform: translateY(3px); transition: none; }
+
+    /* ─── C · Soften ─── opacity + 2 px blur, text goes out of focus then in */
+    .anim-soften .note-body {
+      transition: opacity .5s ease, filter .5s ease;
+    }
+    .anim-soften .note-body.exit  { opacity: 0; filter: blur(2px); }
+    .anim-soften .note-body.enter { opacity: 0; filter: blur(2px); transition: none; }
+
+    /* ─── D · Unveil ─── exit: fade; enter: clip-path reveals top→bottom */
+    .anim-unveil .note-body {
+      clip-path: inset(0 0 0% 0);
+      transition: opacity .45s ease, clip-path .55s cubic-bezier(.4,0,.2,1);
+    }
+    .anim-unveil .note-body.exit  { opacity: 0; }
+    .anim-unveil .note-body.enter { opacity: 0; clip-path: inset(0 0 100% 0); transition: none; }
+
+    /* ─── Section divider ─── */
+    .section-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 64px 0 28px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* ─── Timing legend ─── */
+    .legend {
+      margin-top: 56px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px 28px;
+      max-width: 560px;
+    }
+
+    .legend-title {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 16px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+    }
+
+    .legend-row:last-child { border-bottom: none; }
+
+    .legend-id {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--spark);
+      letter-spacing: .12em;
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .legend-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-2);
+      width: 110px;
+      flex-shrink: 0;
+    }
+
+    .legend-detail {
+      font-size: 12px;
+      color: var(--ink-3);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-kicker">notes tile · animation samples</div>
+    <h1 class="page-title">Four ways to turn the page</h1>
+    <p class="page-sub">Each card cycles every 4 – 5 s · staggered · all typographic, nothing decorative</p>
+  </header>
+
+  <div class="demos" id="demos"></div>
+
+  <div class="legend">
+    <div class="legend-title">Timing reference</div>
+    <div class="legend-row">
+      <span class="legend-id">A</span>
+      <span class="legend-label">Fade</span>
+      <span class="legend-detail">550 ms ease-in-out · opacity only</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-id">B</span>
+      <span class="legend-label">Drift</span>
+      <span class="legend-detail">450 ms ease · opacity + translateY(3px)</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-id">C</span>
+      <span class="legend-label">Soften</span>
+      <span class="legend-detail">500 ms ease · opacity + filter:blur(2px)</span>
+    </div>
+    <div class="legend-row">
+      <span class="legend-id">D</span>
+      <span class="legend-label">Unveil</span>
+      <span class="legend-detail">Exit 450 ms · Enter 550 ms cubic-bezier · clip-path top→bottom + opacity</span>
+    </div>
+  </div>
+
+  <script>
+    const NOTES = [
+      {
+        text: 'I carry my awareness of defeat like a <em>banner of victory</em>.',
+        attrib: '— Pessoa · The Book of Disquiet · 1982'
+      },
+      {
+        text: 'I rebel; therefore I <em>exist</em>.',
+        attrib: '— Camus · The Rebel · 1951'
+      },
+      {
+        text: 'Language is the <em>house of Being</em>.',
+        attrib: '— Heidegger · Letter on Humanism · 1947'
+      },
+      {
+        text: 'The present moment always <em>will have been</em>.',
+        attrib: '— Kierkegaard · Either/Or · 1843'
+      },
+    ];
+
+    const DEMOS = [
+      { id: 'A', name: 'Fade',    cls: 'anim-fade',    desc: 'Purest. Opacity only — nothing moves.', exitMs: 550, interval: 4000, startIdx: 0 },
+      { id: 'B', name: 'Drift',   cls: 'anim-drift',   desc: 'Text settles 3 px — movement is subliminal.', exitMs: 450, interval: 4400, startIdx: 1 },
+      { id: 'C', name: 'Soften',  cls: 'anim-soften',  desc: 'A 2 px blur. Text loses and regains focus.', exitMs: 500, interval: 4800, startIdx: 2 },
+      { id: 'D', name: 'Unveil',  cls: 'anim-unveil',  desc: 'Clip-path curtain: text is uncovered top to bottom.', exitMs: 450, interval: 5200, startIdx: 3 },
+    ];
+
+    const demosEl = document.getElementById('demos');
+
+    DEMOS.forEach(({ id, name, cls, desc, exitMs, interval, startIdx }) => {
+      const bodyId   = `body-${id}`;
+      const quoteId  = `q-${id}`;
+      const attribId = `a-${id}`;
+      const pipsId   = `pips-${id}`;
+
+      demosEl.insertAdjacentHTML('beforeend', `
+        <div class="demo">
+          <div class="demo-meta">
+            <span class="demo-id">${id}</span>
+            <span class="demo-name">${name}</span>
+          </div>
+          <p class="demo-desc">${desc}</p>
+          <div class="card ${cls}">
+            <div class="card-label">NOTES</div>
+            <div class="note-body" id="${bodyId}">
+              <p class="quote" id="${quoteId}"></p>
+              <div class="attrib" id="${attribId}"></div>
+            </div>
+            <div class="pip-row" id="${pipsId}"></div>
+          </div>
+        </div>
+      `);
+
+      let idx = startIdx % NOTES.length;
+      const body  = document.getElementById(bodyId);
+      const q     = document.getElementById(quoteId);
+      const a     = document.getElementById(attribId);
+      const pips  = document.getElementById(pipsId);
+
+      // build pips
+      pips.innerHTML = NOTES.map((_, i) =>
+        `<div class="pip${i === idx ? ' active' : ''}"></div>`
+      ).join('');
+
+      const pipEls = pips.querySelectorAll('.pip');
+      function setPip(i) { pipEls.forEach((p, j) => p.classList.toggle('active', j === i)); }
+
+      q.innerHTML   = NOTES[idx].text;
+      a.textContent = NOTES[idx].attrib;
+
+      setInterval(() => {
+        body.classList.add('exit');
+        setTimeout(() => {
+          idx = (idx + 1) % NOTES.length;
+          body.classList.remove('exit');
+          body.classList.add('enter');
+          q.innerHTML   = NOTES[idx].text;
+          a.textContent = NOTES[idx].attrib;
+          setPip(idx);
+          requestAnimationFrame(() => requestAnimationFrame(() => body.classList.remove('enter')));
+        }, exitMs);
+      }, interval);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>sujay.site — layout C / H</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../variants/grid.css">
+<link rel="stylesheet" href="../variants/cycle-house.css">
+<script>
+  (function(){
+    var r = document.documentElement;
+    try {
+      if (localStorage.getItem('grid-house') === 'slytherin') r.dataset.house = 'slytherin';
+      var hv = localStorage.getItem('house-variant');
+      if (hv && hv !== '3') r.dataset.houseVariant = hv;
+      r.dataset.cycleVariant = localStorage.getItem('cycle-variant') || 'a';
+    } catch (e) { r.dataset.cycleVariant = 'a'; }
+  })();
+</script>
+<style>
+/* ── Layout switcher bar ── */
+#layout-switcher {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; gap: 8px;
+  max-width: 1320px; margin: 0 auto;
+  padding: 10px 30px 0;
+}
+#layout-switcher .ls-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-3); margin-right: 4px;
+}
+#layout-switcher button {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink-2); background: none;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 6px 14px; cursor: pointer;
+  transition: color .18s, border-color .18s, background .18s;
+}
+#layout-switcher button:hover { color: var(--ink); border-color: var(--ink-3); }
+#layout-switcher button.on {
+  color: var(--contrast-ink); background: var(--contrast);
+  border-color: var(--contrast);
+}
+
+/* ── Layout C — Magazine Column (3 cols) ── */
+.grid[data-layout="c"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid[data-layout="c"] #c-hero      { grid-column: 1/3; grid-row: 1/3; }
+.grid[data-layout="c"] #c-statement { grid-column: 3/4; grid-row: 1/2; }
+.grid[data-layout="c"] #c-now       { grid-column: 3/4; grid-row: 2/4; }
+.grid[data-layout="c"] #c-cycle     { grid-column: 1/3; grid-row: 3/5; }
+.grid[data-layout="c"] #c-photos    { grid-column: 3/4; grid-row: 4/5; }
+.grid[data-layout="c"] #c-resume    { grid-column: 1/4; grid-row: 5/6; }
+.grid[data-layout="c"] #c-work      { grid-column: 1/2; grid-row: 6/7; }
+.grid[data-layout="c"] #c-reading   { grid-column: 2/3; grid-row: 6/7; }
+.grid[data-layout="c"] #c-certs     { grid-column: 3/4; grid-row: 6/7; }
+.grid[data-layout="c"] #c-zines     { grid-column: 1/4; grid-row: 7/8; }
+.grid[data-layout="c"] #c-contact   { grid-column: 1/4; grid-row: 8/9; }
+.grid[data-layout="c"] #c-house     { display: none; }
+
+/* ── Layout H — Panoramic Left (4 cols) ── */
+.grid[data-layout="h"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid[data-layout="h"] #c-hero      { grid-column: 1/4; grid-row: 1/3; }
+.grid[data-layout="h"] #c-statement { grid-column: 4/5; grid-row: 1/2; }
+.grid[data-layout="h"] #c-photos    { grid-column: 4/5; grid-row: 2/3; }
+.grid[data-layout="h"] #c-cycle     { grid-column: 1/3; grid-row: 3/5; }
+.grid[data-layout="h"] #c-reading   { grid-column: 3/4; grid-row: 3/4; }
+.grid[data-layout="h"] #c-now       { grid-column: 4/5; grid-row: 3/4; }
+.grid[data-layout="h"] #c-resume    { grid-column: 3/5; grid-row: 4/5; }
+.grid[data-layout="h"] #c-work      { grid-column: 1/2; grid-row: 5/6; }
+.grid[data-layout="h"] #c-zines     { grid-column: 2/4; grid-row: 5/6; }
+.grid[data-layout="h"] #c-certs     { grid-column: 4/5; grid-row: 5/6; }
+.grid[data-layout="h"] #c-contact   { grid-column: 1/5; grid-row: 6/7; }
+.grid[data-layout="h"] #c-house     { display: none; }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-mark">S.</div>
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<div class="band">
+  <div class="band-track" id="band"></div>
+</div>
+
+<header class="masthead">
+  <div class="mark" id="mark"> <b>. . .</b> </div>
+  <div class="controls">
+    <span class="edition" id="edition">LAST UPDATED · —</span>
+    <button class="tg house-tg" id="house-tg" aria-label="Sort into Slytherin" aria-pressed="false" title="Sort into Slytherin">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path class="ht-snake" d="M13 4 C7 5, 7 8.6, 11.6 9.2 C16.4 9.8, 16 13.4, 10.6 14"></path></svg>
+    </button>
+    <button class="tg" id="theme-tg" aria-label="Toggle light or dark">◐</button>
+  </div>
+</header>
+
+<div id="layout-switcher">
+  <span class="ls-label">Layout</span>
+  <button data-layout="c" class="on">C — Magazine Column</button>
+  <button data-layout="h">H — Panoramic Left</button>
+</div>
+
+<main class="grid" id="grid" data-layout="c">
+
+  <!-- Hero -->
+  <section class="card" id="c-hero">
+    <div class="hero-media placeholder" id="hero-media">
+      <div class="hero-ph">art/hero.jpg<span>drop your portrait here</span></div>
+    </div>
+    <div class="hero-inner">
+      <div class="top">
+        <div class="label"><span class="n">01</span> · ME</div>
+        <div class="live-now" id="live-now"></div>
+      </div>
+      <div>
+        <h1 id="hero-name">…</h1>
+        <div class="hero-tag" id="hero-tag">…</div>
+        <p class="hero-blurb" id="hero-blurb">…</p>
+        <div class="hero-links" id="hero-links"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statement (bone) -->
+  <section class="card click" id="c-statement" data-modal="notes">
+    <div class="label">NOTES</div>
+    <div class="note-body" id="note-body">
+      <p class="quote" id="statement-quote">…</p>
+      <div class="attrib" id="statement-attrib"></div>
+    </div>
+  </section>
+
+  <!-- Now -->
+  <section class="card" id="c-now">
+    <div class="label"><span class="n">02</span> · CURRENTLY</div>
+    <div class="rows" id="now-rows"></div>
+  </section>
+
+  <!-- Photos -->
+  <section class="card click" id="c-photos" data-modal="photos">
+    <div class="label">03 · THE DRAWER</div>
+    <div class="sheet" id="photo-sheet"></div>
+    <div class="more">→ open the contact sheet</div>
+  </section>
+
+  <!-- Cycling / Strava (10) -->
+  <section class="card click" id="c-cycle" data-modal="cycle">
+    <div class="cycle-media placeholder" id="cycle-media">
+      <div class="cycle-ph">art/bike.jpg<span>drop your Trek Marlin 5 here</span></div>
+    </div>
+    <div class="cycle-inner">
+      <div class="cycle-top">
+        <div class="label"><span class="n">10</span> · ON TWO WHEELS</div>
+        <div class="cycle-bike" id="cycle-bike">Trek Marlin 5</div>
+      </div>
+      <div class="cycle-grid">
+        <div class="cycle-stat">
+          <div class="cycle-num" id="cycle-distance">—</div>
+          <div class="cycle-unit">all-time <span id="cycle-rides"></span></div>
+        </div>
+        <div class="cycle-recent" id="cycle-recent"></div>
+      </div>
+      <div class="cycle-spec" id="cycle-spec"></div>
+    </div>
+    <div class="more">→ ride log &amp; spec</div>
+  </section>
+
+  <!-- Résumé (04 · wide) -->
+  <section class="card click" id="c-resume" data-modal="resume">
+    <div class="label">04 · RÉSUMÉ</div>
+    <div class="resume-wide">
+      <div class="r-lead">
+        <div class="big" id="resume-now">…</div>
+        <div class="sub" id="resume-sub">…</div>
+      </div>
+      <div class="r-list" id="resume-list"></div>
+    </div>
+    <div class="more">→ my timeline</div>
+  </section>
+
+  <!-- Work (05 · small) -->
+  <section class="card click" id="c-work" data-modal="work">
+    <div class="label">05 · WORK <span class="count" id="work-count"></span></div>
+    <div class="feat" id="work-feat"></div>
+    <div class="more">→ full archive</div>
+  </section>
+
+  <!-- Zines (06) -->
+  <section class="card click" id="c-zines" data-modal="zines">
+    <div class="zcover"></div>
+    <div class="ztext">
+      <div class="label">06 · ZINES</div>
+      <div class="big" id="zines-title">…</div>
+      <div class="sub" id="zines-sub"></div>
+      <div class="more">→ read</div>
+    </div>
+  </section>
+
+  <!-- Certs (07) -->
+  <section class="card click" id="c-certs" data-modal="certs">
+    <div class="label">07 · CERTS</div>
+    <div class="num" id="certs-num">—</div>
+    <div class="sub" id="certs-sub">credentials, grouped</div>
+    <div class="more">→ browse</div>
+  </section>
+
+  <!-- Contact -->
+  <section class="card" id="c-contact">
+    <div class="lead">Say <em>hi.</em></div>
+    <div class="links" id="contact-links"></div>
+  </section>
+
+  <!-- Reading (08) -->
+  <section class="card click" id="c-reading" data-modal="reading">
+    <div class="label">08 · ON THE DESK</div>
+    <ul id="reading-list"></ul>
+  </section>
+
+  <!-- Writing (09) — hidden -->
+  <section class="card click" id="c-writing" data-modal="writing" style="display:none">
+    <div class="label">09 · WRITING</div>
+    <div class="big" id="writing-latest">…</div>
+    <div class="sub" id="writing-date"></div>
+    <div class="more">→ essays &amp; poetry</div>
+  </section>
+
+  <!-- Slytherin sorting (11) — hidden in both C and H layouts -->
+  <section class="card click" id="c-house" data-modal="house" style="display:none">
+    <div class="house-bg" aria-hidden="true"></div>
+    <div class="label">11 · SORTING</div>
+    <div class="house-crest" aria-hidden="true">
+      <svg viewBox="0 0 74 84">
+        <circle class="crest-ring" cx="37" cy="40" r="31"></circle>
+        <circle class="crest-ring" cx="37" cy="40" r="26" style="opacity:.4"></circle>
+        <path class="crest-snake" d="M48 22 C30 26, 30 40, 44 42 C58 44, 56 58, 40 60"></path>
+        <circle cx="40" cy="60" r="3" fill="var(--contrast)"></circle>
+        <path class="crest-tongue" d="M40 63 L37 68 M40 63 L43 68"></path>
+      </svg>
+    </div>
+    <div class="house-name">Slytherin</div>
+    <div class="house-words">Ambition · Cunning</div>
+    <div class="house-hint">tap to sort →</div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span id="foot-copy">© SUJAY MAHADIK</span>
+  <span id="foot-updated">SET IN INSTRUMENT SERIF &amp; HANKEN GROTESK</span>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" aria-label="Close">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="cursor-dot"  aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<script src="../src/content.js"></script>
+<script src="../src/render.js"></script>
+<script src="../variants/grid.js"></script>
+<script src="../variants/cycle-house.js"></script>
+<script>
+(function(){
+  var grid = document.getElementById('grid');
+  var btns = document.querySelectorAll('#layout-switcher button');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      grid.dataset.layout = btn.dataset.layout;
+      btns.forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      try { localStorage.setItem('layout-preview', btn.dataset.layout); } catch(e){}
+    });
+  });
+  try {
+    var saved = localStorage.getItem('layout-preview');
+    if (saved === 'c' || saved === 'h') {
+      grid.dataset.layout = saved;
+      btns.forEach(function(b){ b.classList.toggle('on', b.dataset.layout === saved); });
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Layout Studies — sujay.site</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0d12; --bg-2:#12141c; --panel:#191c28;
+    --ink:#eceef5; --ink-2:#9098b0; --ink-3:#606880;
+    --line:rgba(236,238,245,.10); --line-2:rgba(236,238,245,.20);
+    --stripe:rgba(236,238,245,.06);
+    --spark:#ddb060; --spark-soft:color-mix(in srgb,var(--spark) 16%,transparent);
+    --teal:#52a8a0; --teal-soft:color-mix(in srgb,var(--teal) 16%,transparent);
+    --contrast:#e4e8f8; --contrast-ink:#0e1020;
+    --serif:'Instrument Serif',Georgia,serif;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --rowH:58px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:var(--bg); color:var(--ink);
+    min-height:100dvh; -webkit-font-smoothing:antialiased; line-height:1.5;
+    padding:0 0 90px;
+  }
+  /* film grain */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.4; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+  .wrap{ position:relative; z-index:1; max-width:1280px; margin:0 auto; padding:0 30px; }
+
+  /* ── Masthead ── */
+  header.top{ padding:46px 0 30px; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--spark); }
+  h1.title{ font-family:var(--serif); font-weight:400; font-size:clamp(40px,6vw,68px); line-height:.96; letter-spacing:-.01em; margin:14px 0 0; }
+  h1.title em{ font-style:italic; color:var(--contrast); }
+  .lede{ font-size:15.5px; color:var(--ink-2); max-width:620px; margin:16px 0 0; line-height:1.6; }
+
+  /* ── Legend ── */
+  .legend{ display:flex; flex-wrap:wrap; gap:18px 26px; margin:26px 0 0; }
+  .leg{ display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-2); }
+  .swatch{ width:26px; height:18px; border-radius:4px; border:1px solid var(--line-2); flex-shrink:0; }
+  .swatch.feature{ background:var(--spark-soft); border-color:color-mix(in srgb,var(--spark) 45%,transparent); }
+  .swatch.invert{ background:var(--contrast); border-color:var(--contrast); }
+  .swatch.tint{ background:var(--teal-soft); border-color:color-mix(in srgb,var(--teal) 45%,transparent); }
+  .swatch.media{ background-color:var(--bg-2); background-image:repeating-linear-gradient(135deg,var(--stripe) 0 5px,transparent 5px 10px); }
+  .swatch.plain{ background:var(--panel); }
+
+  /* ── Section ── */
+  section.study{ padding:38px 0; border-bottom:1px solid var(--line); }
+  section.study.current{ padding-top:34px; }
+  .shead{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:0 0 20px; }
+  .stag{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--spark);
+         border:1px solid color-mix(in srgb,var(--spark) 40%,transparent); border-radius:999px; padding:5px 12px; flex-shrink:0; }
+  .stag.now{ color:var(--ink-3); border-color:var(--line-2); }
+  .sname{ font-family:var(--serif); font-size:30px; line-height:1; }
+  .sdesc{ font-size:13.5px; color:var(--ink-2); margin-left:auto; max-width:360px; text-align:right; line-height:1.5; }
+
+  /* ── Wireframe grid ── */
+  .frame-wrap{ }
+  .grid{ display:grid; gap:8px; grid-auto-rows:var(--rowH); }
+  .gallery{ display:grid; grid-template-columns:repeat(auto-fit,minmax(460px,1fr)); gap:34px 30px; }
+  .gallery .study{ padding:0; border:none; }
+
+  /* tiles */
+  .t{
+    position:relative; border:1px solid var(--line-2); border-radius:9px;
+    background:var(--panel); padding:9px 10px; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:border-color .2s, transform .2s;
+  }
+  .t:hover{ border-color:var(--contrast); transform:translateY(-2px); z-index:2; }
+  .t .num{ font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--ink-3); }
+  .t .nm{ font-family:var(--sans); font-weight:500; font-size:12.5px; line-height:1.12; color:var(--ink); }
+  .t .sz{ position:absolute; top:8px; right:9px; font-family:var(--mono); font-size:9px; letter-spacing:.04em; color:var(--ink-3); }
+  .t.feature{ background:var(--spark-soft); border-color:color-mix(in srgb,var(--spark) 42%,transparent); }
+  .t.feature .nm{ color:var(--spark); }
+  .t.feature .num{ color:color-mix(in srgb,var(--spark) 70%,transparent); }
+  .t.invert{ background:var(--contrast); border-color:var(--contrast); }
+  .t.invert .nm{ color:var(--contrast-ink); }
+  .t.invert .num,.t.invert .sz{ color:color-mix(in srgb,var(--contrast-ink) 55%,transparent); }
+  .t.tint{ background:var(--teal-soft); border-color:color-mix(in srgb,var(--teal) 42%,transparent); }
+  .t.tint .nm{ color:var(--teal); }
+  .t.media{ background-color:var(--bg-2); background-image:repeating-linear-gradient(135deg,var(--stripe) 0 7px,transparent 7px 14px); }
+
+  footer.foot{ padding:40px 0 0; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); }
+
+  @media (max-width:880px){
+    .gallery{ grid-template-columns:1fr; }
+    .sdesc{ margin-left:0; text-align:left; max-width:none; }
+    :root{ --rowH:50px; }
+  }
+  @media (max-width:560px){
+    .wrap{ padding:0 18px; }
+    :root{ --rowH:42px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">sujay.site · grid studies</div>
+    <h1 class="title">Layout <em>options</em></h1>
+    <p class="lede">Wireframes of the homepage bento — the current arrangement followed by eight alternative tilings of the same eleven cards. Boxes are drawn at honest relative size; tone marks each card's emphasis.</p>
+    <div class="legend">
+      <div class="leg"><span class="swatch feature"></span> Feature</div>
+      <div class="leg"><span class="swatch invert"></span> Inverted</div>
+      <div class="leg"><span class="swatch tint"></span> Tinted</div>
+      <div class="leg"><span class="swatch media"></span> Media</div>
+      <div class="leg"><span class="swatch plain"></span> Standard</div>
+    </div>
+  </header>
+
+  <!-- CURRENT -->
+  <section class="study current">
+    <div class="shead">
+      <span class="stag now">Current</span>
+      <span class="sname">Dusk Bento</span>
+      <span class="sdesc">Today's live grid — 4 columns, two big 2×2 features anchoring left, wide bands closing each block.</span>
+    </div>
+    <div class="grid" data-layout="current"></div>
+  </section>
+
+  <!-- OPTIONS -->
+  <div class="gallery" id="gallery"></div>
+
+  <footer class="foot">11 cards · 9 arrangements · hover a tile to lift it</footer>
+
+</div>
+
+<script>
+/* ── Card metadata (id → label, number, tone) ── */
+const TILES = {
+  hero:      {nm:'Hero',          num:'01 · ME',      tone:'media'},
+  statement: {nm:'Notes',         num:'STATEMENT',    tone:'invert'},
+  now:       {nm:'Currently',     num:'02',           tone:'tint'},
+  photos:    {nm:'The Drawer',    num:'03 · PHOTOS',  tone:'media'},
+  cycle:     {nm:'On Two Wheels', num:'10',           tone:'feature'},
+  certs:     {nm:'Certs',         num:'07',           tone:'plain'},
+  resume:    {nm:'Résumé',        num:'04',           tone:'plain'},
+  zines:     {nm:'Zines',         num:'06',           tone:'plain'},
+  work:      {nm:'Work',          num:'05',           tone:'plain'},
+  reading:   {nm:'On the Desk',   num:'08',           tone:'plain'},
+  contact:   {nm:'Contact',       num:'SAY HI',       tone:'invert'},
+};
+
+/* ── Layouts: each tile = [gridColumn, gridRow] ── */
+const LAYOUTS = {
+  current: { cols:4, place:{
+    hero:['1/3','1/3'], statement:['3/5','1/2'], now:['3/4','2/4'], photos:['4/5','2/4'],
+    cycle:['1/3','3/5'], certs:['3/5','4/5'],
+    resume:['1/3','5/6'], zines:['3/5','5/6'],
+    work:['1/2','6/7'], reading:['2/3','6/7'], contact:['3/5','6/7'],
+  }},
+  A: { cols:4, place:{
+    hero:['1/3','1/4'], statement:['3/5','1/2'], now:['3/4','2/3'], photos:['4/5','2/3'],
+    certs:['3/5','3/4'],
+    cycle:['1/3','4/5'], resume:['3/5','4/5'],
+    work:['1/2','5/6'], reading:['2/3','5/6'], zines:['3/5','5/6'],
+    contact:['1/5','6/7'],
+  }},
+  B: { cols:4, place:{
+    hero:['1/3','1/3'], statement:['3/5','1/2'], contact:['3/5','2/3'],
+    cycle:['1/3','3/5'], now:['3/4','3/4'], photos:['4/5','3/4'], resume:['3/5','4/5'],
+    zines:['1/3','5/6'], certs:['3/5','5/6'],
+    work:['1/3','6/7'], reading:['3/5','6/7'],
+  }},
+  C: { cols:3, place:{
+    hero:['1/3','1/3'], statement:['3/4','1/2'], now:['3/4','2/4'],
+    cycle:['1/3','3/5'], photos:['3/4','4/5'],
+    resume:['1/4','5/6'],
+    work:['1/2','6/7'], reading:['2/3','6/7'], certs:['3/4','6/7'],
+    zines:['1/4','7/8'],
+    contact:['1/4','8/9'],
+  }},
+  D: { cols:4, place:{
+    hero:['1/3','1/2'], statement:['3/5','1/2'],
+    now:['1/2','2/3'], photos:['2/3','2/3'], certs:['3/5','2/3'],
+    cycle:['1/3','3/4'], resume:['3/5','3/4'],
+    work:['1/2','4/5'], reading:['2/3','4/5'], zines:['3/5','4/5'],
+    contact:['1/5','5/6'],
+  }},
+  E: { cols:4, place:{
+    statement:['1/5','1/2'],
+    hero:['1/3','2/4'], now:['3/4','2/3'], photos:['4/5','2/3'], cycle:['3/5','3/4'],
+    resume:['1/3','4/5'], zines:['3/5','4/5'],
+    work:['1/2','5/6'], reading:['2/3','5/6'], certs:['3/5','5/6'],
+    contact:['1/5','6/7'],
+  }},
+  F: { cols:4, place:{
+    hero:['1/3','1/3'], statement:['3/5','1/2'],
+    cycle:['3/5','2/3'],
+    photos:['1/2','3/4'], reading:['2/4','3/4'], now:['4/5','3/4'],
+    resume:['1/3','4/5'], zines:['3/5','4/5'],
+    work:['1/2','5/6'], certs:['2/3','5/6'], contact:['3/5','5/6'],
+  }},
+  G: { cols:4, place:{
+    statement:['1/5','1/2'],
+    hero:['1/3','2/4'], work:['3/4','2/3'], certs:['4/5','2/3'],
+    now:['3/4','3/4'], photos:['4/5','3/4'],
+    cycle:['1/3','4/6'], resume:['3/5','4/5'],
+    zines:['3/5','5/6'],
+    reading:['1/3','6/7'], contact:['3/5','6/7'],
+  }},
+  H: { cols:4, place:{
+    hero:['1/4','1/3'], statement:['4/5','1/2'],
+    photos:['4/5','2/3'],
+    cycle:['1/3','3/5'], reading:['3/4','3/4'], now:['4/5','3/4'],
+    resume:['3/5','4/5'],
+    work:['1/2','5/6'], zines:['2/4','5/6'], certs:['4/5','5/6'],
+    contact:['1/5','6/7'],
+  }},
+};
+
+const META = {
+  A:{name:'Left Feature Rail',  desc:'Portrait hero runs the full left edge; the right side stacks small cards, with a full-width contact band closing it out.'},
+  B:{name:'Symmetric Pairs',    desc:'Everything resolves into tidy two-wide blocks — calmer, more grid-like, fewer ragged singles.'},
+  C:{name:'Magazine Column',    desc:'Narrower three-column rhythm. Taller page, two stacked full-width bands, more editorial scroll.'},
+  D:{name:'Mosaic Dense',       desc:'Banner hero up top, a tight row of four equal cards, compact five-row footprint.'},
+  E:{name:'Centred Spotlight',  desc:'Opens and closes on full-width bands (statement → contact) framing the hero block in the middle.'},
+  F:{name:'Wide Header',        desc:'Hero and statement share the top; cycle gets its own 2×1 band. Currently is the last of three equal 1×1 utility cards in row 3.'},
+  G:{name:'Feature Bottom',     desc:'Statement opens full-width; hero runs tall on the left. Currently sits quietly in a right-side pair of small cards mid-page.'},
+  H:{name:'Panoramic Left',     desc:'Hero spans three columns wide. Statement and photos stack in a narrow right strip. Currently tucks into the same thin column.'},
+};
+
+function span(range){ const [a,b]=range.split('/').map(Number); return b-a; }
+
+function buildGrid(el, key){
+  const L = LAYOUTS[key];
+  el.style.gridTemplateColumns = `repeat(${L.cols},1fr)`;
+  Object.entries(L.place).forEach(([id,[gc,gr]])=>{
+    const m = TILES[id];
+    const t = document.createElement('div');
+    t.className = 't '+m.tone;
+    t.style.gridColumn = gc;
+    t.style.gridRow = gr;
+    t.innerHTML = `<div class="num">${m.num}</div>
+      <div class="sz">${span(gc)}×${span(gr)}</div>
+      <div class="nm">${m.nm}</div>`;
+    el.appendChild(t);
+  });
+}
+
+buildGrid(document.querySelector('[data-layout="current"]'), 'current');
+
+const gallery = document.getElementById('gallery');
+['A','B','C','D','E','F','G','H'].forEach(key=>{
+  const sec = document.createElement('section');
+  sec.className = 'study';
+  sec.innerHTML = `<div class="shead">
+      <span class="stag">Option ${key}</span>
+      <span class="sname">${META[key].name}</span>
+    </div>
+    <p class="sdesc" style="text-align:left;margin:-12px 0 16px;max-width:none;">${META[key].desc}</p>
+    <div class="grid"></div>`;
+  gallery.appendChild(sec);
+  buildGrid(sec.querySelector('.grid'), key);
+});
+</script>
+</body>
+</html>

@@ -1,10 +1,8 @@
 {
   "updated": "2026/05/27",
   "items": [
-    { "label": "Reading", "value": "Albert Camus / Create Dangerously" },
+    { "label": "Where", "value": "Manchester / UK" },
     { "label": "Playing", "value": "007 First Light / PS5" },
-    { "label": "Brewing", "value": "Peruvian Single Origin / Pourover", "note": "1:16 · 92°C · 2:30 brew" },
-    { "label": "Listening", "value": "Kaavish / Gunkali" },
-    { "label": "Where", "value": "Manchester, UK" }
+    { "label": "Brewing", "value": "Medium Roast / Pourover" }
   ]
 }
