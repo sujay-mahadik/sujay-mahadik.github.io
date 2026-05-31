@@ -4,6 +4,7 @@
   "tagline": "Developer · Designer · Dreamer",
   "blurb": "An engineer who keeps a design studio in his pocket, and an economist who reads philosophy in the margins.",
   "heroImage": "art/hero.jpg",
+  "heroImageSlytherin": "art/hero-slytherin.jpg",
   "longBio": [
     "By trade I'm an SRE at Barclays in UK, building observability for Infrastructure — Kafka, OpenTelemetry, Elastic, real-time alarm shipping.",
     "I co-founded two small studios — Infin8y Labs and The Jellyfish Collective.",

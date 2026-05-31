@@ -8,8 +8,10 @@
  *
  * One-time setup (https://www.strava.com/settings/api):
  *   1. Create an API application -> note Client ID + Client Secret.
- *   2. Do the OAuth dance once with scope `activity:read_all` to get a
- *      refresh_token (plenty of short guides online; the token is long-lived).
+ *   2. Do the OAuth dance once with scope `read` (or `activity:read_all` for
+ *      recent-ride data) to get a refresh_token.
+ *      With only `read` scope, totals are synced but recent_ride falls back
+ *      to the existing value in strava.json.
  *   3. Add three repo secrets:
  *        STRAVA_CLIENT_ID
  *        STRAVA_CLIENT_SECRET
@@ -48,11 +50,14 @@ async function accessToken() {
   return (await res.json()).access_token;
 }
 
-const api = (token) => async (path) => {
+const api = (token) => async (path, { optional = false } = {}) => {
   const res = await fetch(`https://www.strava.com/api/v3${path}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error(`${path} -> ${res.status}: ${await res.text()}`);
+  if (!res.ok) {
+    if (optional && res.status === 401) return null;
+    throw new Error(`${path} -> ${res.status}: ${await res.text()}`);
+  }
   return res.json();
 };
 
@@ -63,7 +68,7 @@ try {
   const me = await get('/athlete');
   const [stats, activities] = await Promise.all([
     get(`/athletes/${me.id}/stats`),
-    get('/athlete/activities?per_page=15'),
+    get('/athlete/activities?per_page=15', { optional: true }),
   ]);
 
   const rideTotals = stats.all_ride_totals || {};

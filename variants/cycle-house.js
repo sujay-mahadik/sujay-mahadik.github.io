@@ -276,14 +276,14 @@
     el.className = 'sorting';
     const crest = document.createElement('div');
     crest.className = 'sort-crest';
+    crest.style.setProperty('--tx', tx + 'px');
+    crest.style.setProperty('--ty', ty + 'px');
     if (sourceSvg) {
       const svg = sourceSvg.cloneNode(true);
-      svg.style.setProperty('--tx', tx + 'px');
-      svg.style.setProperty('--ty', ty + 'px');
       crest.appendChild(svg);
     }
+    crest.insertAdjacentHTML('beforeend', '<div class="sort-sub">welcome to slytherin</div>');
     el.appendChild(crest);
-    el.insertAdjacentHTML('beforeend', '<div class="sort-sub">welcome to slytherin</div>');
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('run'));
     el.addEventListener('animationend', () => el.remove(), { once: true });
@@ -301,12 +301,22 @@
     const tx = btnR ? (btnR.left + btnR.width  / 2 - window.innerWidth  / 2) : 0;
     const ty = btnR ? (btnR.top  + btnR.height / 2 - window.innerHeight / 2) : 0;
 
+    if (btn && btnR) {
+      const rp = document.createElement('div');
+      rp.className = 'sort-ripple';
+      rp.style.left = (btnR.left + btnR.width  / 2) + 'px';
+      rp.style.top  = (btnR.top  + btnR.height / 2) + 'px';
+      document.body.appendChild(rp);
+      requestAnimationFrame(() => requestAnimationFrame(() => rp.classList.add('run-out')));
+      setTimeout(() => rp.remove(), 1000);
+    }
+
     const halo = document.createElement('div');
     halo.className = 'sort-halo out';
     halo.style.setProperty('--tx', tx + 'px');
     halo.style.setProperty('--ty', ty + 'px');
     document.body.appendChild(halo);
-    if (onCover) setTimeout(onCover, 250);
+    if (onCover) setTimeout(onCover, 650);
     setTimeout(() => halo.remove(), 2600);
 
     const sourceSvg = document.querySelector('#house-tg svg');
@@ -314,12 +324,13 @@
     el.className = 'sorting run-out';
     const crest = document.createElement('div');
     crest.className = 'sort-crest';
+    crest.style.setProperty('--tx', tx + 'px');
+    crest.style.setProperty('--ty', ty + 'px');
     if (sourceSvg) {
       const svg = sourceSvg.cloneNode(true);
-      svg.style.setProperty('--tx', tx + 'px');
-      svg.style.setProperty('--ty', ty + 'px');
       crest.appendChild(svg);
     }
+    crest.insertAdjacentHTML('beforeend', '<div class="sort-sub">mischief managed</div>');
     el.appendChild(crest);
     document.body.appendChild(el);
     el.addEventListener('animationend', () => el.remove(), { once: true });

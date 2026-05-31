@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slytherin Toggle — Animation Studies v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #0a0f0c;
+      --card:   #111a15;
+      --ink:    #e9efe9;
+      --ink-3:  #62806f;
+      --line:   rgba(200,220,205,.09);
+      --line-2: rgba(200,220,205,.17);
+      --spark:  #2aa86a;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans:  'Hanken Grotesk', system-ui, sans-serif;
+      --mono:  'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); min-height: 100vh;
+      font-family: var(--sans); color: var(--ink);
+      padding: 52px 48px 120px;
+    }
+
+    /* ── page header ── */
+    .kicker {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--spark); margin-bottom: 14px;
+    }
+    h1 {
+      font-family: var(--serif); font-size: clamp(28px,4vw,46px);
+      font-style: italic; font-weight: 400; line-height: 1.1;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .sub {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+      color: var(--ink-3); margin-bottom: 64px;
+    }
+
+    /* ── study layout ── */
+    .studies { display: flex; flex-direction: column; gap: 80px; max-width: 760px; }
+
+    .study-hd { display: flex; align-items: baseline; gap: 14px; margin-bottom: 10px; }
+    .s-id {
+      font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--spark);
+    }
+    .s-name { font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--ink); }
+    .s-tag {
+      font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-3); border: 1px solid var(--line-2); padding: 2px 8px; border-radius: 999px;
+    }
+    .s-desc { font-size: 12.5px; color: var(--ink-3); line-height: 1.65; max-width: 540px; margin-bottom: 20px; }
+
+    /* ── stage ── */
+    .stage { border-radius: 14px; overflow: hidden; border: 1px solid var(--line-2); height: 380px; }
+
+    /* ── mock page — neutral = default dark ── */
+    .mock {
+      width: 100%; height: 100%; position: relative; overflow: hidden;
+      background-color: #0c0d12; display: flex; flex-direction: column;
+    }
+    .mock-hd {
+      flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 18px; border-bottom: 1px solid rgba(236,238,245,.08);
+      position: relative; z-index: 10;
+      transition: border-color .7s .25s;
+    }
+    .mock.sorted .mock-hd { border-color: rgba(200,220,205,.09); }
+    .mock-mark { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: #eceef5; }
+    .mock-acts { display: flex; align-items: center; gap: 8px; }
+
+    /* toggle button */
+    .tg {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(236,238,245,.15); background: transparent;
+      color: #606880; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .4s .2s, color .4s .2s; position: relative;
+    }
+    .tg svg { pointer-events: none; }
+    .mock.sorted .tg { border-color: rgba(42,168,106,.55); color: #2aa86a; }
+
+    /* reset button */
+    .rst {
+      font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 9px; border: 1px solid rgba(236,238,245,.12);
+      border-radius: 999px; background: transparent; color: #606880; cursor: pointer;
+    }
+    .rst:hover { color: #eceef5; border-color: rgba(236,238,245,.28); }
+
+    /* bento cards */
+    .mock-grid {
+      flex: 1; display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px; padding: 10px 14px 14px;
+    }
+    .mc {
+      border-radius: 9px; background-color: #14161f;
+      border: 1px solid rgba(236,238,245,.07);
+      transition: background-color .65s .25s, border-color .65s .25s;
+    }
+    .mock.sorted .mc { background-color: #111a15; border-color: rgba(200,220,205,.09); }
+    .mc:nth-child(1) { grid-column: span 2; }
+    .mc:nth-child(4) { grid-column: span 2; }
+
+    /* study notes */
+    .s-notes { margin-top: 14px; display: flex; gap: 22px; flex-wrap: wrap; }
+    .s-note {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+      color: var(--ink-3); display: flex; align-items: center; gap: 6px;
+    }
+    .s-note::before { content: '—'; color: var(--spark); }
+
+    /* ════ VARIANT A — Enchantment Ripple ════════════════════ */
+    .ripple {
+      position: absolute; pointer-events: none; z-index: 6;
+      border-radius: 50%; width: 1200px; height: 1200px;
+      background: radial-gradient(circle,
+        transparent 0%,
+        rgba(42,168,106,.08) 28%,
+        rgba(42,168,106,.18) 46%,
+        rgba(42,168,106,.08) 56%,
+        transparent 70%);
+      transform: translate(-50%,-50%) scale(0); opacity: 0;
+    }
+    .ripple.run { animation: rp .9s cubic-bezier(.12,0,.18,1) forwards; }
+    @keyframes rp {
+      0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+      8%   { opacity: .95; }
+      72%  { opacity: .55; }
+      100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+    }
+
+    @keyframes tg-glow {
+      0%  { box-shadow: 0 0 0 0 rgba(42,168,106,.8); }
+      55% { box-shadow: 0 0 0 6px rgba(42,168,106,0); }
+      100%{ box-shadow: 0 0 0 6px rgba(42,168,106,0); }
+    }
+    .tg.glow { animation: tg-glow .65s ease-out; }
+
+    .motes { position: absolute; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+    .mote {
+      position: absolute; border-radius: 50%; width: 3px; height: 3px;
+      background: #2aa86a; box-shadow: 0 0 5px 1px rgba(42,168,106,.5); opacity: 0;
+    }
+    .mote.r { animation: mote-up linear forwards; }
+    @keyframes mote-up {
+      0%  { opacity: 0; transform: translateY(0) translateX(0); }
+      12% { opacity: .85; }
+      88% { opacity: .5; }
+      100%{ opacity: 0; transform: translateY(var(--dy,-180px)) translateX(var(--dx,0px)); }
+    }
+
+    /* ════ VARIANT B — Mist Ceremony ════════════════════════ */
+    .mist {
+      position: absolute; inset: 0; z-index: 15; pointer-events: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; opacity: 0;
+    }
+    .mist::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 85% 100% at 50% 58%,
+        rgba(5,11,8,.93) 0%,
+        rgba(5,11,8,.85) 28%,
+        rgba(5,11,8,.5)  55%,
+        transparent 80%);
+    }
+    .mist > * { position: relative; z-index: 1; }
+    .mist.run { animation: mist-life 1.95s ease forwards; }
+    @keyframes mist-life {
+      0%  { opacity: 0; }
+      9%  { opacity: 1; }
+      70% { opacity: 1; }
+      100%{ opacity: 0; }
+    }
+
+    /* crest SVG paths */
+    .mist-crest svg { width: 64px; height: 72px; overflow: visible; display: block; }
+
+    .cr-ring {
+      fill: none; stroke: rgba(42,168,106,.4); stroke-width: 1.2; opacity: 0;
+    }
+    .mist.run .cr-ring { animation: fade-in .4s .15s ease forwards; }
+
+    .cr-ring-2 {
+      fill: none; stroke: rgba(42,168,106,.18); stroke-width: 1; opacity: 0;
+    }
+    .mist.run .cr-ring-2 { animation: fade-in .4s .22s ease forwards; }
+
+    @keyframes fade-in { to { opacity: 1; } }
+
+    .cr-snake {
+      fill: none; stroke: #c4cec8; stroke-width: 2.8; stroke-linecap: round;
+      /* dasharray/offset set by JS to exact path length */
+    }
+    .mist.run .cr-snake { animation: draw-path .72s .22s cubic-bezier(.4,0,.2,1) forwards; }
+    @keyframes draw-path { to { stroke-dashoffset: 0; } }
+
+    .cr-tongue {
+      fill: none; stroke: #2aa86a; stroke-width: 1.4; stroke-linecap: round;
+      /* dasharray/offset set by JS */
+    }
+    .mist.run .cr-tongue { animation: draw-path .28s .88s ease forwards; }
+
+    .cr-dot { fill: #2aa86a; opacity: 0; }
+    .mist.run .cr-dot { animation: fade-in .2s .82s ease forwards; }
+
+    .mist-text {
+      font-family: var(--mono); font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
+      color: rgba(185,196,189,.9); opacity: 0; white-space: nowrap; min-height: 13px;
+    }
+    .mist.run .mist-text { animation: fade-in .3s 1.05s ease forwards; }
+  </style>
+</head>
+<body>
+
+<div class="kicker">design study · v2</div>
+<h1>Slytherin Sorting<br>Animation Studies</h1>
+<p class="sub">Two approaches to replace the current overlay. Click the crest icon to trigger.</p>
+
+<div class="studies">
+
+  <!-- ── A: Enchantment Ripple ── -->
+  <div>
+    <div class="study-hd">
+      <span class="s-id">A</span>
+      <span class="s-name">The Enchantment</span>
+      <span class="s-tag">non-blocking</span>
+    </div>
+    <p class="s-desc">
+      The magic emanates from the toggle itself — an emerald ripple wave expands outward as
+      the page palette shifts beneath it. No overlay, no interruption.
+      Motes drift upward in the wave's wake.
+    </p>
+    <div class="stage" id="sa">
+      <div class="mock" id="ma">
+        <div class="mock-hd">
+          <span class="mock-mark">sujay.site</span>
+          <div class="mock-acts">
+            <button class="rst" id="ra">reset</button>
+            <button class="tg" id="ta" title="Sort into Slytherin">
+              <svg width="14" height="15" viewBox="0 0 74 84" fill="none">
+                <circle cx="37" cy="40" r="31" stroke="currentColor" stroke-width="2"/>
+                <path d="M48 22 C30 26,30 40,44 42 C58 44,56 58,40 60"
+                      stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="40" cy="60" r="4" fill="currentColor"/>
+                <path d="M37 68 L40 63 L43 68" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="mock-grid">
+          <div class="mc"></div><div class="mc"></div>
+          <div class="mc"></div><div class="mc"></div>
+        </div>
+        <div class="motes" id="mots-a"></div>
+      </div>
+    </div>
+    <div class="s-notes">
+      <span class="s-note">0.9s ripple from button origin</span>
+      <span class="s-note">palette shifts at 0.26s</span>
+      <span class="s-note">motes rise in the wake</span>
+      <span class="s-note">page fully interactive throughout</span>
+    </div>
+  </div>
+
+  <!-- ── B: Mist Ceremony ── -->
+  <div>
+    <div class="study-hd">
+      <span class="s-id">B</span>
+      <span class="s-name">The Ceremony</span>
+      <span class="s-tag">soft overlay · 1.95s</span>
+    </div>
+    <p class="s-desc">
+      A translucent mist seeps in — the page stays dimly visible at the edges.
+      The serpent crest draws itself: rings first, then the sinuous body, tongue last.
+      "sorted · slytherin" appears beneath. The mist dissipates to reveal the sorted page.
+    </p>
+    <div class="stage" id="sb">
+      <div class="mock" id="mb">
+        <div class="mock-hd">
+          <span class="mock-mark">sujay.site</span>
+          <div class="mock-acts">
+            <button class="rst" id="rb">reset</button>
+            <button class="tg" id="tb" title="Sort into Slytherin">
+              <svg width="14" height="15" viewBox="0 0 74 84" fill="none">
+                <circle cx="37" cy="40" r="31" stroke="currentColor" stroke-width="2"/>
+                <path d="M48 22 C30 26,30 40,44 42 C58 44,56 58,40 60"
+                      stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="40" cy="60" r="4" fill="currentColor"/>
+                <path d="M37 68 L40 63 L43 68" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="mock-grid">
+          <div class="mc"></div><div class="mc"></div>
+          <div class="mc"></div><div class="mc"></div>
+        </div>
+        <!-- mist overlay -->
+        <div class="mist" id="mist">
+          <div class="mist-crest">
+            <svg viewBox="0 0 74 84" overflow="visible">
+              <circle class="cr-ring"   cx="37" cy="40" r="31"/>
+              <circle class="cr-ring-2" cx="37" cy="40" r="26"/>
+              <path  class="cr-snake"   d="M48 22 C30 26,30 40,44 42 C58 44,56 58,40 60" id="snake-path"/>
+              <circle class="cr-dot"    cx="40" cy="60" r="3.5"/>
+              <path  class="cr-tongue"  d="M37 68 L40 63 L43 68" id="tongue-path"/>
+            </svg>
+          </div>
+          <div class="mist-text" id="mist-txt"></div>
+        </div>
+      </div>
+    </div>
+    <div class="s-notes">
+      <span class="s-note">soft mist — page visible at edges</span>
+      <span class="s-note">crest draws itself (0.72s)</span>
+      <span class="s-note">text types beneath</span>
+      <span class="s-note">palette reveals as mist clears</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ── A: Enchantment Ripple ──────────────────────────── */
+  const ma   = document.getElementById('ma');
+  const ta   = document.getElementById('ta');
+  const sa   = document.getElementById('sa');
+  const motsA = document.getElementById('mots-a');
+  let lockA = false;
+
+  ta.addEventListener('click', () => {
+    if (lockA) return;
+    lockA = true;
+
+    const stR = sa.getBoundingClientRect();
+    const tR  = ta.getBoundingClientRect();
+    const ox = tR.left + tR.width  / 2 - stR.left;
+    const oy = tR.top  + tR.height / 2 - stR.top;
+
+    /* ripple disc */
+    const rp = document.createElement('div');
+    rp.className = 'ripple';
+    rp.style.left = ox + 'px';
+    rp.style.top  = oy + 'px';
+    ma.appendChild(rp);
+    requestAnimationFrame(() => requestAnimationFrame(() => rp.classList.add('run')));
+
+    /* button glow */
+    ta.classList.add('glow');
+    ta.addEventListener('animationend', () => ta.classList.remove('glow'), { once: true });
+
+    /* palette shift mid-wave */
+    setTimeout(() => ma.classList.add('sorted'), 260);
+
+    /* motes rise in wake */
+    setTimeout(() => {
+      for (let i = 0; i < 9; i++) {
+        const m   = document.createElement('div');
+        m.className = 'mote r';
+        const dur = (0.7 + Math.random() * 0.65).toFixed(2);
+        const dx  = ((Math.random() - 0.5) * 44).toFixed(1);
+        const dy  = (160 + Math.random() * 80).toFixed(0);
+        m.style.left = (ox + (Math.random() - 0.5) * 18) + 'px';
+        m.style.top  = oy + 'px';
+        m.style.setProperty('--dx', dx + 'px');
+        m.style.setProperty('--dy', '-' + dy + 'px');
+        m.style.animationDuration = dur + 's';
+        m.style.animationDelay    = (Math.random() * 0.35).toFixed(2) + 's';
+        motsA.appendChild(m);
+        setTimeout(() => m.remove(), (parseFloat(dur) + 0.5) * 1000);
+      }
+    }, 300);
+
+    setTimeout(() => { rp.remove(); lockA = false; }, 1050);
+  });
+
+  document.getElementById('ra').addEventListener('click', () => {
+    ma.classList.remove('sorted');
+    motsA.innerHTML = '';
+    lockA = false;
+  });
+
+  /* ── B: Mist Ceremony ───────────────────────────────── */
+  const mb      = document.getElementById('mb');
+  const tb      = document.getElementById('tb');
+  const mist    = document.getElementById('mist');
+  const mistTxt = document.getElementById('mist-txt');
+  let lockB = false;
+
+  /* set exact path lengths so draw animation starts from the actual beginning */
+  window.addEventListener('load', () => {
+    const snake  = document.getElementById('snake-path');
+    const tongue = document.getElementById('tongue-path');
+    const slen = snake.getTotalLength();
+    const tlen = tongue.getTotalLength();
+    snake.style.strokeDasharray  = slen;
+    snake.style.strokeDashoffset = slen;
+    tongue.style.strokeDasharray  = tlen;
+    tongue.style.strokeDashoffset = tlen;
+  });
+
+  tb.addEventListener('click', () => {
+    if (lockB) return;
+    lockB = true;
+    mistTxt.textContent = '';
+
+    mist.classList.add('run');
+
+    /* typewriter */
+    const label = 'sorted · slytherin';
+    let idx = 0;
+    setTimeout(() => {
+      const iv = setInterval(() => {
+        if (idx < label.length) { mistTxt.textContent += label[idx++]; }
+        else clearInterval(iv);
+      }, 52);
+    }, 1080);
+
+    /* palette reveals as mist fades */
+    setTimeout(() => mb.classList.add('sorted'), 1420);
+
+    /* cleanup — removing .run reverts CSS animations; inline dashoffset restores itself */
+    setTimeout(() => { mist.classList.remove('run'); lockB = false; }, 2060);
+  });
+
+  document.getElementById('rb').addEventListener('click', () => {
+    mb.classList.remove('sorted');
+    mist.classList.remove('run');
+    mistTxt.textContent = '';
+    lockB = false;
+  });
+</script>
+
+</body>
+</html>
