@@ -17,10 +17,11 @@
   };
 
   /* ════════ CYCLING PANEL ════════════════════════════════════ */
-  let strava = null;
+  let strava = null, profile = null;
   try {
-    const r = await fetch('content/strava.json');
-    if (r.ok) strava = await r.json();
+    const [rs, rp] = await Promise.all([fetch('content/strava.json'), fetch('content/profile.json')]);
+    if (rs.ok) strava = await rs.json();
+    if (rp.ok) profile = await rp.json();
   } catch (e) { /* leave placeholders */ }
 
   if (strava) {
@@ -121,12 +122,36 @@
     if (f) f.textContent = isSorted() ? FOOT_HOUSE : FOOT_DEFAULT;
   }
 
-  function setHouse(on, { flash = false } = {}) {
+  let heroObserver = null;
+
+  function syncHeroImage(on) {
+    const media = $('hero-media');
+    if (!media) return;
+    if (heroObserver) { heroObserver.disconnect(); heroObserver = null; }
+    if (on) {
+      const slyPath = 'content/' + ((profile && profile.heroImageSlytherin) || 'art/hero-slytherin.jpg');
+      const apply = () => {
+        media.style.backgroundImage = `url('${slyPath}')`;
+        media.classList.add('has-photo');
+        media.classList.remove('placeholder');
+      };
+      apply();
+      /* grid.js sets the image asynchronously via an Image probe; re-apply if it overwrites us */
+      heroObserver = new MutationObserver(apply);
+      heroObserver.observe(media, { attributes: true, attributeFilter: ['style'] });
+      setTimeout(() => { if (heroObserver) { heroObserver.disconnect(); heroObserver = null; } }, 4000);
+    } else {
+      const restorePath = 'content/' + ((profile && profile.heroImage) || 'art/hero.jpg');
+      media.style.backgroundImage = `url('${restorePath}')`;
+    }
+  }
+
+  function setHouse(on) {
     if (on) { root.dataset.house = 'slytherin'; localStorage.setItem('grid-house', 'slytherin'); }
     else { delete root.dataset.house; localStorage.setItem('grid-house', 'off'); }
     applyFoot();
     syncHouseUI();
-    if (on && flash) runSorting();
+    syncHeroImage(on);
   }
 
   function syncHouseUI() {
@@ -145,7 +170,8 @@
     houseTg.classList.remove('sorting-anim');
     void houseTg.offsetWidth;
     houseTg.classList.add('sorting-anim');
-    setHouse(!isSorted(), { flash: !isSorted() });
+    if (!isSorted()) { runSorting(() => setHouse(true)); }
+    else { runSortingOut(() => setHouse(false)); }
   });
 
   /* house card: toggle button vs modal */
@@ -154,7 +180,8 @@
     houseCard.addEventListener('click', (e) => {
       if (e.target.closest('.house-toggle')) {
         e.stopPropagation();
-        setHouse(!isSorted(), { flash: !isSorted() });
+        if (!isSorted()) { runSorting(() => setHouse(true)); }
+        else { runSortingOut(() => setHouse(false)); }
         return;
       }
       openModal(houseModalHTML());
@@ -191,8 +218,8 @@
   /* delegated handler for the in-modal sort button */
   if (overlay) overlay.addEventListener('click', (e) => {
     if (e.target && e.target.id === 'm-sort') {
-      setHouse(!isSorted(), { flash: !isSorted() });
-      e.target.textContent = isSorted() ? 'Remove house colours' : 'Apply house colours';
+      if (!isSorted()) { runSorting(() => setHouse(true)); }
+      else { runSortingOut(() => setHouse(false)); }
     }
   });
 
@@ -214,20 +241,89 @@
   document.body.appendChild(motes);
 
   /* ── sorting flash ────────────────────────────────────────── */
-  function runSorting() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function runSorting(onCover) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (onCover) onCover();
+      return;
+    }
+
+    const btn = $('house-tg');
+    const btnR = btn ? btn.getBoundingClientRect() : null;
+    const tx = btnR ? (btnR.left + btnR.width  / 2 - window.innerWidth  / 2) : 0;
+    const ty = btnR ? (btnR.top  + btnR.height / 2 - window.innerHeight / 2) : 0;
+
+    if (btn && btnR) {
+      const rp = document.createElement('div');
+      rp.className = 'sort-ripple';
+      rp.style.left = (btnR.left + btnR.width  / 2) + 'px';
+      rp.style.top  = (btnR.top  + btnR.height / 2) + 'px';
+      document.body.appendChild(rp);
+      requestAnimationFrame(() => requestAnimationFrame(() => rp.classList.add('run')));
+      setTimeout(() => rp.remove(), 1000);
+    }
+
+    const halo = document.createElement('div');
+    halo.className = 'sort-halo';
+    halo.style.setProperty('--tx', tx + 'px');
+    halo.style.setProperty('--ty', ty + 'px');
+    document.body.appendChild(halo);
+    requestAnimationFrame(() => requestAnimationFrame(() => halo.classList.add('run')));
+    if (onCover) setTimeout(onCover, 1300);
+    setTimeout(() => halo.remove(), 2600);
+
     const sourceSvg = document.querySelector('#house-tg svg');
     const el = document.createElement('div');
     el.className = 'sorting';
     const crest = document.createElement('div');
     crest.className = 'sort-crest';
-    if (sourceSvg) crest.appendChild(sourceSvg.cloneNode(true));
+    if (sourceSvg) {
+      const svg = sourceSvg.cloneNode(true);
+      svg.style.setProperty('--tx', tx + 'px');
+      svg.style.setProperty('--ty', ty + 'px');
+      crest.appendChild(svg);
+    }
     el.appendChild(crest);
     el.insertAdjacentHTML('beforeend', '<div class="sort-sub">welcome to slytherin</div>');
     document.body.appendChild(el);
     requestAnimationFrame(() => el.classList.add('run'));
     el.addEventListener('animationend', () => el.remove(), { once: true });
-    setTimeout(() => el.remove(), 2200);
+    setTimeout(() => el.remove(), 2500);
+  }
+
+  function runSortingOut(onCover) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (onCover) onCover();
+      return;
+    }
+
+    const btn = $('house-tg');
+    const btnR = btn ? btn.getBoundingClientRect() : null;
+    const tx = btnR ? (btnR.left + btnR.width  / 2 - window.innerWidth  / 2) : 0;
+    const ty = btnR ? (btnR.top  + btnR.height / 2 - window.innerHeight / 2) : 0;
+
+    const halo = document.createElement('div');
+    halo.className = 'sort-halo out';
+    halo.style.setProperty('--tx', tx + 'px');
+    halo.style.setProperty('--ty', ty + 'px');
+    document.body.appendChild(halo);
+    if (onCover) setTimeout(onCover, 250);
+    setTimeout(() => halo.remove(), 2600);
+
+    const sourceSvg = document.querySelector('#house-tg svg');
+    const el = document.createElement('div');
+    el.className = 'sorting run-out';
+    const crest = document.createElement('div');
+    crest.className = 'sort-crest';
+    if (sourceSvg) {
+      const svg = sourceSvg.cloneNode(true);
+      svg.style.setProperty('--tx', tx + 'px');
+      svg.style.setProperty('--ty', ty + 'px');
+      crest.appendChild(svg);
+    }
+    el.appendChild(crest);
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+    setTimeout(() => el.remove(), 2500);
   }
 
   /* ── konami → parseltongue ───────────────────────────────── */
@@ -237,7 +333,7 @@
     buf.push(e.key); buf = buf.slice(-SEQ.length);
     if (SEQ.every((k, i) => buf[i] === k)) {
       buf = [];
-      if (!isSorted()) setHouse(true, { flash: true });
+      if (!isSorted()) runSorting(() => setHouse(true));
       parselTongue();
     }
   });

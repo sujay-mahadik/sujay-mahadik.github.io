@@ -261,30 +261,100 @@
 /* (b) sorting flash overlay */
 .sorting {
   position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, #08120d 86%, transparent), #05080699 70%, transparent);
   opacity: 0; pointer-events: none;
 }
-.sorting.run { animation: sort-flash 1.85s ease forwards; }
+.sort-halo {
+  position: fixed; left: 50%; top: 50%; pointer-events: none; z-index: 8998;
+  border-radius: 50%; width: max(200vw, 200vh); aspect-ratio: 1;
+  background: radial-gradient(circle, #07110d 75%, transparent 100%);
+  filter: blur(48px);
+  opacity: 0;
+}
+.sort-halo.run { animation: sort-halo-travel 2.4s ease forwards; }
+@keyframes sort-halo-travel {
+  0%   { transform: translate(calc(-50% + var(--tx,0px)), calc(-50% + var(--ty,0px))) scale(0.12); opacity: 0; }
+  8%   { opacity: 0.55; }
+  38%  { transform: translate(-50%,-50%) scale(0.35); opacity: 0.85; }
+  54%  { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .sort-halo.run { animation: none; opacity: 0; } }
+.sorting.run { animation: sort-flash 2.4s ease forwards; }
 .sort-crest { display: flex; align-items: center; justify-content: center; }
 .sort-crest svg {
   width: clamp(160px, 26vw, 220px); height: clamp(160px, 26vw, 220px);
   fill: #8c9e56;
-  animation: sort-crest-enter 1.85s cubic-bezier(.2,.8,.2,1) forwards;
+  animation: sort-crest-enter 2.4s ease forwards;
 }
 @keyframes sort-crest-enter {
-  0%   { transform: scale(0.12); filter: blur(22px) drop-shadow(0 0 0px #8c9e5600); opacity: 0; }
-  18%  { opacity: 1; }
-  48%  { transform: scale(1.06); filter: blur(0) drop-shadow(0 0 44px #8c9e56cc); }
-  78%  { transform: scale(1.0);  filter: blur(0) drop-shadow(0 0 28px #8c9e5688); }
-  90%  { transform: scale(1.04); opacity: 1; }
-  100% { transform: scale(1.1);  filter: blur(5px) drop-shadow(0 0 60px #8c9e56); opacity: 0; }
+  0%   { transform: translate(var(--tx,0px), var(--ty,0px)) scale(0.2);
+         filter: blur(10px) drop-shadow(0 0 0px #8c9e5600); opacity: 0; }
+  8%   { opacity: 1; }
+  38%  { transform: translate(0px, 0px) scale(1.06);
+         filter: blur(0) drop-shadow(0 0 44px #8c9e56cc); }
+  54%  { transform: translate(0px, 0px) scale(1.0);
+         filter: blur(0) drop-shadow(0 0 28px #8c9e5688); }
+  72%  { transform: translate(0px, 0px) scale(1.04); opacity: 1; }
+  82%  { transform: translate(0px, 0px) scale(1.1);
+         filter: blur(5px) drop-shadow(0 0 60px #8c9e56); opacity: 0; }
+  100% { transform: translate(0px, 0px) scale(1.1); opacity: 0; }
 }
 .sorting .sort-sub {
   position: absolute; bottom: 30%; font-family: var(--mono); font-size: 12px; letter-spacing: .3em;
   text-transform: uppercase; color: #b9c4bd;
 }
-@keyframes sort-flash { 0%{opacity:0} 14%{opacity:1} 78%{opacity:1} 100%{opacity:0} }
-@media (prefers-reduced-motion: reduce){ .sorting.run { animation: none; opacity: 0; } .sort-crest svg { animation: none; } }
+@keyframes sort-flash { 0%{opacity:0} 8%{opacity:1} 72%{opacity:1} 100%{opacity:0} }
+.sorting.run-out { animation: sort-flash-out 2.4s ease forwards; }
+@keyframes sort-flash-out { 0%{opacity:1} 72%{opacity:1} 88%{opacity:0} 100%{opacity:0} }
+.sorting.run-out .sort-crest svg { animation: sort-crest-exit 2.4s ease forwards; }
+@keyframes sort-crest-exit {
+  0%   { transform: translate(0px,0px) scale(1.1);
+         filter: blur(5px) drop-shadow(0 0 60px #8c9e56); opacity: 0; }
+  8%   { transform: translate(0px,0px) scale(1.04);
+         filter: blur(0) drop-shadow(0 0 44px #8c9e56cc); opacity: 1; }
+  38%  { transform: translate(0px,0px) scale(1.0);
+         filter: blur(0) drop-shadow(0 0 28px #8c9e5688); }
+  46%  { transform: translate(0px,0px) scale(1.06);
+         filter: blur(0) drop-shadow(0 0 44px #8c9e56cc); }
+  72%  { transform: translate(var(--tx,0px), var(--ty,0px)) scale(0.2);
+         filter: blur(10px) drop-shadow(0 0 0px #8c9e5600); opacity: 1; }
+  88%  { transform: translate(var(--tx,0px), var(--ty,0px)) scale(0.2); opacity: 0; }
+  100% { transform: translate(var(--tx,0px), var(--ty,0px)) scale(0.2); opacity: 0; }
+}
+.sort-halo.out { animation: sort-halo-exit 2.4s ease forwards; }
+@keyframes sort-halo-exit {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+  8%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  30%  { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+  46%  { transform: translate(-50%,-50%) scale(0.35); opacity: 0.85; }
+  72%  { transform: translate(calc(-50% + var(--tx,0px)), calc(-50% + var(--ty,0px))) scale(0.12); opacity: 0.55; }
+  92%  { transform: translate(calc(-50% + var(--tx,0px)), calc(-50% + var(--ty,0px))) scale(0.12); opacity: 0; }
+  100% { transform: translate(calc(-50% + var(--tx,0px)), calc(-50% + var(--ty,0px))) scale(0.12); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce){ .sorting.run { animation: none; opacity: 0; } .sort-crest svg { animation: none; }
+  .sorting.run-out { animation: none; opacity: 0; } .sort-halo.out { animation: none; opacity: 0; } }
+
+/* ripple from toggle button */
+.sort-ripple {
+  position: fixed; pointer-events: none; z-index: 8999; border-radius: 50%;
+  width: max(220vw, 220vh); aspect-ratio: 1;
+  background: radial-gradient(circle,
+    transparent 0%,
+    rgba(42,168,106,.06) 22%,
+    rgba(42,168,106,.16) 40%,
+    rgba(42,168,106,.06) 52%,
+    transparent 68%);
+  transform: translate(-50%,-50%) scale(0); opacity: 0;
+}
+.sort-ripple.run { animation: sort-rp .9s cubic-bezier(.12,0,.18,1) forwards; }
+@keyframes sort-rp {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+  8%   { opacity: .95; }
+  72%  { opacity: .6; }
+  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .sort-ripple.run { animation: none; opacity: 0; } }
 
 /* (c) cursor tint when sorted */
 :root[data-house="slytherin"] #cursor-ring { border-color: #c0d090; }
