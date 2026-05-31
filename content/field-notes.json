@@ -1,6 +1,6 @@
 {
   "updated": "2026-05-31",
-  "last_synced": "2026-05-31T13:54:10.818Z",
+  "last_synced": "2026-05-31T14:40:02.564Z",
   "notes": [
     {
       "id": "3714e80d-061a-811b-b31a-cc04360fbbbb",
@@ -45,6 +45,15 @@
         "lit"
       ],
       "created": "2026-05-31T13:13:00.000Z"
+    },
+    {
+      "id": "3714e80d-061a-816a-9ea8-c3fe43d738e0",
+      "quote": "There is nothing more powerful than an idea whose time has come",
+      "attribution": "",
+      "source_title": "",
+      "source_page": "",
+      "tags": [],
+      "created": "2026-05-31T14:18:00.000Z"
     }
   ]
 }
