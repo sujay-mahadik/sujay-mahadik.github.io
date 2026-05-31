@@ -10,60 +10,48 @@
 /* ═══ 1. SLYTHERIN PALETTE (site-wide, reversible) ═══════════ */
 /* base == "Serpent" (variant 3). variants 1/2 override below.   */
 :root[data-house="slytherin"] {
-  --bg: #0a0f0c;
-  --bg-2: #0d1411;
-  --card: #111a15;
-  --card-2: #15211b;
-  --card-hi: #1b2c23;
-  --ink: #e9efe9;
-  --ink-2: #9fb3a6;
-  --ink-3: #62806f;
-  --line: rgba(200, 220, 205, 0.09);
-  --line-2: rgba(200, 220, 205, 0.17);
-  --frame-stripe: rgba(200, 220, 205, 0.05);
-  --contrast: #cfd9d2;          /* silver */
-  --contrast-ink: #08120d;
-  --spark: #2aa86a;             /* serpent green */
+  --bg: #0d0f0c;
+  --bg-2: #121510;
+  --card: #141710;
+  --card-2: #191d14;
+  --card-hi: #1c2018;
+  --ink: #dde5d5;
+  --ink-2: #8a9878;
+  --ink-3: #707862;
+  --line: rgba(180, 200, 160, 0.09);
+  --line-2: rgba(180, 200, 160, 0.17);
+  --frame-stripe: rgba(180, 200, 160, 0.05);
+  --contrast: #c8d0b8;          /* sage silver */
+  --contrast-ink: #0e1008;
+  --spark: #8c9e56;             /* sage olive */
   --spark-soft: color-mix(in srgb, var(--spark) 18%, transparent);
-  --spark-2: #b9c4bd;           /* silver secondary */
+  --spark-2: #b0be98;           /* muted sage secondary */
   --spark-2-soft: color-mix(in srgb, var(--spark-2) 14%, transparent);
-  --spark-3: #1f8a5b;
+  --spark-3: #6e8040;
   --spark-3-soft: color-mix(in srgb, var(--spark-3) 16%, transparent);
-  --wizard-gold: rgba(201, 168, 76, 0.65);
-  --wizard-gold-hi: rgba(220, 185, 80, 0.90);
+  --wizard-gold: rgba(191, 170, 90, 0.65);
+  --wizard-gold-hi: rgba(210, 188, 100, 0.90);
 }
 /* light + slytherin: keep emerald readable on pale silver */
 :root[data-theme="light"][data-house="slytherin"] {
-  --bg: #dfe6e0;
-  --bg-2: #d3ddd5;
-  --card: #eef2ee;
-  --card-2: #e4ebe5;
-  --card-hi: #d8e2da;
-  --ink: #0d1712;
-  --ink-2: #44584c;
-  --ink-3: #74897d;
-  --line: rgba(16, 36, 24, 0.10);
-  --line-2: rgba(16, 36, 24, 0.18);
-  --frame-stripe: rgba(16, 36, 24, 0.06);
-  --contrast: #0d1712;
-  --contrast-ink: #eef2ee;
-  --spark: #0f6e42;
-  --spark-2: #5a6b60;
-  --spark-3: #0c5836;
-  --wizard-gold: rgba(180, 140, 30, 0.80);
-  --wizard-gold-hi: rgba(160, 120, 20, 0.95);
-}
-
-/* palette variant 1 — "Dungeon" (deepest) */
-:root[data-house="slytherin"][data-house-variant="1"] {
-  --bg: #060b08; --bg-2: #0a110d; --card: #0d1611; --card-2: #111e17;
-  --card-hi: #16261d; --spark: #1f9d5f; --spark-3: #18794a; --contrast: #c3ccc6;
-}
-/* palette variant 2 — "Forest & Pewter" */
-:root[data-house="slytherin"][data-house-variant="2"] {
-  --bg: #0a1310; --bg-2: #0e1814; --card: #13201a; --card-2: #182720;
-  --card-hi: #1e3028; --ink: #eaf0ea; --spark: #3ab07a; --spark-3: #2a8a60;
-  --contrast: #aeb8b0;
+  --bg: #dce4d4;
+  --bg-2: #d0dac8;
+  --card: #eaf0e2;
+  --card-2: #e4eada;
+  --card-hi: #e0e8d8;
+  --ink: #141a0e;
+  --ink-2: #4c5c44;
+  --ink-3: #687060;
+  --line: rgba(20, 42, 14, 0.10);
+  --line-2: rgba(20, 42, 14, 0.18);
+  --frame-stripe: rgba(20, 42, 14, 0.06);
+  --contrast: #141a0e;
+  --contrast-ink: #eaf0e2;
+  --spark: #4a6030;
+  --spark-2: #607060;
+  --spark-3: #384e22;
+  --wizard-gold: rgba(142, 124, 48, 0.80);
+  --wizard-gold-hi: rgba(122, 104, 28, 0.95);
 }
 
 /* a touch more bloom on the dark grain when sorted */
@@ -200,7 +188,7 @@
   align-items: center; text-align: center; justify-content: flex-start;
   gap: 0; overflow: hidden; padding-top: 18px; padding-bottom: 18px;
   background:
-    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, #1f8a5b 22%, transparent), transparent 60%),
+    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--spark-3) 22%, transparent), transparent 60%),
     var(--card);
 }
 #c-house .label { align-self: flex-start; }
@@ -280,16 +268,16 @@
 .sort-crest { display: flex; align-items: center; justify-content: center; }
 .sort-crest svg {
   width: clamp(160px, 26vw, 220px); height: clamp(160px, 26vw, 220px);
-  fill: #2aa86a;
+  fill: #8c9e56;
   animation: sort-crest-enter 1.85s cubic-bezier(.2,.8,.2,1) forwards;
 }
 @keyframes sort-crest-enter {
-  0%   { transform: scale(0.12); filter: blur(22px) drop-shadow(0 0 0px #2aa86a00); opacity: 0; }
+  0%   { transform: scale(0.12); filter: blur(22px) drop-shadow(0 0 0px #8c9e5600); opacity: 0; }
   18%  { opacity: 1; }
-  48%  { transform: scale(1.06); filter: blur(0) drop-shadow(0 0 44px #2aa86acc); }
-  78%  { transform: scale(1.0);  filter: blur(0) drop-shadow(0 0 28px #2aa86a88); }
+  48%  { transform: scale(1.06); filter: blur(0) drop-shadow(0 0 44px #8c9e56cc); }
+  78%  { transform: scale(1.0);  filter: blur(0) drop-shadow(0 0 28px #8c9e5688); }
   90%  { transform: scale(1.04); opacity: 1; }
-  100% { transform: scale(1.1);  filter: blur(5px) drop-shadow(0 0 60px #2aa86a); opacity: 0; }
+  100% { transform: scale(1.1);  filter: blur(5px) drop-shadow(0 0 60px #8c9e56); opacity: 0; }
 }
 .sorting .sort-sub {
   position: absolute; bottom: 30%; font-family: var(--mono); font-size: 12px; letter-spacing: .3em;
@@ -299,7 +287,7 @@
 @media (prefers-reduced-motion: reduce){ .sorting.run { animation: none; opacity: 0; } .sort-crest svg { animation: none; } }
 
 /* (c) cursor tint when sorted */
-:root[data-house="slytherin"] #cursor-ring { border-color: #6fe0a6; }
+:root[data-house="slytherin"] #cursor-ring { border-color: #c0d090; }
 
 /* (d) Parseltongue line in the field-notes card */
 .parseltongue {

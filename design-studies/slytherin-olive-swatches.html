@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>Slytherin · Olive Palette Alternatives</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ════════════════════════════════════════════════════════════
+     PAGE CHROME — dark / light
+     ════════════════════════════════════════════════════════════ */
+  :root[data-theme="dark"] {
+    --page-bg:    #0c0d0a;
+    --page-ink:   #dde4d5;
+    --page-mute:  #5a6652;
+    --page-line:  #1a1e15;
+    --page-card:  #141810;
+
+    /* Option 1 — Dungeon Moss · dark */
+    --o1-bg:      #0e110a;
+    --o1-card:    #141a0e;
+    --o1-card-hi: #1c2618;
+    --o1-spark:   #7a9642;
+    --o1-spark2:  #a8b496;
+    --o1-spark3:  #5e7830;
+    --o1-gold:    #c4a84e;
+    --o1-ink:     #d4dcc8;
+    --o1-ink2:    #8a9880;
+    --o1-ink3:    #7a7e6e;
+    --o1-line:    #1c2116;
+
+    /* Option 2 — Serpent Gold · dark */
+    --o2-bg:      #100f08;
+    --o2-card:    #1a1a0c;
+    --o2-card-hi: #222215;
+    --o2-spark:   #9aad3c;
+    --o2-spark2:  #b8b87a;
+    --o2-spark3:  #7a8c28;
+    --o2-gold:    #c8ae40;
+    --o2-ink:     #dfdcca;
+    --o2-ink2:    #909070;
+    --o2-ink3:    #787860;
+    --o2-line:    #22200e;
+
+    /* Option 3 — Sage Stone · dark */
+    --o3-bg:      #0d0f0c;
+    --o3-card:    #141710;
+    --o3-card-hi: #1c2018;
+    --o3-spark:   #8c9e56;
+    --o3-spark2:  #b0be98;
+    --o3-spark3:  #6e8040;
+    --o3-gold:    #bfaa5a;
+    --o3-ink:     #dde5d5;
+    --o3-ink2:    #8a9878;
+    --o3-ink3:    #707862;
+    --o3-line:    #1d2019;
+  }
+
+  :root[data-theme="light"] {
+    --page-bg:    #eeecea;
+    --page-ink:   #1c2016;
+    --page-mute:  #7a806e;
+    --page-line:  #d4d8cc;
+    --page-card:  #e2e0da;
+
+    /* Option 1 — Dungeon Moss · light */
+    --o1-bg:      #dde6d4;
+    --o1-card:    #eaf0e2;
+    --o1-card-hi: #dfe8d6;
+    --o1-spark:   #4e6c22;
+    --o1-spark2:  #647a58;
+    --o1-spark3:  #3c5818;
+    --o1-gold:    #9a7c1a;
+    --o1-ink:     #181e10;
+    --o1-ink2:    #4a5e40;
+    --o1-ink3:    #6a7a62;
+    --o1-line:    #c8d4be;
+
+    /* Option 2 — Serpent Gold · light */
+    --o2-bg:      #e6e2c8;
+    --o2-card:    #f0ecda;
+    --o2-card-hi: #e8e4ce;
+    --o2-spark:   #686c18;
+    --o2-spark2:  #7c7c50;
+    --o2-spark3:  #545608;
+    --o2-gold:    #8a7010;
+    --o2-ink:     #181608;
+    --o2-ink2:    #58564a;
+    --o2-ink3:    #74725a;
+    --o2-line:    #d0cc9e;
+
+    /* Option 3 — Sage Stone · light */
+    --o3-bg:      #dce4d4;
+    --o3-card:    #eaf0e2;
+    --o3-card-hi: #e0e8d8;
+    --o3-spark:   #4a6030;
+    --o3-spark2:  #607060;
+    --o3-spark3:  #384e22;
+    --o3-gold:    #8e7c30;
+    --o3-ink:     #141a0e;
+    --o3-ink2:    #4c5c44;
+    --o3-ink3:    #687060;
+    --o3-line:    #c4d0ba;
+  }
+
+  /* ── transition on theme swap ── */
+  body, .option, .option-header, .var-list, .preview,
+  .preview-card, .baseline, .theme-toggle {
+    transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+  }
+
+  body {
+    background: var(--page-bg);
+    color: var(--page-ink);
+    font-family: "SF Mono", "Fira Mono", monospace;
+    font-size: 12px;
+    padding: 40px 32px 80px;
+    line-height: 1.5;
+  }
+
+  /* ── page header ── */
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--page-ink);
+    letter-spacing: .04em;
+    margin-bottom: 6px;
+  }
+
+  .meta {
+    color: var(--page-mute);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .current-tag {
+    display: inline-block;
+    border: 1px solid #2aa86a55;
+    color: #2aa86a;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  /* ── theme toggle ── */
+  .theme-toggle {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    border: 1px solid var(--page-line);
+    border-radius: 999px;
+    background: var(--page-card);
+    color: var(--page-mute);
+    font-family: "SF Mono", "Fira Mono", monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+  .theme-toggle:hover { color: var(--page-ink); }
+  .toggle-icon { font-size: 13px; line-height: 1; }
+
+  /* ── options grid ── */
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .options { grid-template-columns: 1fr; } }
+
+  /* ── single option card ── */
+  .option {
+    border: 1px solid var(--page-line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .option-header {
+    padding: 16px 18px 14px;
+    border-bottom: 1px solid;
+  }
+
+  .option-num {
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .45;
+    margin-bottom: 4px;
+  }
+
+  .option-name {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    font-weight: normal;
+    line-height: 1.2;
+  }
+
+  .option-desc {
+    font-size: 10px;
+    letter-spacing: .04em;
+    opacity: .55;
+    margin-top: 5px;
+  }
+
+  /* ── swatch strip ── */
+  .swatch-row { display: flex; height: 52px; }
+  .swatch { flex: 1; transition: background 0.22s ease; }
+
+  /* ── var list ── */
+  .var-list {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 1px solid var(--page-line);
+  }
+
+  .var-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .var-name {
+    font-size: 10px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .var-val {
+    font-size: 10px;
+    letter-spacing: .04em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .var-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid rgba(128,128,128,0.15);
+    transition: background 0.22s ease;
+  }
+
+  /* ── mini preview ── */
+  .preview { padding: 14px 18px; }
+
+  .preview-label {
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    opacity: .35;
+    margin-bottom: 10px;
+  }
+
+  .preview-card {
+    border-radius: 3px;
+    border: 1px solid;
+    padding: 12px 14px;
+    transition: background 0.22s ease, border-color 0.22s ease;
+  }
+
+  .preview-card-tag {
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .preview-card-stat {
+    font-size: 28px;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .preview-card-unit {
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .preview-pill {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 3px 8px;
+    font-size: 9px;
+    letter-spacing: .06em;
+    margin-top: 10px;
+    opacity: .7;
+  }
+
+  /* ── baseline ── */
+  .baseline {
+    margin-bottom: 32px;
+    padding: 14px 18px;
+    border: 1px solid rgba(42,168,106,0.2);
+    border-radius: 4px;
+    background: var(--page-card);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .baseline-label {
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--page-mute);
+    flex-shrink: 0;
+  }
+
+  .baseline-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .b-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--page-mute);
+  }
+
+  .b-dot {
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    border: 1px solid rgba(128,128,128,0.2);
+  }
+
+  /* ── footnote ── */
+  .footnote {
+    margin-top: 44px;
+    padding-top: 18px;
+    border-top: 1px solid var(--page-line);
+    color: var(--page-mute);
+    font-size: 10px;
+    letter-spacing: .06em;
+    opacity: .7;
+  }
+
+  /* ════ PER-OPTION THEMING VIA CSS VARS ════════════════════ */
+
+  /* Option 1 */
+  .o1-header { background: var(--o1-bg); border-color: var(--o1-line); color: var(--o1-ink); }
+  .o1-varlist { background: var(--o1-bg); color: var(--o1-ink); }
+  .o1-preview { background: var(--o1-bg); color: var(--o1-ink); }
+  .o1-preview .preview-card { background: var(--o1-card); border-color: color-mix(in srgb, var(--o1-gold) 35%, transparent); }
+  .o1-preview .preview-card-tag { color: var(--o1-spark); }
+  .o1-preview .preview-card-stat { color: var(--o1-ink); }
+  .o1-preview .preview-card-stat .sm { color: var(--o1-ink2); }
+  .o1-preview .preview-card-unit { color: var(--o1-ink3); }
+  .o1-preview .preview-pill { color: var(--o1-spark2); border-color: color-mix(in srgb, var(--o1-spark) 18%, transparent); }
+  .o1-spark-name { color: var(--o1-spark); }
+  .o1-mute-name  { color: var(--o1-ink3); opacity: 1; }
+  .o1-val        { color: var(--o1-ink); }
+
+  /* Option 2 */
+  .o2-header { background: var(--o2-bg); border-color: var(--o2-line); color: var(--o2-ink); }
+  .o2-varlist { background: var(--o2-bg); color: var(--o2-ink); }
+  .o2-preview { background: var(--o2-bg); color: var(--o2-ink); }
+  .o2-preview .preview-card { background: var(--o2-card); border-color: color-mix(in srgb, var(--o2-gold) 35%, transparent); }
+  .o2-preview .preview-card-tag { color: var(--o2-spark); }
+  .o2-preview .preview-card-stat { color: var(--o2-ink); }
+  .o2-preview .preview-card-stat .sm { color: var(--o2-ink2); }
+  .o2-preview .preview-card-unit { color: var(--o2-ink3); }
+  .o2-preview .preview-pill { color: var(--o2-spark2); border-color: color-mix(in srgb, var(--o2-spark) 18%, transparent); }
+  .o2-spark-name { color: var(--o2-spark); }
+  .o2-mute-name  { color: var(--o2-ink3); opacity: 1; }
+  .o2-val        { color: var(--o2-ink); }
+
+  /* Option 3 */
+  .o3-header { background: var(--o3-bg); border-color: var(--o3-line); color: var(--o3-ink); }
+  .o3-varlist { background: var(--o3-bg); color: var(--o3-ink); }
+  .o3-preview { background: var(--o3-bg); color: var(--o3-ink); }
+  .o3-preview .preview-card { background: var(--o3-card); border-color: color-mix(in srgb, var(--o3-gold) 35%, transparent); }
+  .o3-preview .preview-card-tag { color: var(--o3-spark); }
+  .o3-preview .preview-card-stat { color: var(--o3-ink); }
+  .o3-preview .preview-card-stat .sm { color: var(--o3-ink2); }
+  .o3-preview .preview-card-unit { color: var(--o3-ink3); }
+  .o3-preview .preview-pill { color: var(--o3-spark2); border-color: color-mix(in srgb, var(--o3-spark) 18%, transparent); }
+  .o3-spark-name { color: var(--o3-spark); }
+  .o3-mute-name  { color: var(--o3-ink3); opacity: 1; }
+  .o3-val        { color: var(--o3-ink); }
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div>
+    <h1>Slytherin · Olive Palette Alternatives <span class="current-tag">current: emerald</span></h1>
+    <p class="meta">design-studies · 3 options · shift from emerald → olive</p>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark">
+    <span class="toggle-icon" id="toggle-icon">☀</span>
+    <span id="toggle-label">Light</span>
+  </button>
+</div>
+
+<!-- baseline reference -->
+<div class="baseline">
+  <span class="baseline-label">Current</span>
+  <div class="baseline-swatches">
+    <span class="b-chip"><span class="b-dot" style="background:#0a0f0c"></span>bg</span>
+    <span class="b-chip"><span class="b-dot" style="background:#111a15"></span>card</span>
+    <span class="b-chip"><span class="b-dot" style="background:#2aa86a"></span>spark</span>
+    <span class="b-chip"><span class="b-dot" style="background:#b9c4bd"></span>spark-2</span>
+    <span class="b-chip"><span class="b-dot" style="background:#e9efe9"></span>ink</span>
+    <span class="b-chip"><span class="b-dot" style="background:#c9a84c"></span>gold</span>
+  </div>
+</div>
+
+<!-- 3 options -->
+<div class="options">
+
+  <!-- ══ OPTION 1: Dungeon Moss ══════════════════════════════ -->
+  <div class="option">
+    <div class="option-header o1-header">
+      <div class="option-num">Option 01</div>
+      <div class="option-name">Dungeon Moss</div>
+      <div class="option-desc">Forest floor — cool, muted, naturalistic</div>
+    </div>
+
+    <div class="swatch-row">
+      <div class="swatch" style="background:var(--o1-bg)"      title="--bg"></div>
+      <div class="swatch" style="background:var(--o1-card)"    title="--card"></div>
+      <div class="swatch" style="background:var(--o1-card-hi)" title="--card-hi"></div>
+      <div class="swatch" style="background:var(--o1-spark)"   title="--spark"></div>
+      <div class="swatch" style="background:var(--o1-spark2)"  title="--spark-2"></div>
+      <div class="swatch" style="background:var(--o1-gold)"    title="--gold"></div>
+      <div class="swatch" style="background:var(--o1-ink)"     title="--ink"></div>
+    </div>
+
+    <div class="var-list o1-varlist">
+      <div class="var-row">
+        <span class="var-name o1-spark-name">--spark</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-spark)"></span><span id="o1-spark-hex">#7a9642</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--spark-2</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-spark2)"></span><span id="o1-spark2-hex">#a8b496</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--spark-3</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-spark3)"></span><span id="o1-spark3-hex">#5e7830</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--bg</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-bg)"></span><span id="o1-bg-hex">#0e110a</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--card</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-card)"></span><span id="o1-card-hex">#141a0e</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--ink</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-ink)"></span><span id="o1-ink-hex">#d4dcc8</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o1-mute-name">--wizard-gold</span>
+        <span class="var-val o1-val"><span class="var-dot" style="background:var(--o1-gold)"></span><span id="o1-gold-hex">#c4a84e</span> · 65%</span>
+      </div>
+    </div>
+
+    <div class="preview o1-preview">
+      <div class="preview-label">Preview</div>
+      <div class="preview-card">
+        <div class="preview-card-tag">cycling · strava</div>
+        <div class="preview-card-stat">847<span class="sm" style="font-size:16px"> km</span></div>
+        <div class="preview-card-unit">this year · Trek Marlin 5</div>
+        <div class="preview-pill">Elevation · 4,200 m</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ OPTION 2: Serpent Gold ══════════════════════════════ -->
+  <div class="option">
+    <div class="option-header o2-header">
+      <div class="option-num">Option 02</div>
+      <div class="option-name">Serpent Gold</div>
+      <div class="option-desc">Alchemical — warm, acid olive, parchment ink</div>
+    </div>
+
+    <div class="swatch-row">
+      <div class="swatch" style="background:var(--o2-bg)"      title="--bg"></div>
+      <div class="swatch" style="background:var(--o2-card)"    title="--card"></div>
+      <div class="swatch" style="background:var(--o2-card-hi)" title="--card-hi"></div>
+      <div class="swatch" style="background:var(--o2-spark)"   title="--spark"></div>
+      <div class="swatch" style="background:var(--o2-spark2)"  title="--spark-2"></div>
+      <div class="swatch" style="background:var(--o2-gold)"    title="--gold"></div>
+      <div class="swatch" style="background:var(--o2-ink)"     title="--ink"></div>
+    </div>
+
+    <div class="var-list o2-varlist">
+      <div class="var-row">
+        <span class="var-name o2-spark-name">--spark</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-spark)"></span><span id="o2-spark-hex">#9aad3c</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--spark-2</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-spark2)"></span><span id="o2-spark2-hex">#b8b87a</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--spark-3</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-spark3)"></span><span id="o2-spark3-hex">#7a8c28</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--bg</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-bg)"></span><span id="o2-bg-hex">#100f08</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--card</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-card)"></span><span id="o2-card-hex">#1a1a0c</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--ink</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-ink)"></span><span id="o2-ink-hex">#dfdcca</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o2-mute-name">--wizard-gold</span>
+        <span class="var-val o2-val"><span class="var-dot" style="background:var(--o2-gold)"></span><span id="o2-gold-hex">#c8ae40</span> · 70%</span>
+      </div>
+    </div>
+
+    <div class="preview o2-preview">
+      <div class="preview-label">Preview</div>
+      <div class="preview-card">
+        <div class="preview-card-tag">cycling · strava</div>
+        <div class="preview-card-stat">847<span class="sm" style="font-size:16px"> km</span></div>
+        <div class="preview-card-unit">this year · Trek Marlin 5</div>
+        <div class="preview-pill">Elevation · 4,200 m</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ OPTION 3: Sage Stone ══════════════════════════════ -->
+  <div class="option">
+    <div class="option-header o3-header">
+      <div class="option-num">Option 03</div>
+      <div class="option-name">Sage Stone</div>
+      <div class="option-desc">Muted, desaturated — silver-olive, restrained</div>
+    </div>
+
+    <div class="swatch-row">
+      <div class="swatch" style="background:var(--o3-bg)"      title="--bg"></div>
+      <div class="swatch" style="background:var(--o3-card)"    title="--card"></div>
+      <div class="swatch" style="background:var(--o3-card-hi)" title="--card-hi"></div>
+      <div class="swatch" style="background:var(--o3-spark)"   title="--spark"></div>
+      <div class="swatch" style="background:var(--o3-spark2)"  title="--spark-2"></div>
+      <div class="swatch" style="background:var(--o3-gold)"    title="--gold"></div>
+      <div class="swatch" style="background:var(--o3-ink)"     title="--ink"></div>
+    </div>
+
+    <div class="var-list o3-varlist">
+      <div class="var-row">
+        <span class="var-name o3-spark-name">--spark</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-spark)"></span><span id="o3-spark-hex">#8c9e56</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--spark-2</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-spark2)"></span><span id="o3-spark2-hex">#b0be98</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--spark-3</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-spark3)"></span><span id="o3-spark3-hex">#6e8040</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--bg</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-bg)"></span><span id="o3-bg-hex">#0d0f0c</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--card</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-card)"></span><span id="o3-card-hex">#141710</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--ink</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-ink)"></span><span id="o3-ink-hex">#dde5d5</span></span>
+      </div>
+      <div class="var-row">
+        <span class="var-name o3-mute-name">--wizard-gold</span>
+        <span class="var-val o3-val"><span class="var-dot" style="background:var(--o3-gold)"></span><span id="o3-gold-hex">#bfaa5a</span> · 65%</span>
+      </div>
+    </div>
+
+    <div class="preview o3-preview">
+      <div class="preview-label">Preview</div>
+      <div class="preview-card">
+        <div class="preview-card-tag">cycling · strava</div>
+        <div class="preview-card-stat">847<span class="sm" style="font-size:16px"> km</span></div>
+        <div class="preview-card-unit">this year · Trek Marlin 5</div>
+        <div class="preview-pill">Elevation · 4,200 m</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footnote">
+  All 3 options retain --wizard-gold for card borders &middot;
+  spark hue rotated ~30° yellow-ward from emerald 150° → olive 75–90° &middot;
+  saturation reduced 30–40%
+</div>
+
+<script>
+  const DARK = {
+    o1: { spark:'#7a9642', spark2:'#a8b496', spark3:'#5e7830', bg:'#0e110a', card:'#141a0e', ink:'#d4dcc8', gold:'#c4a84e' },
+    o2: { spark:'#9aad3c', spark2:'#b8b87a', spark3:'#7a8c28', bg:'#100f08', card:'#1a1a0c', ink:'#dfdcca', gold:'#c8ae40' },
+    o3: { spark:'#8c9e56', spark2:'#b0be98', spark3:'#6e8040', bg:'#0d0f0c', card:'#141710', ink:'#dde5d5', gold:'#bfaa5a' },
+  };
+  const LIGHT = {
+    o1: { spark:'#4e6c22', spark2:'#647a58', spark3:'#3c5818', bg:'#dde6d4', card:'#eaf0e2', ink:'#181e10', gold:'#9a7c1a' },
+    o2: { spark:'#686c18', spark2:'#7c7c50', spark3:'#545608', bg:'#e6e2c8', card:'#f0ecda', ink:'#181608', gold:'#8a7010' },
+    o3: { spark:'#4a6030', spark2:'#607060', spark3:'#384e22', bg:'#dce4d4', card:'#eaf0e2', ink:'#141a0e', gold:'#8e7c30' },
+  };
+
+  function updateHexLabels(theme) {
+    const vals = theme === 'light' ? LIGHT : DARK;
+    ['o1','o2','o3'].forEach(o => {
+      const v = vals[o];
+      document.getElementById(`${o}-spark-hex`).textContent  = v.spark;
+      document.getElementById(`${o}-spark2-hex`).textContent = v.spark2;
+      document.getElementById(`${o}-spark3-hex`).textContent = v.spark3;
+      document.getElementById(`${o}-bg-hex`).textContent     = v.bg;
+      document.getElementById(`${o}-card-hex`).textContent   = v.card;
+      document.getElementById(`${o}-ink-hex`).textContent    = v.ink;
+      document.getElementById(`${o}-gold-hex`).textContent   = v.gold;
+    });
+  }
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.getElementById('toggle-icon').textContent  = next === 'dark' ? '☀' : '☽';
+    document.getElementById('toggle-label').textContent = next === 'dark' ? 'Light' : 'Dark';
+    updateHexLabels(next);
+  }
+</script>
+</body>
+</html>
