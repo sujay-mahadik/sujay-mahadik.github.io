@@ -1,6 +1,6 @@
 {
   "updated": "2026-05-31",
-  "last_synced": "2026-05-31T14:40:02.564Z",
+  "last_synced": "2026-05-31T15:44:00.022Z",
   "notes": [
     {
       "id": "3714e80d-061a-811b-b31a-cc04360fbbbb",
@@ -49,10 +49,12 @@
     {
       "id": "3714e80d-061a-816a-9ea8-c3fe43d738e0",
       "quote": "There is nothing more powerful than an idea whose time has come",
-      "attribution": "",
+      "attribution": "Victor Hugo",
       "source_title": "",
       "source_page": "",
-      "tags": [],
+      "tags": [
+        "lit"
+      ],
       "created": "2026-05-31T14:18:00.000Z"
     }
   ]
