@@ -127,13 +127,9 @@ return 'clamp(6px, 0.7vw, 8px)';
     const aEl = $('statement-attrib');
 
     function renderNote(note) {
-      qEl.innerHTML = Render.md(note.text || '');
-      qEl.style.fontSize = noteSize(note.text);
-      const d = note.date
-        ? (/^\d{4}$/.test(note.date) ? note.date : new Date(note.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }))
-        : '';
-      const sub = (note.subtitle || '').replace(/^[-–—]\s*/, '');
-      const attrib = [sub, d].filter(Boolean).join(' · ');
+      qEl.innerHTML = Render.md(note.quote || '');
+      qEl.style.fontSize = noteSize(note.quote);
+      const attrib = [note.attribution, note.source_title].filter(Boolean).join(', ');
       aEl.textContent = attrib ? `— ${attrib}` : '— field note';
     }
 
@@ -162,7 +158,7 @@ return 'clamp(6px, 0.7vw, 8px)';
             requestAnimationFrame(() => requestAnimationFrame(() => bodyEl.classList.remove('enter')));
             cycle();
           }, 500);
-        }, noteDuration(notes[noteIdx].text));
+        }, noteDuration(notes[noteIdx].quote));
       };
       cycle();
     }
@@ -341,15 +337,12 @@ return 'clamp(6px, 0.7vw, 8px)';
     },
     notes(){
       const items = (fieldNotes?.notes ?? []).map(n => {
-        const d = n.date
-          ? (/^\d{4}$/.test(n.date) ? n.date : new Date(n.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' }))
-          : '';
-        const sub = (n.subtitle || '').replace(/^[-–—]\s*/, '');
-        const attrib = [sub, d].filter(Boolean).join(' · ');
-        const lines = (n.text || '').split('\n').map(l => Render.md(l)).join('<br>');
-        return `<div class="m-row"><div class="quote" style="font-size:19px">${lines}</div>${attrib ? `<div class="t" style="font-size:16px"> - ${esc(attrib)}</div>` : ''}</div>`;
+        const lines = (n.quote || '').split('\n').map(l => Render.md(l)).join('<br>');
+        const src = [n.source_title, n.source_page ? `p. ${n.source_page}` : ''].filter(Boolean).join(' · ');
+        const sub = [n.attribution, src].filter(Boolean).join(' — ');
+        return `<div class="m-row"><div class="t" style="font-size:17px;line-height:1.45">${lines}</div>${sub ? `<div class="o">${esc(sub)}</div>` : ''}</div>`;
       }).join('');
-      return `<div class="m-kicker">01 · notes</div><h2>Notes</h2>${items}`;
+      return `<div class="m-kicker">01 · field notes</div><h2>Notes</h2>${items}`;
     },
   };
 

@@ -1,27 +1,50 @@
 {
-  "updated": "2026-05-29",
+  "updated": "2026-05-31",
+  "last_synced": "2026-05-31T13:54:10.818Z",
   "notes": [
     {
-      "id": "note-001",
-      "text": "I carry my awareness of defeat like a *banner of victory*.",
-      "subtitle": "- Fernando Pessoa, The Book of Disquiet",
-      "date": "1982"
+      "id": "3714e80d-061a-811b-b31a-cc04360fbbbb",
+      "quote": "Don't bend; don't water it down; don't try to make it logical; don't edit your own soul according to the fashion. Rather, follow your most intense obsessions mercilessly.",
+      "attribution": "Franz Kafka",
+      "source_title": "",
+      "source_page": "",
+      "tags": [
+        "lit"
+      ],
+      "created": "2026-05-31T13:13:00.000Z"
     },
     {
-      "id": "note-002",
-      "text": "I rebel; therefore *I exist*.",
-      "subtitle": "- Albert Camus, The Rebel",
-      "date": "1951"
+      "id": "3714e80d-061a-812d-8913-d906a25e23e7",
+      "quote": "I rebel; therefore I exist.",
+      "attribution": "Albert Camus",
+      "source_title": "The Rebel",
+      "source_page": "",
+      "tags": [
+        "lit"
+      ],
+      "created": "2026-05-31T13:13:00.000Z"
     },
     {
-      "id": "note-003",
-      "text": "Don't bend; don't water it down; don't try to make it logical; don't edit your own soul according to the fashion. Rather, follow your most intense obsessions *mercilessly*.",
-      "subtitle": "- Franz Kafka"
+      "id": "3714e80d-061a-8184-91de-efce60eb8b8a",
+      "quote": "Hazaaron khwahishen aisi ke har khwahish pe dam nikle\nBahut niklay mere armaan, lekin phir bhi kam nikle",
+      "attribution": "Mirza Ghalib",
+      "source_title": "",
+      "source_page": "",
+      "tags": [
+        "lit"
+      ],
+      "created": "2026-05-31T13:13:00.000Z"
     },
     {
-      "id": "note-004",
-      "text": "*Hazaaron khwahishen aisi* ke har khwahish pe dam nikle \nBahut niklay mere armaan, lekin phir bhi kam nikle",
-      "subtitle": "- Mirza Ghalib"
+      "id": "3714e80d-061a-8186-8c33-e75fc25cb467",
+      "quote": "I carry my awareness of defeat like a banner of victory.",
+      "attribution": "Fernando Pessoa",
+      "source_title": "The Book of Disquiet",
+      "source_page": "",
+      "tags": [
+        "lit"
+      ],
+      "created": "2026-05-31T13:13:00.000Z"
     }
   ]
 }

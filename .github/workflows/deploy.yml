@@ -4,6 +4,10 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Sync Strava stats", "Sync reading list from Notion", "Sync field notes from Notion"]
+    types: [completed]
+    branches: [master]
 
 permissions:
   contents: read
@@ -16,6 +20,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
