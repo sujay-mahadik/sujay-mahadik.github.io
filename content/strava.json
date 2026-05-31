@@ -24,12 +24,12 @@
     "elevation_m": 0
   },
   "recent_ride": {
-    "name": "Bridgewater Canal Trafford",
-    "distance_km": 5.15,
-    "moving_time": "22m",
+    "name": "Walton Perk, Trafford",
+    "distance_km": 10.02,
+    "moving_time": "45m",
     "elevation_m": 0,
-    "avg_speed_kmh": 14,
-    "date": "2026-01-03",
+    "avg_speed_kmh": 13.2,
+    "date": "2026-05-31",
     "url": "https://www.strava.com/activities/16925471729"
   },
   "last_synced": "2026-05-31T13:04:32.442Z"
