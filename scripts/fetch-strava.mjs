@@ -78,15 +78,24 @@ try {
   let prev = {};
   try { prev = JSON.parse(await fs.readFile(OUT_PATH, 'utf8')); } catch { /* first run */ }
 
+  const recentTotals = stats.recent_ride_totals || {};
+
   const output = {
     athlete: `${me.firstname ?? ''} ${me.lastname ?? ''}`.trim() || prev.athlete,
     bike: prev.bike,
     totals: {
-      all_time_distance_km:   round((rideTotals.distance || 0) / 1000),
-      all_time_rides:         rideTotals.count || 0,
-      all_time_elevation_m:   Math.round(rideTotals.elevation_gain || 0),
-      all_time_moving_time_h: round((rideTotals.moving_time || 0) / 3600),
-      biggest_ride_km:        round((stats.biggest_ride_distance || 0) / 1000),
+      all_time_distance_km:        round((rideTotals.distance || 0) / 1000),
+      all_time_rides:              rideTotals.count || 0,
+      all_time_elevation_m:        Math.round(rideTotals.elevation_gain || 0),
+      all_time_moving_time_h:      round((rideTotals.moving_time || 0) / 3600),
+      biggest_ride_km:             round((stats.biggest_ride_distance || 0) / 1000),
+      biggest_climb_elevation_m:   Math.round(stats.biggest_climb_elevation_gain || 0),
+    },
+    recent_ride_totals: {
+      count:          recentTotals.count || 0,
+      distance_km:    round((recentTotals.distance || 0) / 1000),
+      moving_time_h:  round((recentTotals.moving_time || 0) / 3600),
+      elevation_m:    Math.round(recentTotals.elevation_gain || 0),
     },
     recent_ride: lastRide ? {
       name: lastRide.name,

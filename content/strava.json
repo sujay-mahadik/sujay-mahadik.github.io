@@ -14,7 +14,14 @@
     "all_time_rides": 52,
     "all_time_elevation_m": 2262,
     "all_time_moving_time_h": 37.8,
-    "biggest_ride_km": 45
+    "biggest_ride_km": 45,
+    "biggest_climb_elevation_m": 173
+  },
+  "recent_ride_totals": {
+    "count": 0,
+    "distance_km": 0,
+    "moving_time_h": 0,
+    "elevation_m": 0
   },
   "recent_ride": {
     "name": "Bridgewater Canal Trafford",

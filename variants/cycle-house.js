@@ -38,7 +38,20 @@
       const bits = [];
       if (t.all_time_rides) bits.push(`${t.all_time_rides} rides`);
       if (t.biggest_ride_km) bits.push(`${t.biggest_ride_km} km best`);
+      if (t.biggest_climb_elevation_m) bits.push(`${t.biggest_climb_elevation_m} m climb`);
       $('cycle-rides').textContent = bits.length ? '· ' + bits.join(' · ') : '';
+    }
+
+    if ($('cycle-4wk')) {
+      const rt = strava.recent_ride_totals || {};
+      if (rt.count || rt.distance_km) {
+        const bits = [];
+        if (rt.count) bits.push(`${rt.count} rides`);
+        if (rt.distance_km) bits.push(`${rt.distance_km} km`);
+        if (rt.elevation_m) bits.push(`${rt.elevation_m} m up`);
+        $('cycle-4wk').innerHTML =
+          `<div class="rk">Last 4 weeks</div><div class="rm">${esc(bits.join(' · '))}</div>`;
+      }
     }
     if ($('cycle-recent')) {
       if (rr.name) {
@@ -73,6 +86,7 @@
 
   function cycleModalHTML() {
     const t = (strava && strava.totals) || {};
+    const rt = (strava && strava.recent_ride_totals) || {};
     const bike = (strava && strava.bike) || {};
     const rr = (strava && strava.recent_ride) || {};
     const synced = strava && strava.last_synced ? fmtDay(strava.last_synced.slice(0,10)) : '';
@@ -81,10 +95,18 @@
       stat(Math.round(t.all_time_distance_km ?? 0) + '<span style="font-size:.4em"> km</span>', 'distance, all-time'),
       stat(t.all_time_rides ?? '—', 'rides logged'),
       stat(t.biggest_ride_km ? t.biggest_ride_km + '<span style="font-size:.4em"> km</span>' : '—', 'longest ride'),
+      stat(t.biggest_climb_elevation_m ? t.biggest_climb_elevation_m + '<span style="font-size:.4em"> m</span>' : '—', 'biggest climb'),
       stat(t.all_time_elevation_m ? Math.round(t.all_time_elevation_m).toLocaleString() + '<span style="font-size:.4em"> m</span>' : '—', 'elevation climbed'),
       stat(t.all_time_moving_time_h ? t.all_time_moving_time_h + '<span style="font-size:.4em"> h</span>' : '—', 'in the saddle'),
-      stat('5<span style="font-size:.4em"> years</span>', 'age of the bike'),
     ].join('');
+    const recentSection = (rt.count || rt.distance_km) ? `
+      <h3>Last 4 weeks</h3>
+      <div class="m-stats" style="grid-template-columns:repeat(auto-fill,minmax(90px,1fr))">
+        ${stat(rt.count ?? '—', 'rides')}
+        ${stat(rt.distance_km ? rt.distance_km + '<span style="font-size:.4em"> km</span>' : '—', 'distance')}
+        ${stat(rt.moving_time_h ? rt.moving_time_h + '<span style="font-size:.4em"> h</span>' : '—', 'moving time')}
+        ${stat(rt.elevation_m ? rt.elevation_m.toLocaleString() + '<span style="font-size:.4em"> m</span>' : '—', 'elevation')}
+      </div>` : '';
     const specRows = [
       ['Frame', bike.frame], ['Groupset', bike.groupset], ['Fork', bike.fork],
       ['Wheels', bike.wheels], ['Model year', bike.year],
@@ -104,6 +126,7 @@
       <p style="font-size:13.5px;color:var(--ink-2);line-height:1.55;margin:-10px 0 4px">
         ${esc(bike.type || 'Hardtail MTB')} — towpaths, trails and the long way home.</p>
       <div class="m-stats">${totals}</div>
+      ${recentSection}
       ${recent}
       <h3>Spec</h3>
       ${specRows}
