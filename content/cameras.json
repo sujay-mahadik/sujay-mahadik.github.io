@@ -1,0 +1,47 @@
+{
+    "cameras": [
+        {
+            "id": "yashica-fx3",
+            "name": "Yashica FX3 2000",
+            "maker": "Yashica",
+            "type": "35mm SLR",
+            "kind": "slr",
+            "year": "1983",
+            "format": "35mm",
+            "note": "A mechanical SLR with just enough electronics to stay honest. Dependable in any light.",
+            "src": "assets/cameras/yashica-fx3.jpg"
+        }
+    ],
+    "films": [
+        {
+            "id": "phoenix200",
+            "name": "Harman Phoenix 200",
+            "brand": "Harman",
+            "line": "PHOENIX",
+            "iso": 200,
+            "mono": false,
+            "swatch": "#c7553a",
+            "ink": "#fdf0eb"
+        }
+    ],
+    "photos": [
+        {
+            "id": "p15",
+            "caption": "salt air & haze",
+            "location": "Mumbai",
+            "date": "2024-08",
+            "cameraId": "yashica-fx3",
+            "filmId": "phoenix200",
+            "src": "https://img.playbook.com/FSu5A3ToLkOuKUIxm5_b_zWNMS4BRnlzyBQ2agwuBPo/w:1000/aHR0cHM6Ly9wcm9k/LnBsYXlib29rc3Rh/dGljLmNvbS92MC84/L3Byb2QvbGFyZ2Vf/cHJldmlld3MvYjM1/M2UwN2UtN2Y0NC00/OGU2LThmY2QtMjRm/OGY3YjExYTE0P3R0/bD1ob3VybHkmdmVy/aWZ5PTE3ODA0MzM5/OTktSG9ybUVScmFE/eHJ2MVVYYXRIQVZT/VHZrVDI0SUNJcnFj/Z21SNUZyTHEwYyUz/RA.webp"
+        },
+        {
+            "id": "p16",
+            "caption": "the long afternoon",
+            "location": "Mumbai",
+            "date": "2024-08",
+            "cameraId": "yashica-fx3",
+            "filmId": "phoenix200",
+            "src": "https://img.playbook.com/d7BuauYS5wVvwXnMfdjN0NwTvMR1PlnVKWuhZ6v518Y/w:1000/aHR0cHM6Ly9wcm9k/LnBsYXlib29rc3Rh/dGljLmNvbS92MC84/L3Byb2QvbGFyZ2Vf/cHJldmlld3MvOWJj/MWU1NTktOGZkZC00/ODk3LWE4MTMtZDFh/MGU0ODA5MmE1P3R0/bD1ob3VybHkmdmVy/aWZ5PTE3ODA0MzM5/OTktWllacFo0MmVl/bThTbEw4dGdzd1lH/bTFSSkM4andQTzY3/ajZGM1ZJQ1YlMkY0/JTNE.webp"
+        }
+    ]
+}
