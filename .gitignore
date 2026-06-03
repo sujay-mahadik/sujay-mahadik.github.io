@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Design exports / zip archives
+zip/
+
 # Design tool artifacts (Claude Design export state)
 .design-canvas.state.json
 .thumbnail

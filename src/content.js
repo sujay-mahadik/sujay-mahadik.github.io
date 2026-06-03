@@ -79,7 +79,7 @@
     ],
     writing: ['ethics-dashboard', 'green-software', 'justice-after-sandel'],
     poetry: ['pipeline-prayer'],
-    zines: ['hka-issue-one', 'hka-issue-two', 'hka-issue-three', 'hka-issue-four', 'dilli-darshan']
+    zines: ['hka-issue-three']
   };
 
   window.Content = { loadJSON, loadMD, parseMD, loadCollection, MANIFESTS };
